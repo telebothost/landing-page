@@ -23,5 +23,15 @@
   "orientation": "portrait",
   "dir": "ltr",
   "lang": "en",
-  "prefer_related_applications": false
+  "prefer_related_applications": false,
+  "categories": [
+    "business",
+    "productivity",
+    "social",
+    "utilities"
+  ],
+  "display_override": [
+    "window-controls-overlay",
+    "fullscreen"
+  ]
 }
