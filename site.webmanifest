@@ -1,6 +1,8 @@
 {
+  "id": "/",
   "name": "TeleBotHost",
   "short_name": "TBH",
+  "description": "TeleBotHost (TBH) helps you host and manage Telegram bots easily with powerful tools, automation, and productivity features.",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -45,5 +47,54 @@
   "display_override": [
     "window-controls-overlay",
     "fullscreen"
-  ]
+  ],
+
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "focus-existing"]
+  },
+
+  "handle_links": "preferred",
+
+  "protocol_handlers": [
+    {
+      "protocol": "web+tbhost",
+      "url": "/open?link=%s"
+    }
+  ],
+
+  "widgets": [
+    {
+      "name": "Profile",
+      "description": "Quick access to your profile",
+      "src": "/#profile",
+      "type": "application/vnd.w3c.widget",
+      "sizes": ["200x200", "300x300"]
+    },
+    {
+      "name": "Account Settings",
+      "description": "Manage your account preferences",
+      "src": "/#settings",
+      "type": "application/vnd.w3c.widget",
+      "sizes": ["200x200", "300x300"]
+    },
+    {
+      "name": "Add Bot",
+      "description": "Easily add a new bot",
+      "src": "/#addbot",
+      "type": "application/vnd.w3c.widget",
+      "sizes": ["200x200", "300x300"]
+    }
+  ],
+
+  "iarc_rating_id": "e.g. IARC-12345678-000000",
+
+  "offline_capable": true,
+  "serviceworker": {
+    "src": "/sw.js",
+    "scope": "/",
+    "type": "classic"
+  },
+
+  "gcm_sender_id": "103953800507",
+  "permissions": ["push", "notifications"]
 }
