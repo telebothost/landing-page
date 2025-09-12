@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TBL Language Documentation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+
+  <!-- Highlight.js for syntax highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body { font-family: 'Inter', sans-serif;}
+    .docs { padding: 40px 20px; max-width: 900px; margin: auto; }
+    .section-title { font-size: 2rem; font-weight: 700; color: #0088cc; margin-bottom: 10px; text-align: center; }
+    .section-subtitle { text-align: center; margin-bottom: 40px; font-size: 1rem; color: #666; }
+
+    .doc-content { line-height: 1.7; font-size: 1rem; }
+    .doc-content h2, .doc-content h3 { margin-top: 30px; color: #0088cc; }
+
+    .doc-content code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; font-size: 0.9rem; }
+    .code-container { position: relative; margin: 15px 0; }
+    pre code.hljs { border-radius: 8px; padding: 14px; font-size: 0.9rem; background: #fdfdfd !important; box-shadow: 0 1px 4px rgba(0,0,0,0.08); overflow-x: auto; }
+
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 5px 10px;
+      background: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .copy-btn:hover { opacity: 1; background: #e6e6e6; }
+    .copy-btn.copied { background: #e0f2e0; border-color: #4caf50; color: #2e7d32; }
+a{
+  text-decoration: none; font-weight: bold;
+}
+    blockquote { border-left: 3px solid #0088cc; padding-left: 12px; margin: 15px 0; font-size: 0.95rem; color: #444; background: none; }
+
+    .alert { padding: 12px 16px; margin: 15px 0; font-size: 0.95rem; display: flex; align-items: flex-start; }
+    .alert i { margin-right: 10px; font-size: 1.2rem; margin-top: 2px; }
+    .alert.info { background-color: #e8f4fd; color: #0c5460; border-left: 4px solid #2294e6; }
+    .alert.success { background-color: #f0fff4; color: #166534; border-left: 4px solid #22c55e; }
+    .alert.warning { background-color: #fffaf0; color: #8a5a00; border-left: 4px solid #f59e0b; }
+    .alert.error { background-color: #fff5f5; color: #991b1b; border-left: 4px solid #dc2626; }
+    h1[id], h2[id], h3[id] {
+  position: relative;
+}
+
+h1[id] .anchor-link,
+h2[id] .anchor-link,
+h3[id] .anchor-link {
+  visibility: hidden;
+  margin-left: 8px;
+  color: #0088cc; /* Telegram blue */
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+h1[id]:hover .anchor-link,
+h2[id]:hover .anchor-link,
+h3[id]:hover .anchor-link {
+  visibility: visible;
+}
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <img src="/assets/img/logo.png" alt="TeleBot Host Logo">
+        TeleBot Host
+      </a>
+      <nav class="nav-links">
+        <a href="/" class="nav-link">Home</a>
+      </nav>
+    </div>
+  </header>
+  <section class="docs">
+    <h2 class="section-title">TBL Language Reference</h2>
+    <p class="section-subtitle">Full reference guide for TBL (Tele Bot Lang)</p>
+
+    <div class="doc-content">
+
+      <!-- 1. Introduction -->
+      <h2 id="intro">Introduction</h2>
+      <p><b>TBL (Tele Bot Lang)</b> is a lightweight scripting language designed specifically for Telegram bot development.  
+      It provides a JavaScript-inspired syntax with built-in functions for rapid bot creation, without the overhead of external dependencies.</p>
+
+      <h3>Key Features</h3>
+      <ul>
+        <li>Simplified command-based structure</li>
+        <li>Predefined variables for user, chat, and message context</li>
+        <li>Built-in API methods for sending messages, keyboards, and inline responses</li>
+        <li>Support for HTTP requests, global variables, and modular extensions</li>
+        <li>Support both synchronous and asynchronous execution, with 80% sync and 20% aync behaviour where <code>await</code>, <code>Promise</code> are valid</li>
+      </ul>
+
+      <div class="alert info">
+        <i class="fas fa-info-circle"></i>
+        <div>TBL scripts are <b>command-based</b>, meaning they respond to specific triggers instead of listening for events.</div>
+      </div>
+
+      <!-- 2. Getting Started -->
+      <h2 id="getting-started">Getting Started</h2>
+      <p>This section explains the basic steps to create and test your first Telegram bot using TBL.</p>
+
+      <h3>Step 1: Create a Telegram Bot</h3>
+      <ol>
+        <li>Open Telegram and search for <a href="https://t.me/BotFather" target="_blank">@BotFather</a>.</li>
+        <li>Send <code>/newbot</code> to create a new bot.</li>
+        <li>Choose a name and a username (must end with <code>bot</code>).</li>
+        <li>Copy the generated bot token.</li>
+      </ol>
+
+      <div class="code-container">
+        <pre><code class="language-javascript">const botToken = "123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ";</code></pre>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+
+      <h3>Step 2: Register on TBL Platform</h3>
+      <ol>
+        <li>Log into the TBL platform.</li>
+        <li>Click "Create New Bot".</li>
+        <li>Enter the bot name and paste the token from BotFather.</li>
+        <li>Click "Create" to initialize your bot.</li>
+      </ol>
+
+      <h3>Step 3: Add Basic Commands</h3>
+      <p>Create a <code>/start</code> command for user onboarding:</p>
+      <div class="code-container">
+        <pre><code class="language-javascript">Bot.sendMessage("Hello " + user.first_name + "! Welcome to my bot.")</code></pre>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+
+      <p>Example: <code>/help</code> command:</p>
+      <div class="code-container">
+        <pre><code class="language-javascript">
+Bot.sendMessage("Available commands:\n/start - Start bot\n/help - Show help")</code></pre>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+
+
+ <!-- 3. Command Structure -->
+<h2 id="commands">Command Structure</h2>
+<p>Commands are the <b>core building blocks</b> of TBL. Instead of using event listeners like <code>bot.on()</code>, TBL follows a <b>command-driven model</b>.
+  Each command acts like a rule: when the trigger matches, the bot runs its script.</p>
+
+<h3 id="cmd-anatomy">Anatomy of a Command</h3>
+<p>A command can include these parts:</p>
+<ul>
+  <li><b>Command Name</b> → the trigger (e.g. <code>/start</code>, <code>hi</code>, <code>/help</code>)</li>
+  <li><b>Answer</b> → a quick static reply before running any code (supports Markdown)</li>
+  <li><b>Code Block</b> → logic written in TBL’s JavaScript-like syntax</li>
+  <li><b>Keyboard</b> → optional buttons for easy replies</li>
+  <li><b>Aliases</b> → alternative triggers for the same command</li>
+  <li><b>Need Reply</b> → makes the bot wait for the next user input</li>
+</ul>
+
+<h3 id="cmd-example">Example Command</h3>
+<ul>
+<li><b>command: </b><code>/start</code></li>
+<li><b>answer: </b> <code>Welcome! Choose an option:</code></li>
+<li><b>keyboard: </b><code>Help, About\nContact</code></li>
+</ul>
+<div class="code-container">
+  <pre><code class="language-javascript">Bot.sendMessage("Hello " + user.first_name + "!")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<p>In this example:</p>
+<ul>
+  <li><b>Command</b>: <code>/start</code> triggers the command</li>
+  <li><b>Answer</b>: bot instantly replies with "Welcome! Choose an option:"</li>
+  <li><b>Keyboard</b>: provides 2 rows of buttons → [Help, About] and [Contact]</li>
+  <li><b>Code</b>: sends a personalized message using the user’s first name</li>
+</ul>
+
+<h3 id="cmd-answer">Answer</h3>
+<p>Answers are quick static messages. They appear <b>before</b> any code runs.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">/*Command: /help
+answer: I can do these things:
+- /start → Start the bot
+- /about → Info about me*/
+Bot.sendMessage("Extra help details...")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="cmd-needreply">Need Reply</h3>
+<p>If <code>need_reply</code> is set to <code>true</code>, the bot waits for the next user message before continuing.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">/*command: /ask
+answer: What is your favorite color?
+need_reply: true*/
+Bot.sendMessage("You answered: " + message)</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="cmd-aliases">Aliases</h3>
+<p>Aliases let one command have multiple triggers.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">/*Command: /hello
+aliases: hi, hey, hola*/
+Bot.sendMessage("Hello there!")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="cmd-keyboard">Keyboards</h3>
+<p>Commands can show custom keyboards:</p>
+<ul>
+  <li><b>Same row</b>: use commas → <code>Yes,No</code></li>
+  <li><b>New row</b>: use <code>\n</code> → <code>Yes\nNo</code></li>
+</ul>
+<div class="code-container">
+  <pre><code class="language-javascript">/*Command: /menu
+answer: Choose an option:
+keyboard: Yes,No\nMaybe*/
+Bot.sendMessage("Waiting for your choice...")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="special-commands">Special Commands</h2>
+<p>TBL provides special system-level commands:</p>
+<ul>
+  <li><b>@</b> → Initialization (runs before any others command execution)</li>
+  <li><b>!</b> → Error handler (catches exceptions)</li>
+  <li><b>@@</b> → Post-processing (runs after every command)</li>
+  <li><b>*</b> → Wildcard (fallback when nothing else matches and master command that is able to handle all types of updates) [<a href="https://core.telegram.org/bots/api#update">Avilable Updates</a>]</li>
+  <li><b>/inline_query</b> → Handles inline queries if not created inline Updates will listen by <code>*</code></li>
+  <li><b>/channel_update</b> → Handles channel updates if not created inline Updates will listen by <code>*</code></li>
+</ul>
+
+<h3 id="cmd-init">@ Command (Initialization)</h3>
+<p>Runs before executing any command, Useful for defining global variables or helper functions.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">Command: @
+let config = { adminId: 123456 }
+function formatName(u) {
+  return u.first_name + (u.last_name ? " " + u.last_name : "")
+}</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="cmd-error">! Command (Error Handler)</h3>
+<p>Handles all runtime errors automatically.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">Command: !
+Bot.sendMessage("⚠️ An error occurred. Please try again.")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="cmd-wildcard">* Command (Wildcard)</h3>
+<p>Fallback when no other command matches.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">Command: *
+Bot.sendMessage("I didn’t understand that. Try /help.")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="cmd-inline">/inline_query</h3>
+<p>Handles inline mode queries (when users type <code>@yourbot query</code> in Telegram).</p>
+<div class="code-container">
+  <pre><code class="language-javascript">Command: /inline_query
+Bot.sendMessage("You searched: " + request.query)</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="cmd-channel">/channel_update</h3>
+<p>Handles channel posts automatically.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">Command: /channel_update
+Bot.sendMessage("New channel post received!")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="cmd-best">Best Practices</h2>
+<ul>
+  <li>Use <b>clear names</b> → <code>/buy_ticket</code>, not <code>/cmd69</code></li>
+  <li>Use <b>aliases</b> for typos or multiple languages</li>
+  <li>Always define <b>!</b> to avoid silent errors</li>
+  <li>Keep commands <b>modular</b> (one task per command)</li>
+  <li>Test async code carefully (especially with <code>await</code>)</li>
+</ul>
+      <div class="alert warning">
+        <i class="fas fa-exclamation-triangle"></i>
+        <div>Always define a <b>!</b> command to capture and handle runtime errors.</div>
+      </div>
+
+
+<!-- Global variables -->
+<h2 id="globals">Global Predefined Values</h2>
+<p>TBL provides a set of <b>predefined global variables</b>. These are available in every command, so you don’t need to declare them manually. They make it easier to work with Telegram updates, users, chats, and the bot itself.</p>
+
+<h3 id="update">update</h3>
+<p>The raw Telegram update object. It contains everything Telegram sends (messages, edits, queries, etc.). Use it if you need full control.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">Command: /inspect
+Bot.inspect(update)</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="request">request</h3>
+<p>A simplified version of <code>update</code>. TBL automatically detects the type of update (message, channel_post, callback, etc.) and makes it available as <code>request</code>.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">Command: /debug
+Bot.inspect(request)</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="message">message</h3>
+<p>If the update is a text message, this contains the text only. Very useful for echo bots or quick replies.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">Command: /echo
+Api.sendMessage({ text: "You said: " + message })</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="user">user</h3>
+<p>An object with information about the user who interacted with the bot. Includes Telegram fields plus extra TBL data.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">Command: /me
+Bot.sendMessage(
+  "Your ID: " + user.id + "\n" +
+  "Name: " + user.first_name + "\n" +
+  "Username: @" + user.username
+)</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<p><b>user object structure:</b></p>
+<pre><code class="language-json">{
+  id: 123456789,
+  first_name: "John",
+  last_name: "Doe",
+  username: "johndoe",
+  premium: true,
+  language_code: "en",
+  created_at: "2025-01-01",
+  last_interaction: "2025-01-09",
+  just_created: false
+}</code></pre>
+
+<h3 id="chat">chat</h3>
+<p>An object with details about the current chat (private, group, or channel).</p>
+<div class="code-container">
+  <pre><code class="language-javascript">Command: /chatinfo
+Bot.sendMessage(
+  "Chat ID: " + chat.id + "\n" +
+  "Type: " + chat.type + "\n" +
+  "Title: " + chat.title
+)</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="bot">bot</h3>
+<p>An object describing the current bot (its ID, token, owner, platform info, etc.).</p>
+<div class="code-container">
+  <pre><code class="language-javascript">Command: /botinfo
+Bot.inspect(bot)</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<p><b>bot object example:</b></p>
+<pre><code class="language-json">{
+  id: 42,
+  token: "123456:ABC...",
+  name: "MyBot",
+  bot_id: 123456789,
+  status: "working",
+  platform: {
+    name: "Tele-Bot-Host (TBH)",
+    version: "v1.0.0",
+    developer: "Teleservices Team"
+  },
+  language: "TBL v1.0.0"
+}</code></pre>
+
+<h3 id="params">params</h3>
+<p>The extra text after a command. For example, if a user types <code>/start hello</code>, then <code>params = "hello"</code>.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">Command: /start
+if (params) {
+  Bot.sendMessage("You started with: " + params)
+} else {
+  Bot.sendMessage("Welcome to the bot!")
+}</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="options">options</h3>
+<p>Custom data passed between commands when using <code>Bot.runCommand</code> or API callbacks. Useful for chaining commands or passing state.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">Command: /step1
+Bot.runCommand("/step2", { name: "Alice" })
+
+Command: /step2
+Bot.sendMessage("Hello " + options.name)</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="content">content</h3>
+<p>Contains the response body from an HTTP request.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">Command: /fetch
+let res = await HTTP.get("https://example.com")
+Bot.sendMessage("Response: " + res.content)</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="inspect">inspect()</h3>
+<p>A helper function to print objects or variables for debugging.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">Command: /debug
+let raw = inspect(update)
+Bot.sendMessage(raw)</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<!-- content will stop here -->
+    </div>
+  </section>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="/cookies">Cookies</a>
+    <a href="/resources">Resources</a>
+  </div>
+</footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
+  <script>
+    function copyCode(button) {
+      const codeBlock = button.previousElementSibling;
+      const codeText = codeBlock.textContent;
+      
+      navigator.clipboard.writeText(codeText).then(() => {
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        button.classList.add('copied');
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove('copied');
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+        alert('Failed to copy code. Please try again.');
+      });
+    }
+  </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Add anchor link icons to headings
+  document.querySelectorAll("h1[id], h2[id], h3[id]").forEach(heading => {
+    const sectionId = heading.id;
+    const icon = document.createElement("i");
+    icon.className = "fas fa-link anchor-link";
+    icon.title = "Copy link";
+
+    // Copy on click
+    icon.addEventListener("click", (e) => {
+      e.stopPropagation(); // prevent heading click event
+      const url = window.location.origin + window.location.pathname + "#" + sectionId;
+      navigator.clipboard.writeText(url).then(() => {
+        icon.style.color = "green"; // success feedback
+        setTimeout(() => { icon.style.color = "#0088cc"; }, 1500);
+      }).catch(err => {
+        console.error("Failed to copy: ", err);
+        alert("Failed to copy link. Try again.");
+      });
+    });
+
+    heading.appendChild(icon);
+  });
+
+
+  // Header scroll effect
+  $(window).scroll(function () {
+    if ($(this).scrollTop() > 80) {
+      $("#header").addClass("scrolled");
+    } else {
+      $("#header").removeClass("scrolled");
+    }
+  });
+
+  // Clicking heading updates URL hash (without copy)
+  document.querySelectorAll("h1[id], h2[id], h3[id]").forEach(title => {
+    title.addEventListener("click", function (e) {
+      if (!e.target.classList.contains("anchor-link")) {
+        const sectionId = this.id;
+        window.history.pushState(null, null, "#" + sectionId);
+      }
+    });
+  });
+
+  // Smooth scroll to hash on page load
+  const hash = window.location.hash;
+  if (hash) {
+    const target = $(hash);
+    if (target.length) {
+      $("html, body").animate({
+        scrollTop: target.offset().top - 80 // adjust header height
+      }, 500);
+    }
+  }
+});
+</script>
+
+</body>
+</html>
