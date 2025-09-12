@@ -1,0 +1,152 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1">  
+  <title>TeleBot Host - FAQ & Resources</title>  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">  
+  <link rel="stylesheet" href="/assets/style.css" type="text/css" media="all" />  
+  <style>  
+    html {  
+      scroll-behavior: smooth;  
+    }  
+    .resources {  
+      padding: 40px 20px;  
+      max-width: 900px;  
+      margin: auto;  
+    }  
+    .section-title {  
+      margin-top: 40px;  
+      font-size: 1.8rem;  
+      font-weight: 700;  
+      color: #0088cc;  
+      margin-bottom: 10px;  
+      text-align: center;  
+    }  
+    .section-subtitle {  
+      text-align: center;  
+      margin-bottom: 40px;  
+      font-size: 1rem;  
+      color: #666;  
+    }  
+    .faq-list, .link-list {  
+      list-style: none;  
+      padding: 0;  
+    }  
+    .faq-list li, .link-list li {  
+      margin-bottom: 18px;  
+    }  
+    .faq-list strong {  
+      color: #0088cc;  
+      cursor: pointer;  
+      display: block;  
+      margin-bottom: 6px;  
+    }  
+    .faq-list p {  
+      display: none;  
+      border-left: 3px solid #0088cc;  
+      padding-left: 12px;  
+      margin: 0;  
+      font-size: 0.95rem;  
+      color: #444;  
+    }  
+    .link-list a {  
+      color: #0088cc;  
+      text-decoration: none;  
+      transition: color 0.3s ease;  
+    }  
+    .link-list a:hover {  
+      color: #005580;  
+      text-decoration: underline;  
+    }  
+    .resource-section {  
+      margin-bottom: 50px;  
+    }  
+    .resource-section h3 {  
+      color: #0088cc;  
+      margin-bottom: 15px;  
+      font-size: 1.4rem;  
+      border-bottom: 1px solid #eaeaea;  
+      padding-bottom: 8px;  
+      cursor: pointer;  
+    }  
+    .section-title-link {  
+      position: relative;  
+    }  
+    .section-title-link .copy-link {  
+      margin-left: 8px;  
+      font-size: 0.9rem;  
+      color: #888;  
+      cursor: pointer;  
+      opacity: 0;  
+      transition: opacity 0.3s ease;  
+    }  
+    .section-title-link:hover .copy-link {  
+      opacity: 1;  
+    }  
+    .copy-link:hover {  
+      color: #0088cc;  
+    }  
+  </style>  
+</head>  
+<body>  
+  <header id="header">    
+    <div class="container nav-container">    
+      <a href="index.html" class="logo">    
+        <img src="/assets/img/logo.png" alt="TeleBot Host Logo">    
+        TeleBot Host    
+      </a>    
+      <nav class="nav-links">  
+        <a href="/" class="nav-link">Home</a>  
+      </nav>  
+    </div>  
+  </header>  
+
+  <section class="resources">  
+    <h2 class="section-title">FAQs & Resources</h2>  
+    <p class="section-subtitle">Find answers to common questions and useful resources.</p>  
+    
+    <div id="faqs" class="resource-section">  
+      <h3 class="section-title-link">Frequently Asked Questions <i class="fas fa-link copy-link" onclick="copySectionLink('faqs')"></i></h3>  
+      <ul class="faq-list">  
+        <li><strong>Q: How do I deploy a bot?</strong><p>A: Use the "One-Click Setup" after sign-up. No server setup required. Just use our pre buiit bots from community store to get ready with your bot .</p></li>  
+        <li><strong>Q: Is TeleBot Host free?</strong><p>A: Yes! We provide a free tier with generous limits. No credit card needed.</p></li>  
+        <li><strong>Q: Can I use my own domain?</strong><p>A: No, custom domain not supported.</p></li>  
+        <li><strong>Q: Do you provide 24/7 support?</strong><p>A: Yes, via Telegram groups and our support page anytime.</p></li>  
+      </ul>  
+    </div>  
+    <div id="legal" class="resource-section">  
+      <h3 class="section-title-link">Legal Information <i class="fas fa-link copy-link" onclick="copySectionLink('legal')"></i></h3>  
+      <ul class="link-list">  
+        <li><a href="/privacy">Privacy Policy</a></li>  
+        <li><a href="/terms">Terms of Service</a></li>  
+        <li><a href="/cookies">Cookie Policy</a></li>  
+      </ul>  
+    </div>  
+    <div id="important-links" class="resource-section">  
+      <h3 class="section-title-link">Important Links <i class="fas fa-link copy-link" onclick="copySectionLink('important-links')"></i></h3>  
+      <ul class="link-list">  
+        <li><a href="/docs">Documentation</a></li>  
+        <li><a href="https://t.me/TeleBotHaven">Community Telegram Channel</a></li>  
+        <li><a href="https://t.me/update_chat">Community Telegram Group</a></li>
+         <li><a href="/changelog">Changelog</a></li>  
+        <li><a href="/bugs">Report Bugs</a></li> 
+      </ul>  
+    </div>  
+  </section>  
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="/cookies">Cookies</a>
+    <a href="/">Home</a>
+  </div>
+</footer>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
+<script src="/assets/res.js" type="text/javascript" charset="utf-8"></script>
+</body>  
+</html>
