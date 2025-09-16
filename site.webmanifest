@@ -32,7 +32,7 @@
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "standalone",
-  "start_url": "/login",
+  "start_url": "https://console.telebothost.com/",
   "scope": "/",
   "orientation": "portrait",
   "dir": "ltr",
@@ -85,9 +85,6 @@
       "sizes": ["200x200", "300x300"]
     }
   ],
-
-  "iarc_rating_id": "e.g. IARC-12345678-000000",
-
   "offline_capable": true,
   "serviceworker": {
     "src": "/sw.js",
