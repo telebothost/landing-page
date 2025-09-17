@@ -296,130 +296,131 @@ Bot.sendMessage("New channel post received!")</code></pre>
       </div>
 
 
-<!-- Global variables -->
+<!-- Global Predefined Values -->
 <h2 id="globals">Global Predefined Values</h2>
 <p>TBL provides a set of <b>predefined global variables</b>. These are available in every command, so you don’t need to declare them manually. They make it easier to work with Telegram updates, users, chats, and the bot itself.</p>
 
 <h3 id="update">update</h3>
-<p>The raw Telegram update object. It contains everything Telegram sends (messages, edits, queries, etc.). Use it if you need full control.</p>
+<p>The raw Telegram update object. Contains everything Telegram sends (messages, edits, queries, etc.).</p>
 <div class="code-container">
-  <pre><code class="language-javascript">Command: /inspect
-Bot.inspect(update)</code></pre>
+  <pre><code class="language-json">
+{
+  "update_id": 1234567890,
+  "message": {
+    "message_id": 101,
+    "text": "Hello bot",
+    "from": { "id": 111222333, "first_name": "Alice", "username": "alice123" },
+    "chat": { "id": 444555666, "type": "private", "title": "Alice" }
+  }
+}
+  </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
 <h3 id="request">request</h3>
-<p>A simplified version of <code>update</code>. TBL automatically detects the type of update (message, channel_post, callback, etc.) and makes it available as <code>request</code>.</p>
-<div class="code-container">
-  <pre><code class="language-javascript">Command: /debug
-Bot.inspect(request)</code></pre>
-  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-</div>
+<p>Simplified version of <code>update</code>. TBL automatically detects the type of update. like when the update type is <code>message</code> then request will be <code>update.message</code></p>
 
 <h3 id="message">message</h3>
-<p>If the update is a text message, this contains the text only. Very useful for echo bots or quick replies.</p>
+<p>Contains only the text of a message (if applicable).</p>
 <div class="code-container">
-  <pre><code class="language-javascript">Command: /echo
-Api.sendMessage({ text: "You said: " + message })</code></pre>
+  <pre><code class="language-json">
+"Hello bot"
+  </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
 <h3 id="user">user</h3>
-<p>An object with information about the user who interacted with the bot. Includes Telegram fields plus extra TBL data.</p>
+<p>Information about the user interacting with the bot.</p>
 <div class="code-container">
-  <pre><code class="language-javascript">Command: /me
-Bot.sendMessage(
-  "Your ID: " + user.id + "\n" +
-  "Name: " + user.first_name + "\n" +
-  "Username: @" + user.username
-)</code></pre>
+  <pre><code class="language-json">
+{
+  "id": 111222333,
+  "first_name": "Alice",
+  "last_name": "Smith",
+  "username": "alice123",
+  "premium": false,
+  "language_code": "en",
+  "created_at": "2025-01-01",
+  "last_interaction": "2025-01-09",
+  "just_created": false
+}
+  </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
-<p><b>user object structure:</b></p>
-<pre><code class="language-json">{
-  id: 123456789,
-  first_name: "John",
-  last_name: "Doe",
-  username: "johndoe",
-  premium: true,
-  language_code: "en",
-  created_at: "2025-01-01",
-  last_interaction: "2025-01-09",
-  just_created: false
-}</code></pre>
 
 <h3 id="chat">chat</h3>
-<p>An object with details about the current chat (private, group, or channel).</p>
+<p>Details about the current chat (private, group, or channel).</p>
 <div class="code-container">
-  <pre><code class="language-javascript">Command: /chatinfo
-Bot.sendMessage(
-  "Chat ID: " + chat.id + "\n" +
-  "Type: " + chat.type + "\n" +
-  "Title: " + chat.title
-)</code></pre>
+  <pre><code class="language-json">
+{
+  "id": 444555666,
+  "type": "private",
+  "title": "Alice's Chat",
+  ...more data is applicable 
+}
+  </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
 <h3 id="bot">bot</h3>
-<p>An object describing the current bot (its ID, token, owner, platform info, etc.).</p>
+<p>Information about the bot including owner, status, and platform info.</p>
 <div class="code-container">
-  <pre><code class="language-javascript">Command: /botinfo
-Bot.inspect(bot)</code></pre>
+  <pre><code class="language-json">
+{
+  "id": 42,
+  "token": "123456:ABC...",
+  "name": "DemoBot",
+  "bot_id": 987654321,
+  "owner": "Bob",
+  "status": "working",
+  "created_at": "2025-01-01",
+  "updated_at": "2025-01-10",
+  "has_own_ip": true,
+  "_securityNote": "All bot tokens are securely encrypted in storage and during transmission.",
+  "_fairUseNote": "Usage must comply with policies. Harmful or unfair use may result in a ban."
+}
+  </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
-<p><b>bot object example:</b></p>
-<pre><code class="language-json">{
-  id: 42,
-  token: "123456:ABC...",
-  name: "MyBot",
-  bot_id: 123456789,
-  status: "working",
-  platform: {
-    name: "Tele-Bot-Host (TBH)",
-    version: "v1.0.0",
-    developer: "Teleservices Team"
-  },
-  language: "TBL v1.0.0"
-}</code></pre>
 
 <h3 id="params">params</h3>
-<p>The extra text after a command. For example, if a user types <code>/start hello</code>, then <code>params = "hello"</code>.</p>
+<p>Extra text after a command. Example: "/start hello" → <code>params = "hello"</code>.</p>
 <div class="code-container">
-  <pre><code class="language-javascript">Command: /start
-if (params) {
-  Bot.sendMessage("You started with: " + params)
-} else {
-  Bot.sendMessage("Welcome to the bot!")
-}</code></pre>
+  <pre><code class="language-json">
+"hello"
+  </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
 <h3 id="options">options</h3>
-<p>Custom data passed between commands when using <code>Bot.runCommand</code> or API callbacks. Useful for chaining commands or passing state.</p>
+<p>Custom data passed between commands when chaining or using API callbacks.</p>
 <div class="code-container">
-  <pre><code class="language-javascript">Command: /step1
-Bot.runCommand("/step2", { name: "Alice" })
+  <pre><code class="language-json">
+    //passing custom 
+{
+  "name": "Alice",
+  "step": 2
+}
 
-Command: /step2
-Bot.sendMessage("Hello " + options.name)</code></pre>
+//when callback of Telegram Api call 
+{
+  "ok": true,
+  "result": {...}
+}
+  </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
 <h3 id="content">content</h3>
-<p>Contains the response body from an HTTP request.</p>
-<div class="code-container">
-  <pre><code class="language-javascript">Command: /fetch
-let res = await HTTP.get("https://example.com")
-Bot.sendMessage("Response: " + res.content)</code></pre>
-  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-</div>
+<p>Contains the response body from an HTTP request. Auto type detection and parse inbuilt so you don't need <code>JSON.parse(content)</code> here, or if text you will get utf8 decoded value</p>
 
 <h3 id="inspect">inspect()</h3>
-<p>A helper function to print objects or variables for debugging.</p>
+<p>Helper function to print any object for debugging.</p>
+<p>like if you did <code>inspect(data)</code> it will return bot details</p>
 <div class="code-container">
-  <pre><code class="language-javascript">Command: /debug
-let raw = inspect(update)
-Bot.sendMessage(raw)</code></pre>
+  <pre><code class="language-json">
+// will return bot details as showed above in https://telebothost.com/docs/#bot
+  </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
