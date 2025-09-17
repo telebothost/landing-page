@@ -12,66 +12,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script>hljs.highlightAll();</script>
   <link rel="stylesheet" href="style.css">
-
-  <style>
-    body { font-family: 'Inter', sans-serif;}
-    .docs { padding: 40px 20px; max-width: 900px; margin: auto; }
-    .section-title { font-size: 2rem; font-weight: 700; color: #0088cc; margin-bottom: 10px; text-align: center; }
-    .section-subtitle { text-align: center; margin-bottom: 40px; font-size: 1rem; color: #666; }
-
-    .doc-content { line-height: 1.7; font-size: 1rem; }
-    .doc-content h2, .doc-content h3 { margin-top: 30px; color: #0088cc; }
-
-    .doc-content code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; font-size: 0.9rem; }
-    .code-container { position: relative; margin: 15px 0; }
-    pre code.hljs { border-radius: 8px; padding: 14px; font-size: 0.9rem; background: #fdfdfd !important; box-shadow: 0 1px 4px rgba(0,0,0,0.08); overflow-x: auto; }
-
-    .copy-btn {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      padding: 5px 10px;
-      background: #f0f0f0;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      opacity: 0.7;
-      transition: opacity 0.2s;
-    }
-    .copy-btn:hover { opacity: 1; background: #e6e6e6; }
-    .copy-btn.copied { background: #e0f2e0; border-color: #4caf50; color: #2e7d32; }
-a{
-  text-decoration: none; font-weight: bold;
-}
-    blockquote { border-left: 3px solid #0088cc; padding-left: 12px; margin: 15px 0; font-size: 0.95rem; color: #444; background: none; }
-
-    .alert { padding: 12px 16px; margin: 15px 0; font-size: 0.95rem; display: flex; align-items: flex-start; }
-    .alert i { margin-right: 10px; font-size: 1.2rem; margin-top: 2px; }
-    .alert.info { background-color: #e8f4fd; color: #0c5460; border-left: 4px solid #2294e6; }
-    .alert.success { background-color: #f0fff4; color: #166534; border-left: 4px solid #22c55e; }
-    .alert.warning { background-color: #fffaf0; color: #8a5a00; border-left: 4px solid #f59e0b; }
-    .alert.error { background-color: #fff5f5; color: #991b1b; border-left: 4px solid #dc2626; }
-    h1[id], h2[id], h3[id] {
-  position: relative;
-}
-
-h1[id] .anchor-link,
-h2[id] .anchor-link,
-h3[id] .anchor-link {
-  visibility: hidden;
-  margin-left: 8px;
-  color: #0088cc; /* Telegram blue */
-  font-size: 0.9em;
-  cursor: pointer;
-}
-
-h1[id]:hover .anchor-link,
-h2[id]:hover .anchor-link,
-h3[id]:hover .anchor-link {
-  visibility: visible;
-}
-  </style>
 </head>
 <body>
   <header id="header">
@@ -242,26 +182,34 @@ Bot.sendMessage("Waiting for your choice...")</code></pre>
 <h3 id="cmd-init">@ Command (Initialization)</h3>
 <p>Runs before executing any command, Useful for defining global variables or helper functions.</p>
 <div class="code-container">
-  <pre><code class="language-javascript">Command: @
+  <pre><code class="language-javascript">
+Command: @
 let config = { adminId: 123456 }
 function formatName(u) {
   return u.first_name + (u.last_name ? " " + u.last_name : "")
 }</code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
+      <div class="alert warning">
+        <i class="fas fa-exclamation-triangle"></i>
+        <div>@ command only support synchronous execution means no await here, however you can use an async function then use await in the async function </div>
+      </div>
 
 <h3 id="cmd-error">! Command (Error Handler)</h3>
 <p>Handles all runtime errors automatically.</p>
 <div class="code-container">
-  <pre><code class="language-javascript">Command: !
-Bot.sendMessage("⚠️ An error occurred. Please try again.")</code></pre>
+  <pre><code class="language-javascript">
+Command: !
+Bot.sendMessage("⚠️ An error occurred. Please try again.")
+// in ! comamand we have error global variable to get details about error</code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
 <h3 id="cmd-wildcard">* Command (Wildcard)</h3>
 <p>Fallback when no other command matches.</p>
 <div class="code-container">
-  <pre><code class="language-javascript">Command: *
+  <pre><code class="language-javascript">
+Command: *
 Bot.sendMessage("I didn’t understand that. Try /help.")</code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
@@ -269,7 +217,8 @@ Bot.sendMessage("I didn’t understand that. Try /help.")</code></pre>
 <h3 id="cmd-inline">/inline_query</h3>
 <p>Handles inline mode queries (when users type <code>@yourbot query</code> in Telegram).</p>
 <div class="code-container">
-  <pre><code class="language-javascript">Command: /inline_query
+  <pre><code class="language-javascript">
+Command: /inline_query
 Bot.sendMessage("You searched: " + request.query)</code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
@@ -303,17 +252,37 @@ Bot.sendMessage("New channel post received!")</code></pre>
 <h3 id="update">update</h3>
 <p>The raw Telegram update object. Contains everything Telegram sends (messages, edits, queries, etc.).</p>
 <div class="code-container">
-  <pre><code class="language-json">
+<pre><code class="language-json">
 {
-  "update_id": 1234567890,
+  "update_id": 109608973,
   "message": {
-    "message_id": 101,
-    "text": "Hello bot",
-    "from": { "id": 111222333, "first_name": "Alice", "username": "alice123" },
-    "chat": { "id": 444555666, "type": "private", "title": "Alice" }
+    "message_id": 17261,
+    "from": {
+      "id": 5723455420,
+      "is_bot": false,
+      "first_name": "Soumyadeep ∞",
+      "username": "soumyadeepdas765",
+      "language_code": "en",
+      "is_premium": true
+    },
+    "chat": {
+      "id": 5723455420,
+      "first_name": "Soumyadeep ∞",
+      "username": "soumyadeepdas765",
+      "type": "private"
+    },
+    "date": 1758100437,
+    "text": "/start",
+    "entities": [
+      {
+        "offset": 0,
+        "length": 6,
+        "type": "bot_command"
+      }
+    ]
   }
 }
-  </code></pre>
+</code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
@@ -323,42 +292,54 @@ Bot.sendMessage("New channel post received!")</code></pre>
 <h3 id="message">message</h3>
 <p>Contains only the text of a message (if applicable).</p>
 <div class="code-container">
-  <pre><code class="language-json">
-"Hello bot"
-  </code></pre>
+  <pre><code class="language-json">"Hello bot"</code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
 <h3 id="user">user</h3>
 <p>Information about the user interacting with the bot.</p>
 <div class="code-container">
-  <pre><code class="language-json">
+<pre><code class="language-json">
 {
-  "id": 111222333,
-  "first_name": "Alice",
-  "last_name": "Smith",
-  "username": "alice123",
-  "premium": false,
+  "id": 5723455420,
+  "is_bot": false,
+  "first_name": "Soumyadeep ∞",
+  "username": "soumyadeepdas765",
   "language_code": "en",
-  "created_at": "2025-01-01",
-  "last_interaction": "2025-01-09",
-  "just_created": false
+  "is_premium": true,
+  "last_name": "",
+  "telegramid": 5723455420,
+  "premium": true,
+  "created_at": "2025-09-17T09:13:57.880Z",
+  "last_interaction": "2025-09-17T09:16:42.243Z",
+  "just_created": false,
+  "blocked": false,
+  "block_reason": null,
+  "blocked_at": null
 }
-  </code></pre>
+</code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
 <h3 id="chat">chat</h3>
 <p>Details about the current chat (private, group, or channel).</p>
 <div class="code-container">
-  <pre><code class="language-json">
+<pre><code class="language-json">
 {
-  "id": 444555666,
+  "id": 5723455420,
+  "first_name": "Soumyadeep ∞",
+  "username": "soumyadeepdas765",
   "type": "private",
-  "title": "Alice's Chat",
-  ...more data is applicable 
+  "chatid": 5723455420,
+  "chatId": 5723455420,
+  "created_at": "2025-09-17T09:13:57.880Z",
+  "last_interaction": "2025-09-17T09:18:20.486Z",
+  "just_created": false,
+  "blocked": false,
+  "block_reason": null,
+  "blocked_at": null
 }
-  </code></pre>
+</code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
@@ -367,11 +348,11 @@ Bot.sendMessage("New channel post received!")</code></pre>
 <div class="code-container">
   <pre><code class="language-json">
 {
-  "id": 42,
+  "id": 42, // bot id in our platform , a unique identifier for each bot
   "token": "123456:ABC...",
   "name": "DemoBot",
-  "bot_id": 987654321,
-  "owner": "Bob",
+  "bot_id": 987654321, // Bot actual Telegram id
+  "owner": "somemail@telebothost.com",//bot owner mail
   "status": "working",
   "created_at": "2025-01-01",
   "updated_at": "2025-01-10",
@@ -386,9 +367,7 @@ Bot.sendMessage("New channel post received!")</code></pre>
 <h3 id="params">params</h3>
 <p>Extra text after a command. Example: "/start hello" → <code>params = "hello"</code>.</p>
 <div class="code-container">
-  <pre><code class="language-json">
-"hello"
-  </code></pre>
+  <pre><code class="language-json">"hello"</code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
@@ -396,7 +375,7 @@ Bot.sendMessage("New channel post received!")</code></pre>
 <p>Custom data passed between commands when chaining or using API callbacks.</p>
 <div class="code-container">
   <pre><code class="language-json">
-    //passing custom 
+//passing custom 
 {
   "name": "Alice",
   "step": 2
@@ -416,14 +395,283 @@ Bot.sendMessage("New channel post received!")</code></pre>
 
 <h3 id="inspect">inspect()</h3>
 <p>Helper function to print any object for debugging.</p>
-<p>like if you did <code>inspect(data)</code> it will return bot details</p>
+<p>like if you did <code>inspect(data)</code> it will return bot <a href="#bot">Details</a></p>
+
+<h3 id="msg">msg</h3>
+<p><code>msg</code> is a simplified version of <code>update</code>. It’s only available for <code>message</code> updates.</p>
+<p>Whenever a message update is received, <code>msg</code> will contain the same object as <code>update.message</code>.</p>
+
+<h3 id="error"></h3>
+<p>It's a object that gives information about error got by ! command</p>
+<!-- Global Classes -->
+<h2 id="classes">Global Classes</h2>
+<p>
+  TBL provides several predefined classes. These classes give you direct access
+  to Telegram features, user data, and external utilities.
+  The most important one is <code>Api</code>, which works as a direct wrapper
+  for the official <a href="https://core.telegram.org/bots/api" target="_blank">Telegram Bot API</a>.
+</p>
+
+<h3 id="api-class">Api</h3>
+<p>
+  The <code>Api</code> class lets you call any method supported by Telegram.
+  It is very flexible — you can use it directly, with command callbacks, or with async/await.
+  This class is essential whenever you need full control over Telegram messages, files, and interactions.
+</p>
+      <div class="alert info">
+        <i class="fas fa-info-circle"></i>
+        <div>Api methods are case <b>insensitive</b> so you can use both <code>sendMessage</code> or <code>sendmessage</code> </div>
+      </div>
+<h4 id="api-normal">1. Normal Usage</h4>
+<p>
+  The simplest way to use <code>Api</code> is to call a method directly.  
+  By default, if you don’t provide <code>chat_id</code>, it will automatically use the current chat.
+</p>
 <div class="code-container">
-  <pre><code class="language-json">
-// will return bot details as showed above in https://telebothost.com/docs/#bot
+  <pre><code class="language-javascript">
+// Send a message (chat_id is optional, defaults to current chat)
+Api.sendMessage({
+  text: "Hello " + msg.from.first_name
+})
+
+// Send a photo with caption
+Api.sendPhoto({
+  chat_id: msg.chat.id,
+  photo: "https://example.com/cat.jpg",
+  caption: "Here is a cat 🐱"
+})
   </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
+<h4 id="api-onrun">2. Usage with <code>on_run</code> Callback</h4>
+<p>
+  Every API call can be linked with another command using <code>on_run</code>.  
+  After the API method finishes, its full result is automatically passed to the next command 
+  as <code>options</code>. This allows you to work with Telegram’s response without writing extra logic.
+</p>
+<div class="code-container">
+  <pre><code class="language-javascript">
+// Call Api.getMe and continue in another command
+Api.getMe({ on_run: "afterGetMe" })
+/*
+//you can pass tbl_options too like
+Api.getMe({ on_run: "afterGetMe", tbl_options: {key: 111} })
+//in afterGetMe tbl_options.key avilable 
+*/
+// Inside "afterGetMe" command:
+if (options.ok) {
+  Api.sendMessage({
+    text: "Bot username: @" + options.result.username
+  })
+}
+  </code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<p>
+  This style is useful when you want to split logic across multiple commands, 
+  especially for complex flows or long-running bots.
+</p>
+
+<h4 id="api-async">3. Usage with Async / Await</h4>
+<p>
+  You can also use <code>async/await</code> with any Api method.  
+  The method returns a full Telegram response object, where <code>ok</code> indicates success 
+  and <code>result</code> contains the actual data.
+</p>
+<div class="code-container">
+  <pre><code class="language-javascript">
+  let data = await Api.getMe()
+  if (data.ok) {
+    let me = data.result
+    Api.sendMessage({
+      text: "My bot id is " + me.id
+    })
+  }
+  </code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<p>
+  This approach is preferred when you want to stay inside a single command 
+  and handle multiple API calls in sequence, keeping your code clean and readable.
+</p>
+
+
+<!-- Bot Class -->
+<h2 id="bot-class">Bot Class</h2>
+<p>
+  The <b>Bot</b> class is used for controlling your bot directly.
+  It provides methods for running commands, sending messages, and managing persistent bot-level properties.
+  Unlike <code>Api</code>, the <code>Bot</code> methods are designed to be easier to use inside commands.
+</p>
+
+   <div class="alert info">
+        <i class="fas fa-info-circle"></i>
+        <div>Bot methods are case sensitive, so only strict name allowed like <b>sendMessage</b> abd <b>sendmessage</b> are treated as separate method</div>
+      </div>
+
+
+<h3 id="bot-run">1. Command Execution</h3>
+<p>
+  You can tell the bot to run another command. This is useful if you want to move the user to a new flow.
+  These methods don’t return any value – they just execute.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">// Run another command
+Bot.runCommand("/start")
+
+// Run with options
+Bot.runCommand("/start", {key: 111})
+// key is avilable now in /start and accessable with options.key
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p>
+  Example: If the user types <code>/begin</code>, you can redirect them to <code>/start</code>:
+</p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">Bot.runCommand("/start")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="bot-send">2. Sending Messages</h3>
+<p>
+  These methods send messages or media to the current chat.
+  They return the <code>Telegram API response</code>.
+  Using <code>await</code> is optional – you can wait for the result or just send without waiting.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">// Send plain text
+Bot.sendMessage("Hello user!") 
+
+// Send with HTML formatting
+let res = await Bot.sendMessage("Hello <b>friend</b>", { parse_mode: "html" })
+Bot.inspect(res) // See the Telegram response
+
+// Send with a keyboard
+Bot.sendKeyboard("Choose an option:", "Yes,No")
+
+// Send files
+Bot.sendDocument("file.pdf", { caption: "Here is your file" })
+Bot.sendPhoto("photo.jpg", { caption: "Nice view!" })
+Bot.sendAudio("music.mp3", { performer: "Artist", title: "Track" })
+Bot.sendVideo("video.mp4", { caption: "Watch this" })
+Bot.sendVoice("voice.ogg")
+
+// Debugging an object
+Bot.inspect({ user: "Alice", id: 123 })
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p><b>Example output when sending a text message:</b></p>
+
+<div class="code-container">
+  <pre><code>{
+  "ok": true,
+  "result": {
+    "message_id": 42,
+    "chat": { "id": 5723455420, "type": "private" },
+    "text": "Hello user!"
+  }
+}
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="bot-props">3. Properties</h3>
+<p>
+  Bot properties are simple key-value storage.
+  They let you save data that belongs to the bot itself (not a specific user).
+  All property methods are synchronous, so <code>await</code> is not required.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">// Set properties
+Bot.set("version", "1.2.3", "string")
+Bot.set("config", { apiKey: "xyz" }, "json")
+
+// Get values
+let v = Bot.get("version")   // "1.2.3"
+let c = Bot.get("config")    // { apiKey: "xyz" }
+
+// Delete one property
+Bot.del("version")
+
+// Get all properties
+let all = Bot.getAll()
+// -> { config: { apiKey: "xyz" } }
+
+// Delete all
+Bot.delAll()
+
+// Check if a property exists
+let has = Bot.has("config")  // true
+
+// Count all properties
+let count = Bot.count()      // e.g. 1
+
+// Get all property names
+let names = Bot.getNames()   // ["config"]
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p><b>Example workflow:</b></p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">// Save a global config
+Bot.set("welcome", "Hello new user!", "string")
+
+// Later, use it in a message
+let msg = Bot.get("welcome")
+Bot.sendMessage(msg)
+
+// Update a property
+Bot.set("welcome", "Hi there 👋", "string")
+
+// Remove a property
+Bot.del("welcome")
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="bot-prop-alias">4. Property Aliases</h3>
+<p>
+  All property methods have short aliases.
+  They work exactly the same, just different names.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">// Setting values
+Bot.setProp("theme", "dark", "string")
+Bot.setProperty("lang", "en", "string")
+
+// Getting values
+Bot.getProp("theme")        // "dark"
+Bot.getProperty("lang")     // "en"
+
+// Deleting values
+Bot.delProp("theme")
+Bot.delProperty("lang")
+
+// Get all / delete all
+Bot.getAllProp()            // { }
+Bot.getAllProperty()        // { }
+Bot.delAllProp()
+Bot.delAllProperty()
+
+// Checking and counting
+Bot.hasProp("theme")        // false
+Bot.countProps()            // 0
+Bot.getPropNames()          // []
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
 <!-- content will stop here -->
     </div>
   </section>
@@ -437,84 +685,7 @@ Bot.sendMessage("New channel post received!")</code></pre>
   </div>
 </footer>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
-  <script>
-    function copyCode(button) {
-      const codeBlock = button.previousElementSibling;
-      const codeText = codeBlock.textContent;
-      
-      navigator.clipboard.writeText(codeText).then(() => {
-        const originalText = button.textContent;
-        button.textContent = 'Copied!';
-        button.classList.add('copied');
-        
-        setTimeout(() => {
-          button.textContent = originalText;
-          button.classList.remove('copied');
-        }, 2000);
-      }).catch(err => {
-        console.error('Failed to copy: ', err);
-        alert('Failed to copy code. Please try again.');
-      });
-    }
-  </script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  // Add anchor link icons to headings
-  document.querySelectorAll("h1[id], h2[id], h3[id]").forEach(heading => {
-    const sectionId = heading.id;
-    const icon = document.createElement("i");
-    icon.className = "fas fa-link anchor-link";
-    icon.title = "Copy link";
-
-    // Copy on click
-    icon.addEventListener("click", (e) => {
-      e.stopPropagation(); // prevent heading click event
-      const url = window.location.origin + window.location.pathname + "#" + sectionId;
-      navigator.clipboard.writeText(url).then(() => {
-        icon.style.color = "green"; // success feedback
-        setTimeout(() => { icon.style.color = "#0088cc"; }, 1500);
-      }).catch(err => {
-        console.error("Failed to copy: ", err);
-        alert("Failed to copy link. Try again.");
-      });
-    });
-
-    heading.appendChild(icon);
-  });
-
-
-  // Header scroll effect
-  $(window).scroll(function () {
-    if ($(this).scrollTop() > 80) {
-      $("#header").addClass("scrolled");
-    } else {
-      $("#header").removeClass("scrolled");
-    }
-  });
-
-  // Clicking heading updates URL hash (without copy)
-  document.querySelectorAll("h1[id], h2[id], h3[id]").forEach(title => {
-    title.addEventListener("click", function (e) {
-      if (!e.target.classList.contains("anchor-link")) {
-        const sectionId = this.id;
-        window.history.pushState(null, null, "#" + sectionId);
-      }
-    });
-  });
-
-  // Smooth scroll to hash on page load
-  const hash = window.location.hash;
-  if (hash) {
-    const target = $(hash);
-    if (target.length) {
-      $("html, body").animate({
-        scrollTop: target.offset().top - 80 // adjust header height
-      }, 500);
-    }
-  }
-});
-</script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="script.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
