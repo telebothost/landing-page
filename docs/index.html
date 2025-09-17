@@ -592,6 +592,8 @@ Bot.inspect({ user: "Alice", id: 123 })
 
 <div class="code-container">
   <pre><code class="language-javascript">// Set properties
+
+// set(key, value, type)
 Bot.set("version", "1.2.3", "string")
 Bot.set("config", { apiKey: "xyz" }, "json")
 
@@ -617,9 +619,26 @@ let count = Bot.count()      // e.g. 1
 
 // Get all property names
 let names = Bot.getNames()   // ["config"]
+
+/* 
+//avilable data types
+'string'    // String values
+'number'    // Numeric values  
+'boolean'   // Boolean values
+'date'      // Date objects
+'json'      // Objects/Arrays (stored as JSON)
+'buffer'    // Buffer objects (binary data)
+'set'       // Set objects
+'list'      // Array objects
+'map'       // Map objects
+*/
 </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
+      <div class="alert info">
+        <i class="fas fa-info-circle"></i>
+        <div>type is optional on set methods if not provided will auto detects it's actual type</div>
+      </div>
 
 <p><b>Example workflow:</b></p>
 
@@ -672,6 +691,115 @@ Bot.getPropNames()          // []
 </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
+
+<!-- HTTP Class -->
+<h2 id="http">HTTP Class</h2>
+<p>
+The <b>HTTP</b> class allows your bot to make external API requests (GET, POST, etc.) and handle responses flexibly.  
+It supports direct calls with <code>await</code>, chaining commands via <code>on_run</code>, or using <code>tbl_options</code> for success/error handling.
+</p>
+
+<h3 id="http-get">1. GET Requests</h3>
+<p>Simple GET request:</p>
+
+<div class="code-container">
+<pre><code class="language-js">
+// GET request using direct URL
+let data = await HTTP.get("https://jsonplaceholder.typicode.com/todos/1")
+Bot.inspect(data)
+
+// GET request using object with options
+let data2 = await HTTP.get({
+  url: "https://jsonplaceholder.typicode.com/todos/2",
+  headers: { "Authorization": "Bearer ABC123" }
+})
+Bot.inspect(data2)
+</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="http-post">2. POST Requests</h3>
+<p>POST request example:</p>
+
+<div class="code-container">
+<pre><code class="language-js">
+// POST request
+let payload = { name: "Alice", age: 25 }
+let response = await HTTP.post({
+  url: "https://jsonplaceholder.typicode.com/posts",
+  body: payload,
+  headers: { "Authorization": "Bearer ABC123" }
+})
+Bot.inspect(response)
+</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="http-tbl-options">3. Success / Error Commands with <code>tbl_options</code></h3>
+<p>
+You can define commands to run automatically on success or error.  
+If <code>error</code> command is missing, the <code>success</code> command will run instead.
+</p>
+
+<div class="code-container">
+<pre><code class="language-js">
+// HTTP GET with success/error commands
+HTTP.get({
+  url: "https://jsonplaceholder.typicode.com/todos/1",
+  tbl_options: {
+    success: "onSuccess",
+    error: "onError"
+  }
+})
+
+// "onSuccess" command will receive options = HTTP response
+// "onError" command will receive options = HTTP error
+</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<div class="code-container">
+<pre><code class="language-js">
+// Example success command
+/*command: onSuccess*/
+Bot.sendMessage("Fetched title: " + options.result.title)
+
+// Example error command
+/*command: onError*/
+Bot.sendMessage("HTTP request failed: " + options.status)
+</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="http-advanced">4. Advanced Options</h3>
+<ul>
+  <li><b>headers</b> – Custom headers</li>
+  <li><b>body</b> – Object or data to send in POST requests</li>
+  <li><b>query</b> – Object of query parameters for GET requests</li>
+  <li><b>timeout</b> – Request timeout in milliseconds</li>
+</ul>
+
+<div class="code-container">
+<pre><code class="language-js">
+// GET with query params and headers, and success/error commands
+HTTP.get({
+  url: "https://api.example.com/search",
+  query: { q: "telebot", limit: 5 },
+  headers: { "X-Api-Key": "123ABC" },
+  timeout: 5000,
+  tbl_options: { success: "searchSuccess", error: "searchError" }
+})
+</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="http-usage-notes">Usage Notes</h3>
+<ul>
+  <li>All HTTP methods return <code>result</code> object: <code>{ ok, status, result }</code>.</li>
+  <li>You can use <code>await</code> to wait for the response or skip it if not needed.</li>
+  <li><code>tbl_options</code> enables automatic command execution for success/error handling.</li>
+  <li>If <code>error</code> command is missing, the <code>success</code> command will run instead.</li>
+</ul>
 <!-- content will stop here -->
     </div>
   </section>
