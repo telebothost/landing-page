@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JavaScript Basics for TBL Bots</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/style.css" />
+  <style>
+    section { padding:80px 20px; max-width:950px; margin:auto; line-height:1.7; }
+    h2 { font-size:2rem; color:#0088cc; text-align:center; margin-bottom:10px; }
+    p.subtitle { text-align:center; margin-bottom:40px; color:#666; font-size:1.05rem; }
+
+    h3 { font-size:1.4rem; color:#0088cc; margin-top:40px; margin-bottom:15px; }
+    p { margin-bottom:15px; color:#333; }
+    ul { margin:15px 0 20px 20px; }
+    li { margin-bottom:8px; }
+
+    pre { background:#f9f9f9; padding:15px; border-radius:10px; overflow-x:auto; font-size:0.95rem; margin:15px 0; border:1px solid #eee; }
+    code { color:#d63384; }
+  </style>
+</head>
+<body>
+<header id="header">
+  <div class="container nav-container">
+    <a href="/" class="logo">
+      <img src="/assets/img/logo.png" alt="TeleBot Host Logo">
+      TeleBot Host
+    </a>
+    <nav class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+    </nav>
+  </div>
+</header>
+
+<section>
+  <h2>JavaScript Basics for TBL Bots</h2>
+  <p class="subtitle">This is a full crash course on JavaScript. By the end, you’ll know enough to start coding bots in TBL.</p>
+
+  <h3>1. Variables</h3>
+  <p>Variables store data. Use <code>let</code> for changeable values and <code>const</code> for fixed values.</p>
+  <pre><code>let name = "Alice";
+const age = 21;
+
+name = "Bob"; // allowed
+// age = 22;  ❌ not allowed (const is fixed)</code></pre>
+
+  <h3>2. Data Types</h3>
+  <p>JavaScript has different types of values:</p>
+  <ul>
+    <li>String → text (<code>"Hello"</code>)</li>
+    <li>Number → <code>42</code>, <code>3.14</code></li>
+    <li>Boolean → <code>true</code> or <code>false</code></li>
+    <li>Array → <code>[1,2,3]</code></li>
+    <li>Object → <code>{ key: "value" }</code></li>
+    <li>Undefined → not set</li>
+    <li>Null → empty on purpose</li>
+  </ul>
+  <pre><code>let str = "Hello"; 
+let num = 100; 
+let active = true; 
+let items = ["apple", "banana"];
+let user = { id: 1, name: "Soumya" };</code></pre>
+
+  <h3>3. Operators</h3>
+  <p>Operators let you calculate and compare values.</p>
+  <pre><code>let a = 10, b = 3;
+
+console.log(a + b);  // 13
+console.log(a - b);  // 7
+console.log(a * b);  // 30
+console.log(a / b);  // 3.33
+console.log(a % b);  // 1
+
+console.log(a > b);  // true
+console.log(a === 10); // true</code></pre>
+
+  <h3>4. Strings</h3>
+  <p>Strings are text. You can combine them and use functions:</p>
+  <pre><code>let msg = "Hello";
+let user = "Soumya";
+console.log(msg + " " + user); 
+
+console.log(msg.length);      // 5
+console.log(user.toUpperCase()); // "SOUMYA"
+console.log(user.includes("ou")); // true</code></pre>
+
+  <h3>5. Functions</h3>
+  <p>Functions are reusable blocks of code.</p>
+  <pre><code>function greet(name) {
+  return "Hello " + name;
+}
+
+console.log(greet("Alice"));
+console.log(greet("Bob"));</code></pre>
+
+  <p>Modern style: arrow functions</p>
+  <pre><code>const add = (x, y) => x + y;
+console.log(add(5, 7));</code></pre>
+
+  <h3>6. Conditions</h3>
+  <p>Decide what to do based on values:</p>
+  <pre><code>let age = 18;
+
+if(age >= 18) {
+  console.log("Adult");
+} else {
+  console.log("Minor");
+}
+
+let fruit = "apple";
+switch(fruit) {
+  case "apple": console.log("Red fruit"); break;
+  case "banana": console.log("Yellow fruit"); break;
+  default: console.log("Unknown fruit");
+}</code></pre>
+
+  <h3>7. Loops</h3>
+  <p>Loops repeat actions:</p>
+  <pre><code>// for loop
+for(let i=1; i<=3; i++) {
+  console.log("Step " + i);
+}
+
+// while loop
+let n = 1;
+while(n <= 3) {
+  console.log("Number " + n);
+  n++;
+}
+
+// for...of loop
+let colors = ["red","blue","green"];
+for(let c of colors) {
+  console.log(c);
+}</code></pre>
+
+  <h3>8. Arrays</h3>
+  <p>Arrays are lists:</p>
+  <pre><code>let fruits = ["apple","banana","mango"];
+console.log(fruits[0]); // apple
+fruits.push("orange");
+console.log(fruits.length); // 4
+
+// Loop through array
+fruits.forEach(f => console.log("Fruit: " + f));</code></pre>
+
+  <h3>9. Objects</h3>
+  <p>Objects store key–value pairs:</p>
+  <pre><code>let user = {
+  id: 1,
+  name: "Soumya",
+  premium: true
+};
+
+console.log(user.name); 
+user.age = 20;
+console.log(user);</code></pre>
+
+  <h3>10. ES6 Features</h3>
+  <p>Modern JavaScript gives you powerful shortcuts:</p>
+  <pre><code>// Template strings
+let name = "Soumya";
+console.log(`Hello ${name}`);
+
+// Destructuring
+let person = { id: 1, country: "India" };
+let { id, country } = person;
+console.log(id, country);
+
+// Default params
+function greet(name = "Guest") {
+  return `Hi ${name}`;
+}
+console.log(greet());
+console.log(greet("Alice"));</code></pre>
+
+  <h3>11. Callbacks</h3>
+  <p>A callback is a function passed to another function:</p>
+  <pre><code>function doTask(task, callback) {
+  console.log("Doing: " + task);
+  callback();
+}
+
+doTask("Download file", () => {
+  console.log("Done!");
+});</code></pre>
+
+<h3>12. JavaScript Promises with Async/Await</h3>
+<p>Instead of using <code>.then()</code> chains, modern JavaScript uses <b>async/await</b> for cleaner async code.
+  Below are the most important Promise methods you should know.</p>
+
+<h4>1. Promise.all()</h4>
+<p>Run many tasks in parallel and wait until all are finished.
+  If any task fails → the whole thing throws an error.</p>
+<pre><code>function task(name, time) {
+  return new Promise(resolve => {
+    setTimeout(() => resolve(name + " done"), time);
+  });
+}
+// TBL doesn't support setTimeout()
+async function runAll() {
+  try {
+    let results = await Promise.all([
+      task("A", 1000),
+      task("B", 2000),
+      task("C", 500)
+    ]);
+    console.log(results); // [ "A done", "B done", "C done" ]
+  } catch(err) {
+    console.error("Error:", err.message);
+  }
+}
+runAll();</code></pre>
+
+<h4>2. Promise.allSettled()</h4>
+<p>Wait for all tasks, but never fail. Instead, you get the status of each task.</p>
+<pre><code>async function runAllSettled() {
+  let results = await Promise.allSettled([
+    Promise.resolve("OK"),
+    Promise.reject("Oops")
+  ]);
+  console.log(results);
+/*
+[
+  { status: "fulfilled", value: "OK" },
+  { status: "rejected", reason: "Oops" }
+]
+*/
+}
+runAllSettled();</code></pre>
+
+<h4>3. Promise.race()</h4>
+<p>Get the result of the first task that finishes (success or error).</p>
+<pre><code>async function runRace() {
+  let result = await Promise.race([
+    task("Fast", 500),
+    task("Slow", 2000)
+  ]);
+  console.log(result); // "Fast done"
+}
+runRace();</code></pre>
+
+<h4>4. Promise.any()</h4>
+<p>Get the result of the first successful task.
+  If all fail → throws <code>AggregateError</code>.</p>
+<pre><code>async function runAny() {
+  try {
+    let result = await Promise.any([
+      Promise.reject("Fail1"),
+      Promise.reject("Fail2"),
+      Promise.resolve("Success 🎉")
+    ]);
+    console.log(result); // "Success 🎉"
+  } catch(err) {
+    console.error("All failed:", err.errors);
+  }
+}
+runAny();</code></pre>
+
+<h4>5. Simple Await Example</h4>
+<p>Every async function can <code>await</code> a promise directly.</p>
+<pre><code>async function load() {
+  let data = await task("Loading data", 1000);
+  console.log(data); // "Loading data done"
+}
+load();</code></pre>
+
+  <h3>✅ Conclusion</h3>
+  <p>You now know variables, data types, functions, loops, arrays, objects, modern ES6 features, callbacks, promises, and async/await.  
+  With these skills, you can confidently move on to <a href="/tutorials/api.html">using Api.xxx in TBL</a> to make your bots powerful.</p>
+</section>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="/cookies">Cookies</a>
+    <a href="/resources">Resources</a>
+  </div>
+</footer>
+</body>
+</html>
