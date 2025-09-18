@@ -391,7 +391,7 @@ Bot.sendMessage("New channel post received!")</code></pre>
 </div>
 
 <h3 id="content">content</h3>
-<p>Contains the response body from an HTTP request. Auto type detection and parse inbuilt so you don't need <code>JSON.parse(content)</code> here, or if text you will get utf8 decoded value</p>
+<p>Contains the response body from an HTTP request.
 
 <h3 id="inspect">inspect()</h3>
 <p>Helper function to print any object for debugging.</p>
@@ -401,7 +401,7 @@ Bot.sendMessage("New channel post received!")</code></pre>
 <p><code>msg</code> is a simplified version of <code>update</code>. It’s only available for <code>message</code> updates.</p>
 <p>Whenever a message update is received, <code>msg</code> will contain the same object as <code>update.message</code>.</p>
 
-<h3 id="error"></h3>
+<h3 id="error">error</h3>
 <p>It's a object that gives information about error got by ! command</p>
 <!-- Global Classes -->
 <h2 id="classes">Global Classes</h2>
@@ -693,10 +693,10 @@ Bot.getPropNames()          // []
 </div>
 
 <!-- HTTP Class -->
-<h2 id="http">HTTP Class</h2>
+<h2 id="http-class">HTTP Class</h2>
 <p>
 The <b>HTTP</b> class allows your bot to make external API requests (GET, POST, etc.) and handle responses flexibly.  
-It supports direct calls with <code>await</code>, chaining commands via <code>on_run</code>, or using <code>tbl_options</code> for success/error handling.
+It supports direct calls with <code>await</code>, chaining commands for success/error handling.
 </p>
 
 <h3 id="http-get">1. GET Requests</h3>
@@ -707,7 +707,24 @@ It supports direct calls with <code>await</code>, chaining commands via <code>on
 // GET request using direct URL
 let data = await HTTP.get("https://jsonplaceholder.typicode.com/todos/1")
 Bot.inspect(data)
-
+// we will have data.content(raw string ), data.headers, data.cookies, data.data(parsed)
+/* Demo data
+{
+  ok: true,
+  status: 200,
+  statusText: 'OK',
+  content: '{"ok":true,"ping":true}', //content is String
+  data: {
+    ok: true,
+    ping: true
+  }, // if it JSON then auto parsed
+  headers: {
+    'content-type': 'application/json; charset=utf-8'
+    ...more
+  },
+  cookies: []
+}
+*/
 // GET request using object with options
 let data2 = await HTTP.get({
   url: "https://jsonplaceholder.typicode.com/todos/2",
@@ -746,14 +763,18 @@ If <code>error</code> command is missing, the <code>success</code> command will 
 // HTTP GET with success/error commands
 HTTP.get({
   url: "https://jsonplaceholder.typicode.com/todos/1",
-  tbl_options: {
     success: "onSuccess",
-    error: "onError"
-  }
+    error: "onError",
+    tbl_options: {key : value}
 })
-
+// you can get tbl_options on next command like  
+tbl_options.key
 // "onSuccess" command will receive options = HTTP response
 // "onError" command will receive options = HTTP error
+// on success you will get content and in error command you will get error 
+// error command only run when there an internal error like request failed due to some reasons like 
+// wrong url, API have 500 etc...
+//
 </code></pre>
 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
@@ -762,11 +783,11 @@ HTTP.get({
 <pre><code class="language-js">
 // Example success command
 /*command: onSuccess*/
-Bot.sendMessage("Fetched title: " + options.result.title)
+Bot.sendMessage("Fetched title: " + content)
 
 // Example error command
 /*command: onError*/
-Bot.sendMessage("HTTP request failed: " + options.status)
+Bot.sendMessage("HTTP request failed: " + error.status)
 </code></pre>
 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
@@ -787,7 +808,8 @@ HTTP.get({
   query: { q: "telebot", limit: 5 },
   headers: { "X-Api-Key": "123ABC" },
   timeout: 5000,
-  tbl_options: { success: "searchSuccess", error: "searchError" }
+  success: "searchSuccess",
+  error: "searchError"
 })
 </code></pre>
 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -795,9 +817,8 @@ HTTP.get({
 
 <h3 id="http-usage-notes">Usage Notes</h3>
 <ul>
-  <li>All HTTP methods return <code>result</code> object: <code>{ ok, status, result }</code>.</li>
+  <li>All HTTP methods return <code>response</code> object: <code>{ ok, status, data }</code>.</li>
   <li>You can use <code>await</code> to wait for the response or skip it if not needed.</li>
-  <li><code>tbl_options</code> enables automatic command execution for success/error handling.</li>
   <li>If <code>error</code> command is missing, the <code>success</code> command will run instead.</li>
 </ul>
 <!-- content will stop here -->
