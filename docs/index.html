@@ -1050,7 +1050,325 @@ await msg.sendChatAction("typing") // await optional
 <p>All methods also work in lowercase (e.g., <code>msg.replyphoto</code>).  
 Markdown parsing is enabled by default for text methods.</p>
 
+<h2 id="class-modules">Modules Class</h2>
+<p>
+  The <b>modules</b> object gives you access to popular Node.js libraries directly in TBL.
+  Use <code>modules.moduleName.method()</code> to perform common tasks like encryption, validation, date handling, CSV/YAML parsing, random data generation, and more.
+</p>
 
+<h3 id="module-jwt">1. JWT</h3>
+<p>
+  <b>JWT</b> is used for creating and verifying JSON Web Tokens.
+  Useful for authentication, session management, or secure data transfer.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/jsonwebtoken" target="_blank">jsonwebtoken</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Create a token
+const token = modules.JWT.sign({ userId: 123 }, "secret");
+
+// Verify a token
+const decoded = modules.JWT.verify(token, "secret");
+
+// Demo response:
+// token → "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+// decoded → { userId: 123, iat: 1690000000 }
+</code></pre>
+</div>
+
+<h3 id="module-bcrypt">2. bcrypt</h3>
+<p>
+  <b>bcrypt</b> hashes passwords and verifies them. Essential for secure password storage.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/bcrypt" target="_blank">bcrypt</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Hash a password
+const hash = await modules.bcrypt.hash("password123", 10);
+
+// Verify password
+const match = await modules.bcrypt.compare("password123", hash);
+
+// Demo response:
+// hash → "$2b$10$e0N...."
+// match → true
+</code></pre>
+</div>
+
+<h3 id="module-crypto">3. crypto</h3>
+<p>
+  <b>crypto</b> provides cryptographic functions, including hashing, encryption, and decryption.
+</p>
+<p>Docs: <a href="https://nodejs.org/api/crypto.html" target="_blank">Node.js crypto</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Create SHA256 hash
+const hash = modules.crypto.createHash("sha256").update("data").digest("hex");
+
+// Demo response:
+// hash → "3a6eb...9f1"
+</code></pre>
+</div>
+
+<h3 id="module-ParseCSV">4. ParseCSV</h3>
+<p>
+  Parses CSV strings into JSON objects. Useful for reading CSV files in bots or scripts.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/csv-parse" target="_blank">csv-parse</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Parse CSV string
+const result = modules.ParseCSV.parse("name,age\nAlice,25\nBob,30");
+
+// Demo response:
+// result → [{ name: "Alice", age: "25" }, { name: "Bob", age: "30" }]
+</code></pre>
+</div>
+
+<h3 id="module-ParseYML">5. ParseYML</h3>
+<p>
+  Parses YAML strings into JSON objects. Useful for reading YAML configuration files.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/js-yaml" target="_blank">js-yaml</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Parse YAML string
+const result = modules.ParseYML.parse("name: Alice\nage: 25");
+
+// Demo response:
+// result → { name: "Alice", age: 25 }
+</code></pre>
+</div>
+
+<h3 id="module-UUID">6. UUID</h3>
+<p>
+  Generates unique identifiers (UUID v4 or v6). Useful for unique keys, transaction IDs, or session identifiers.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/uuid" target="_blank">uuid</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Generate v4 UUID
+const id = modules.UUID.uuidv4();
+
+// Demo response:
+// id → "550e8400-e29b-41d4-a716-446655440000"
+</code></pre>
+</div>
+
+<h3 id="module-moment">7. moment</h3>
+<p>
+  A powerful library for date and time manipulation. Format, parse, and calculate dates easily.
+</p>
+<p>Docs: <a href="https://momentjs.com/" target="_blank">momentjs</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Format current date
+const dateStr = modules.moment().format("YYYY-MM-DD");
+
+// Demo response:
+// dateStr → "2025-09-19"
+</code></pre>
+</div>
+
+<h3 id="module-lodash">8. lodash</h3>
+<p>
+  A utility library for array, object, and function operations. Very handy for filtering, mapping, and transforming data.
+</p>
+<p>Docs: <a href="https://lodash.com/docs/" target="_blank">lodash</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Filter array
+const result = modules.lodash.filter([1,2,3,4], n => n > 2);
+
+// Demo response:
+// result → [3,4]
+</code></pre>
+</div>
+
+<h3 id="module-randomstring">9. randomstring</h3>
+<p>
+  Generates random alphanumeric strings, useful for temporary passwords, tokens, or unique identifiers.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/randomstring" target="_blank">randomstring</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Generate 10-character random string
+const str = modules.randomstring.generate(10);
+
+// Demo response:
+// str → "a1b2c3d4e5"
+</code></pre>
+</div>
+
+<h3 id="module-validator">10. validator</h3>
+<p>
+  Validates strings like emails, URLs, and other formats.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/validator" target="_blank">validator</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Validate email
+const valid = modules.validator.isEmail("test@example.com");
+
+// Demo response:
+// valid → true
+</code></pre>
+</div>
+
+<h3 id="module-chance">11. chance</h3>
+<p>
+  Generates random data, such as names, addresses, and phone numbers.
+</p>
+<p>Docs: <a href="https://chancejs.com/" target="_blank">chancejs</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Generate random name
+const name = modules.chance.name();
+
+// Demo response:
+// name → "Alice Johnson"
+</code></pre>
+</div>
+
+<h3 id="module-math">12. math</h3>
+<p>
+  Mathematical functions like square root, powers, trigonometry, etc.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/mathjs" target="_blank">mathjs</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Square root
+const val = modules.math.sqrt(25);
+
+// Demo response:
+// val → 5
+</code></pre>
+</div>
+
+<h3 id="module-qs">13. qs</h3>
+<p>
+  Parses and formats query strings.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/qs" target="_blank">qs</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Parse query string
+const obj = modules.qs.parse("a=1&b=2");
+
+// Demo response:
+// obj → { a: "1", b: "2" }
+</code></pre>
+</div>
+
+<h3 id="module-cheerio">14. cheerio</h3>
+<p>
+  Parse and manipulate HTML in Node.js (like jQuery). Useful for scraping and DOM manipulation.
+</p>
+<p>Docs: <a href="https://cheerio.js.org/" target="_blank">cheerio</a></p>
+<div class="code-container">
+<pre><code class="language-js">
+// Load HTML
+const $ = modules.cheerio.load("&lt;p&gt;Hello&lt;/p&gt;");
+const text = $("p").text();
+
+// Demo response:
+// text → "Hello"
+</code></pre>
+</div>
+
+<h3 id="module-dayjs">15. dayjs</h3>
+<p>
+  Lightweight alternative to Moment.js for date and time operations.
+</p>
+<p>Docs: <a href="https://day.js.org/" target="_blank">dayjs</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Format current date
+const today = modules.dayjs().format("YYYY-MM-DD");
+
+// Demo response:
+// today → "2025-09-19"
+
+//We have our own Basic library for time parsing too
+</code></pre>
+</div>
+
+<h3 id="module-zod">16. zod</h3>
+<p>
+  Schema validation library for structured data. Useful for input validation.
+</p>
+<p>Docs: <a href="https://zod.dev/" target="_blank">zod</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Validate string
+const result = modules.zod.string().parse("Hello");
+
+// Demo response:
+// result → "Hello"
+</code></pre>
+</div>
+
+<h3 id="module-shortid">17. shortid</h3>
+<p>
+Generates short unique IDs for objects, users, or temporary references.  
+Useful when you need compact unique identifiers.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/shortid" target="_blank">shortid</a></p>
+<div class="code-container">
+<pre><code class="language-js">
+// Generate short ID
+const id = modules.shortid.generate();
+
+// Demo response:
+// id → "ppBqWA9"
+</code></pre>
+</div>
+
+<h3 id="module-deepmerge">18. deepmerge</h3>
+<p>
+Deeply merges multiple objects. Useful for combining configs or nested data structures.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/deepmerge" target="_blank">deepmerge</a></p>
+<div class="code-container">
+<pre><code class="language-js">
+// Merge two objects
+const merged = modules.deepmerge({ a: 1, b: { x: 1 } }, { b: { y: 2 }, c: 3 });
+
+// Demo response:
+// merged → { a: 1, b: { x: 1, y: 2 }, c: 3 }
+</code></pre>
+</div>
+
+<h3 id="module-humanizeDuration">19. humanizeDuration</h3>
+<p>
+Formats durations (milliseconds) into human-readable strings, like "2 hours" or "5 minutes".
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/humanize-duration" target="_blank">humanize-duration</a></p>
+<div class="code-container">
+<pre><code class="language-js">
+// Convert milliseconds to human-readable
+const duration = modules.humanizeDuration(3600000);
+
+// Demo response:
+// duration → "1 hour"
+</code></pre>
+</div>
+
+<h3 id="module-uaParser">20. uaParser</h3>
+<p>
+Parses user-agent strings to extract browser, OS, and device information.  
+Useful for analytics, logs, or customizing content.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/ua-parser-js" target="_blank">ua-parser-js</a></p>
+<div class="code-container">
+<pre><code class="language-js">
+// Parse user-agent
+const ua = modules.uaParser.parse("Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+
+// Demo response:
+// ua → { browser: { name: "Firefox", version: "xx" }, os: { name: "Windows", version: "10" }, device: { model: "", type: "", vendor: "" } }
+</code></pre>
+</div>
 <!-- content will stop here -->
     </div>
 </section>
