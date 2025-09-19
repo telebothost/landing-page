@@ -1369,6 +1369,155 @@ const ua = modules.uaParser.parse("Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
 // ua → { browser: { name: "Firefox", version: "xx" }, os: { name: "Windows", version: "10" }, device: { model: "", type: "", vendor: "" } }
 </code></pre>
 </div>
+
+
+<!-- Libs Class -->
+<h2 id="class-libs">Libs Class</h2>
+<p>
+The <b>Libs</b> class gives direct access to TBL’s built-in libraries.  
+Each library contains ready-to-use helpers for randomization, date/time operations, resource tracking, referral systems, Telegram utilities, and membership checking.  
+Use the syntax <code>Libs.&lt;library&gt;.&lt;method&gt;()</code>.  
+Most methods return promises—<code>await</code> is optional unless you need the returned value.
+</p>
+
+<h3 id="libs-list">Available Libraries</h3>
+<ul>
+  <li><b>ResourcesLib</b> – Manage user/global counters, balances, or any persistent value.</li>
+  <li><b>dateTimeFormat</b> – Format, add/subtract, and calculate differences between dates.</li>
+  <li><b>MCL (Membership Checker Lib)</b> – Check user membership in channels/groups and related tasks.</li>
+  <li><b>random</b> – Generate random numbers, strings, colors, dates, and complex distributions.</li>
+  <li><b>refLib</b> – Create referral links and track invited users.</li>
+  <li><b>tgUtil</b> – Telegram-specific helpers for names, links, mentions, escaping text, etc.</li>
+</ul>
+
+<h3 id="libs-resources">1. ResourcesLib</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Create or get a user resource (e.g., balance)
+let coins = Libs.ResourcesLib.userRes("coins")
+coins.add(50)                       // add value
+let current = coins.value()          // get current value
+
+// Global resource example
+let globalCounter = Libs.ResourcesLib.anotherRes("visits")
+globalCounter.add(1)
+</code></pre>
+<p>
+Persistent storage for user or global properties.  
+<a href="https://github.com/telebothost/tbl-libs/blob/main/Lib-Docs/ResourcesLib.md" target="_blank">Full ResourcesLib Documentation</a>
+</p>
+</div>
+
+<h3 id="libs-datetime">2. dateTimeFormat</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Current date/time in custom mask
+let now = Libs.dateTimeFormat.getCurrentDate("yyyy-mm-dd HH:MM:ss")
+
+// Add days to a date
+let future = Libs.dateTimeFormat.addDays(new Date(), 7)
+
+// Time difference between two dates
+let diff = Libs.dateTimeFormat.getTimeDifference("2025-01-01","2025-02-01")
+</code></pre>
+<p>
+Full set of date formatting and calculation utilities.  
+<a href="https://github.com/telebothost/tbl-libs/blob/main/Lib-Docs/dateTimeFormat.md" target="_blank">Full dateTimeFormat Documentation</a>
+</p>
+</div>
+
+<h3 id="libs-mcl">3. MCL – Membership Checker</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Check if a user is a member of specific channels
+let joined = await Libs.mcl.check(user.id, ["@Chan1", "@Chan2"])
+
+/* returns 
+{
+  all_joined: true,
+  valid: [ '@Channel1', '@Channel2' ],
+  left: [],
+  invalid: [],
+  details: [
+    {
+      channel: '@Channel1',
+      member: { /* full getChatMember response */ }
+    }
+  ]
+}
+*/
+
+</code></pre>
+<p>
+Validate user subscriptions across one or more Telegram channels or groups before allowing bot actions.  
+<a href="https://github.com/telebothost/tbl-libs/blob/main/Lib-Docs/mcl.md" target="_blank">Full MCL Documentation</a>
+</p>
+</div>
+
+<h3 id="libs-random">4. random</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Random integer between 1 and 10
+let num = Libs.random.randomInt(1, 10)
+
+// Random string of 8 letters
+let str = Libs.random.randomString(8, { charset: "alpha" })
+
+// Random date within range
+let date = Libs.random.randomDate(new Date(2023,0,1), new Date(2025,0,1))
+
+// Random color
+let color = Libs.random.randomColor("rgb")
+</code></pre>
+<p>
+Comprehensive random generation utilities.  
+<a href="https://github.com/telebothost/tbl-libs/blob/main/Lib-Docs/random.md" target="_blank">Full random Documentation</a>
+</p>
+</div>
+
+<h3 id="libs-ref">5. refLib</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Create a referral link
+let refLink = Libs.refLib.getRefLink(bot.name)
+
+// Count referrals for a user
+let count = Libs.refLib.getRefCount(user.id)
+
+</code></pre>
+<p>
+Tools for building and tracking referral systems.  
+<a href="https://github.com/telebothost/tbl-libs/blob/main/Lib-Docs/refLib.md" target="_blank">Full refLib Documentation</a>
+</p>
+</div>
+
+<h3 id="libs-tgutil">6. tgUtil</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Get a user’s full name
+let fullName = Libs.tgUtil.getFullName(user)
+
+// Create a clickable HTML link to a user profile
+let link = Libs.tgUtil.getLinkFor(user, "html")
+
+// Escape text for Markdown
+let safeText = Libs.tgUtil.escapeText("*Hello*", "markdown")
+
+// Create an inline button
+let btn = Libs.tgUtil.createInlineButton("Press Me", "/callback_data")
+</code></pre>
+<p>
+Telegram-specific helpers for mentions, chat links, message links, and safe text formatting.  
+<a href="https://github.com/telebothost/tbl-libs/blob/main/Lib-Docs/tgUtil.md" target="_blank">Full tgUtil Documentation</a>
+</p>
+</div>
+
+<h3 id="libs-usage">Usage Tips</h3>
+<ul>
+  <li>All method names are case sensitive.</li>
+  <li>Use <code>await</code> only if the lib is asynchronous like MCL lib</li>
+  <li>Libraries can be combined in the same command for advanced workflows.</li>
+</ul>
 <!-- content will stop here -->
     </div>
 </section>
