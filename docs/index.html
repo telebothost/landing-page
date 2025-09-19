@@ -310,9 +310,6 @@ Bot.sendMessage("New channel post received!")</code></pre>
   "last_name": "",
   "telegramid": 5723455420,
   "premium": true,
-  "created_at": "2025-09-17T09:13:57.880Z",
-  "last_interaction": "2025-09-17T09:16:42.243Z",
-  "just_created": false,
   "blocked": false,
   "block_reason": null,
   "blocked_at": null
@@ -332,9 +329,6 @@ Bot.sendMessage("New channel post received!")</code></pre>
   "type": "private",
   "chatid": 5723455420,
   "chatId": 5723455420,
-  "created_at": "2025-09-17T09:13:57.880Z",
-  "last_interaction": "2025-09-17T09:18:20.486Z",
-  "just_created": false,
   "blocked": false,
   "block_reason": null,
   "blocked_at": null
@@ -356,7 +350,6 @@ Bot.sendMessage("New channel post received!")</code></pre>
   "status": "working",
   "created_at": "2025-01-01",
   "updated_at": "2025-01-10",
-  "has_own_ip": true,
   "_securityNote": "All bot tokens are securely encrypted in storage and during transmission.",
   "_fairUseNote": "Usage must comply with policies. Harmful or unfair use may result in a ban."
 }
@@ -412,7 +405,7 @@ Bot.sendMessage("New channel post received!")</code></pre>
   for the official <a href="https://core.telegram.org/bots/api" target="_blank">Telegram Bot API</a>.
 </p>
 
-<h3 id="api-class">Api</h3>
+<h3 id="class-api">Api</h3>
 <p>
   The <code>Api</code> class lets you call any method supported by Telegram.
   It is very flexible — you can use it directly, with command callbacks, or with async/await.
@@ -498,7 +491,7 @@ if (options.ok) {
 
 
 <!-- Bot Class -->
-<h2 id="bot-class">Bot Class</h2>
+<h2 id="class-bot">Bot Class</h2>
 <p>
   The <b>Bot</b> class is used for controlling your bot directly.
   It provides methods for running commands, sending messages, and managing persistent bot-level properties.
@@ -693,7 +686,7 @@ Bot.getPropNames()          // []
 </div>
 
 <!-- HTTP Class -->
-<h2 id="http-class">HTTP Class</h2>
+<h2 id="class-http">HTTP Class</h2>
 <p>
 The <b>HTTP</b> class allows your bot to make external API requests (GET, POST, etc.) and handle responses flexibly.  
 It supports direct calls with <code>await</code>, chaining commands for success/error handling.
@@ -752,7 +745,7 @@ Bot.inspect(response)
 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
-<h3 id="http-tbl-options">3. Success / Error Commands with <code>tbl_options</code></h3>
+<h3 id="http-callback">3. Success / Error Commands with <code>tbl_options</code></h3>
 <p>
 You can define commands to run automatically on success or error.  
 If <code>error</code> command is missing, the <code>success</code> command will run instead.
@@ -765,7 +758,7 @@ HTTP.get({
   url: "https://jsonplaceholder.typicode.com/todos/1",
     success: "onSuccess",
     error: "onError",
-    tbl_options: {key : value}
+    tbl_options: {key : value} //optinal for passing custom values only 
 })
 // you can get tbl_options on next command like  
 tbl_options.key
@@ -817,13 +810,250 @@ HTTP.get({
 
 <h3 id="http-usage-notes">Usage Notes</h3>
 <ul>
-  <li>All HTTP methods return <code>response</code> object: <code>{ ok, status, data }</code>.</li>
+  <li>All HTTP methods return <code>response</code> object on callback command: <code>{ ok, status, data or error }</code>.</li>
   <li>You can use <code>await</code> to wait for the response or skip it if not needed.</li>
   <li>If <code>error</code> command is missing, the <code>success</code> command will run instead.</li>
 </ul>
+
+<!-- User Class -->
+<h2 id="class-user">User Class</h2>
+<p>
+  The <b>User</b> class is used to store and manage data for each user individually.
+  Every user has their own private storage, and these methods let you save, read, and delete that data.
+</p>
+
+<h3 id="class-user-basic">1. Basic Operations</h3>
+<p>
+  Use these methods to save and read single values for the current user.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-js">
+// Save user data
+User.set("name", "Alice")
+User.set("age", 25, "number")
+
+// Read user data
+let name = User.get("name")      // "Alice"
+let age = User.getProp("age")    // 25
+
+Bot.sendMessage("Name: " + name + ", Age: " + age)
+// → Name: Alice, Age: 25
+</code></pre>
+</div>
+
+<h3 id="class-user-del">2. Deleting Properties</h3>
+<p>
+  Remove specific values when you don’t need them anymore.
+  If the property doesn’t exist, it just returns <code>null</code> when read.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-js">
+// Delete property
+User.del("age")
+
+let age = User.get("age")        // null
+Bot.sendMessage("After delete, age = " + age)
+// → After delete, age = null
+</code></pre>
+</div>
+
+<h3 id="class-user-bulk">3. Bulk Operations</h3>
+<p>
+  You can work with all stored data at once. This is useful to inspect or reset the user’s storage.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-js">
+// Save multiple values
+User.set("country", "India")
+User.set("verified", true, "boolean")
+
+// Get all user data
+let all = User.getAll()
+Bot.inspect(all)
+// → { "name": "Alice", "country": "India", "verified": true }
+
+// Delete all properties
+User.delAll()
+
+let all2 = User.getAll()
+Bot.inspect(all2)
+// → {}
+</code></pre>
+</div>
+
+<h3 id="user-check">4. Checking & Counting</h3>
+<p>
+  Check if data exists, count stored keys, or list property names.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-js">
+// Check if property exists
+let hasName = User.has("name")   // true or false
+
+// Count total properties
+let total = User.count()         // e.g. 2
+
+// Get property names
+let names = User.getNames()      // ["name", "country"]
+
+Bot.inspect({ hasName, total, names })
+// → { "hasName": true, "total": 2, "names": ["name", "country"] }
+</code></pre>
+</div>
+<!-- we will add that soon 
+<h3 id="user-batch">5. Batch Operations</h3>
+<p>
+  Fetch multiple values at once instead of calling <code>User.get()</code> many times.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-js">
+// Save multiple values
+User.set("theme", "dark")
+User.set("lang", "en")
+
+// Get multiple values at once
+let data = User.getMultiple(["theme", "lang", "name"])
+Bot.inspect(data)
+// → { "theme": "dark", "lang": "en", "name": "Alice" }
+</code></pre>
+</div>
+-->
+<h3 id="class-user-notes">Notes</h3>
+<ul>
+  <li>All methods only work for the current user — no other user can access this data.</li>
+  <li><code>get</code>, <code>set</code>, and <code>del</code> have multiple aliases (like <code>getProp</code>, <code>getProperty</code>).</li>
+  <li>Reading data is <b>synchronous</b> and returns the value directly.</li>
+  <li>Saving and deleting are <b>asynchronous</b>, but you don’t need <code>await</code> — they just return <code>undefined</code>.</li>
+</ul>
+
+<h2 id="class-msg">msg Class</h2>
+<p>
+The <b>msg</b> class lets you interact with Telegram messages.  
+You can send, reply, edit, delete, forward, copy, react, and perform chat actions.  
+All methods return <b>promises</b>, but using <code>await</code> is <b>optional</b> — only required if you need the response object.
+</p>
+
+<h3 id="class-msg-methods">Available Methods</h3>
+<ul>
+  <li><b>Core Messaging:</b> <code>msg.reply()</code>, <code>msg.send()</code></li>
+  <li><b>Media Messages:</b> <code>msg.replyPhoto()</code>, <code>msg.replyVideo()</code>, <code>msg.replyDocument()</code></li>
+  <li><b>Message Management:</b> <code>msg.editText()</code>, <code>msg.delete()</code>, <code>msg.react()</code>, <code>msg.pin()</code>, <code>msg.unpin()</code></li>
+  <li><b>Forwarding & Copying:</b> <code>msg.forward()</code>, <code>msg.copy()</code></li>
+  <li><b>Special Messages:</b> <code>msg.replySticker()</code>, <code>msg.replyDice()</code></li>
+  <li><b>Chat Actions:</b> <code>msg.sendChatAction()</code></li>
+</ul>
+
+<h3 id="class-msg-core">1. Core Messaging</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Reply to the current message
+msg.reply("Hello!")  // Fire-and-forget
+let result = await msg.reply("Hello!"); // Use await if you need the API response
+
+// Send a new message
+msg.send("This is a new message")
+await msg.send("This is a new message", { parse_mode: "Markdown" })  // await optional
+</code></pre>
+</div>
+
+<h3 id="class-msg-media">2. Media Messages</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Reply with a photo
+msg.replyPhoto("https://example.com/cat.jpg", { caption: "Cute cat 🐱" })
+await msg.replyPhoto("https://example.com/cat.jpg", { caption: "Cute cat 🐱" }) // await optional
+
+// Reply with a video
+msg.replyVideo("https://example.com/video.mp4")
+await msg.replyVideo("https://example.com/video.mp4", { caption: "Watch this!" })
+
+// Reply with a document
+msg.replyDocument("file.pdf")
+await msg.replyDocument("file.pdf")
+</code></pre>
+</div>
+
+<h3 id="class-msg-edit">3. Message Management</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Edit message text
+msg.editText("Updated text")
+await msg.editText("Updated text", { parse_mode: "Markdown" })
+
+// Delete message
+msg.delete(msg.message_id)
+await msg.delete(msg.message_id)
+
+// Add reactions
+msg.react("👍")
+msg.react("🔥", true) // Big emoji
+
+// Pin & unpin messages
+msg.pin()
+msg.unpin(msg.message_id)
+</code></pre>
+</div>
+
+<h3 id="class-msg-forward">4. Forwarding & Copying</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Forward message
+msg.forward(123456789)
+await msg.forward(123456789)
+
+// Copy message
+msg.copy(123456789, { caption: "Copied message" })
+await msg.copy(123456789, { caption: "Copied message" })
+</code></pre>
+</div>
+
+<h3 id="class-msg-special">5. Special Messages</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Reply with a sticker
+msg.replySticker("CAACAgUAAxkBAAECX-9g1...")
+await msg.replySticker("CAACAgUAAxkBAAECX-9g1...")
+
+// Reply with a dice
+msg.replyDice("🎲")
+await msg.replyDice("🎲")
+</code></pre>
+</div>
+
+<h3 id="class-msg-chat-action">6. Chat Actions</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Show typing indicator
+msg.sendChatAction("typing")
+await msg.sendChatAction("typing") // await optional
+
+// Other actions: "upload_photo", "record_video", "record_audio", "upload_document"
+</code></pre>
+</div>
+
+<h3 id="class-msg-info">7. Message Object Access</h3>
+<p>The <b>msg</b> object contains the full Telegram message data:</p>
+<ul>
+  <li><code>msg.text</code> - Message text</li>
+  <li><code>msg.chat</code> - Chat info (id, type, title, etc.)</li>
+  <li><code>msg.from</code> - Sender info</li>
+  <li><code>msg.message_id</code> - Unique message ID</li>
+  <li><code>msg.date</code> - Timestamp</li>
+  <li>All other standard Telegram <a href="https://core.telegram.org/bots/api#message">Message</a> fields are available</li>
+</ul>
+
+<p>All methods also work in lowercase (e.g., <code>msg.replyphoto</code>).  
+Markdown parsing is enabled by default for text methods.</p>
+
+
 <!-- content will stop here -->
     </div>
-  </section>
+</section>
 
 <footer class="footer">
   <div class="footer-links">
@@ -835,6 +1065,6 @@ HTTP.get({
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="script.js" type="text/javascript" charset="utf-8"></script>
+<script src="script.js" type="text/javascript" charset="utf-8" defer></script>
 </body>
 </html>
