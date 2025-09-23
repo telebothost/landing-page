@@ -33,7 +33,13 @@
             background-color: #ffffff;
             overflow-x: hidden;
         }
-        
+body {
+  overflow-x: scroll; /* allows scrolling */
+  scrollbar-width: none; /* Firefox */
+}
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Outfit', sans-serif;
             font-weight: 700;

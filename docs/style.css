@@ -16,6 +16,13 @@
             --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             --transition: all 0.3s ease;
         }
+        body {
+  overflow-x: scroll; /* allows scrolling */
+  scrollbar-width: none; /* Firefox */
+}
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
 header {
             position: fixed;
             top: 0;
