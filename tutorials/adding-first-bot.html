@@ -22,7 +22,14 @@
 
     .step-number { font-weight:600; color:#0088cc; margin-right:5px; }
     .important { font-weight:600; color:#d63384; }
-    .img-step { max-width:100%; margin:10px 0 25px; border-radius:10px; border:1px solid #eee; }
+.img-step {
+  max-width: 50%;
+  height: auto;           /* maintain aspect ratio */
+  margin: 10px auto 25px; /* top, horizontal center, bottom */
+  border-radius: 10px;
+  border: 1px solid #eee;
+  display: block;         /* makes margin:auto work for centering */
+}
     a { color:#0088cc; text-decoration:none; }
     a:hover { text-decoration:underline; }
   </style>
