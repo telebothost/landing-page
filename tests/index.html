@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Overlay Highlight Search</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding-top: 80px;
+  background: #f7f7f7;
+  position: relative;
+}
+
+header#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  color: white;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+}
+
+header .nav-links a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+header .search-nav {
+  display: none;
+  gap: 10px;
+  align-items: center;
+}
+
+header .search-nav button {
+  background: white;
+  border: none;
+  color: #007bff;
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#searchToggleBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+#cornerSearch {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  display: flex;
+  gap: 5px;
+  background: #fff;
+  padding: 8px 12px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transform: translateX(120%);
+  transition: transform 0.3s;
+  z-index: 999;
+}
+
+#cornerSearch.show {
+  transform: translateX(0);
+}
+
+#cornerSearch input {
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 220px;
+}
+
+.content {
+  margin: 20px auto;
+  max-width: 900px;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  position: relative;
+}
+
+.highlight-overlay {
+  position: absolute;
+  background: #007bff;
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 1;
+  border-radius: 3px;
+  padding: 0 1.5px;
+}
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="container nav-container">
+    <a href="index.html" class="logo">
+      TeleBot Host
+    </a>
+    <nav class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+    </nav>
+    <div class="search-nav">
+      <button id="prevMatch"><i class="fa-solid fa-arrow-left"></i></button>
+      <button id="nextMatch"><i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="content">
+  <h1>Main Heading</h1>
+  <h2>Sub Heading</h2>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Search for anything.</p>
+  <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  <a href="#">Click here for testing search</a>
+  <h3>Another Heading</h3>
+  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+
+<button id="searchToggleBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+<div id="cornerSearch">
+  <input type="text" id="searchInput" placeholder="Search keyword or ID">
+</div>
+
+<script>
+$(document).ready(function(){
+  let matches = [];
+  let currentIndex = -1;
+  let $overlays = [];
+
+  $('#searchToggleBtn').click(function(){
+    $('#cornerSearch').toggleClass('show');
+    $('#searchInput').focus();
+    if(!$('#cornerSearch').hasClass('show')){
+      clearHighlights();
+      $('#header .search-nav').hide();
+    }
+  });
+
+  function clearHighlights(){
+    $overlays.forEach(el => $(el).remove());
+    $overlays = [];
+    matches = [];
+    currentIndex = -1;
+  }
+
+  function highlightMatches(keyword){
+    clearHighlights();
+    if(!keyword){
+      $('#header .search-nav').hide();
+      return;
+    }
+
+    const elements = $('.content').find('p, h1, h2, h3, h4, h5, h6, a, span, li');
+    elements.each(function(){
+      const text = $(this).text();
+      const regex = new RegExp(keyword, 'gi');
+      let match;
+      while ((match = regex.exec(text)) !== null) {
+        const range = document.createRange();
+        const node = this.firstChild;
+        if(node){
+          range.setStart(node, match.index);
+          range.setEnd(node, match.index + match[0].length);
+          const rects = range.getClientRects();
+          Array.from(rects).forEach(r=>{
+            const $overlay = $('<div class="highlight-overlay"></div>').appendTo('body');
+            $overlay.css({
+              top: r.top + window.scrollY + 'px',
+              left: r.left + window.scrollX + 'px',
+              width: r.width + 'px',
+              height: r.height + 'px'
+            });
+            $overlays.push($overlay);
+          });
+        }
+      }
+    });
+
+    if($overlays.length>0){
+      currentIndex = 0;
+      scrollToMatch(currentIndex);
+      $('#header .search-nav').show();
+    }
+  }
+
+  function scrollToMatch(index){
+    if($overlays.length>0){
+      $('html, body').animate({scrollTop: $($overlays[index]).offset().top - 70}, 300);
+    }
+  }
+
+  $('#searchInput').on('input', function(){
+    const keyword = $(this).val().trim();
+    highlightMatches(keyword);
+  });
+
+  $('#nextMatch').click(function(){
+    if($overlays.length===0) return;
+    currentIndex = (currentIndex+1)%$overlays.length;
+    scrollToMatch(currentIndex);
+  });
+
+  $('#prevMatch').click(function(){
+    if($overlays.length===0) return;
+    currentIndex = (currentIndex-1+$overlays.length)%$overlays.length;
+    scrollToMatch(currentIndex);
+  });
+});
+</script>
+
+</body>
+</html>

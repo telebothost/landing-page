@@ -1,3 +1,8 @@
+            * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+        }
         :root {
             --primary: #3B82F6;
             --primary-dark: #2563EB;
@@ -23,6 +28,8 @@
 body::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge */
 }
+
+
 header {
             position: fixed;
             top: 0;
@@ -166,7 +173,7 @@ header {
     .copy-btn:hover { opacity: 1; background: #e6e6e6; }
     .copy-btn.copied { background: #e0f2e0; border-color: #4caf50; color: #2e7d32; }
 a{
-  text-decoration: none; font-weight: bold;
+  text-decoration: none; color: #0088cc; font-weight: bolder;
 }
     blockquote { border-left: 3px solid #0088cc; padding-left: 12px; margin: 15px 0; font-size: 0.95rem; color: #444; background: none; }
 
