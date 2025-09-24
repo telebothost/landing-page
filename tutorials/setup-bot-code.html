@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Setting Up Your Bot with TBL Codes | TeleBot Host</title>
+  <meta name="description" content="Learn how to set up your Telegram bot with TBL (Tele Bot Lang) codes for the first time. Complete step-by-step guide with examples and img.">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://telebothost.com/tutorials/setup-bot-code">
+  <meta property="og:title" content="Setting Up Your Bot with TBL Codes | TeleBot Host">
+  <meta property="og:description" content="Step-by-step guide to set up your first Telegram bot using TBL (Tele Bot Lang) codes on TeleBot Host.">
+  <meta property="og:image" content="https://telebothost.com/assets/img/tutorials.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://telebothost.com/tutorials/setup-bot-code">
+  <meta property="twitter:title" content="Setting Up Your Bot with TBL Codes | TeleBot Host">
+  <meta property="twitter:description" content="Step-by-step guide to set up your first Telegram bot using TBL (Tele Bot Lang) codes on TeleBot Host.">
+  <meta property="twitter:image" content="https://telebothost.com/assets/img/tutorials.jpg">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/style.css" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2719295794573158" crossorigin="anonymous"></script>
+  <style>
+    section { padding:80px 20px; max-width:950px; margin:auto; line-height:1.7; }
+    h2 { font-size:2rem; color:#0088cc; text-align:center; margin-bottom:10px; }
+    p.subtitle { text-align:center; margin-bottom:40px; color:#666; font-size:1.05rem; }
+
+    h3 { font-size:1.4rem; color:#0088cc; margin-top:40px; margin-bottom:15px; }
+    p { margin-bottom:15px; color:#333; }
+    ul { margin:15px 0 20px 20px; }
+    li { margin-bottom:15px; }
+    pre { background:#f9f9f9; padding:15px; border-radius:10px; overflow-x:auto; font-size:0.95rem; margin:15px 0; border:1px solid #eee; }
+    code { color:#d63384; }
+
+    .step-number { font-weight:600; color:#0088cc; margin-right:5px; }
+    .important { font-weight:600; color:#d63384; }
+    .img-step {
+      max-width: 50%;
+      height: auto;
+      margin: 10px auto 25px;
+      border-radius: 10px;
+      border: 1px solid #eee;
+      display: block;
+    }
+    a { color:#0088cc; text-decoration:none; font-weight: bold; }
+  </style>
+</head>
+<body>
+<header id="header">
+  <div class="container nav-container">
+    <a href="/" class="logo">
+      <img src="/assets/img/logo.png" alt="TeleBot Host Logo">
+      TeleBot Host
+    </a>
+    <nav class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+    </nav>
+  </div>
+</header>
+
+<section>
+  <h2>Setting Up Your Bot with TBL Codes</h2>
+  <p class="subtitle">A complete beginner-friendly guide to add your first TBL (Tele Bot Lang) code to your Telegram bot.</p>
+
+  <h3>Introduction to TBL</h3>
+  <p>TBL (Tele Bot Lang) is a lightweight scripting language designed for Telegram bot development. Its JavaScript-inspired syntax and built-in functions make creating bots fast and easy, without external dependencies.</p>
+
+  <h3>Key Features of TBL</h3>
+  <ul>
+    <li>Simplified command-based structure for bots</li>
+    <li>Predefined variables for user, chat, and message context</li>
+    <li>Built-in API methods for sending messages, keyboards, and inline responses</li>
+    <li>Support for HTTP requests, global variables, and modular extensions</li>
+    <li>Supports both synchronous (80%) and asynchronous (20%) execution with <code>await</code> and <code>Promise</code></li>
+    <li>Responds to specific command triggers rather than general events</li>
+  </ul>
+
+  <h3>Step 1: Access Your Bot</h3>
+  <p>Ensure your bot is already added to TeleBot Host. Go to the <b>Bot List</b> and click on your bot's name to open its management panel.</p>
+  <img src="/assets/img/step1-code.jpg" alt="Bot List" class="img-step">
+
+  <h3>Step 2: Open the Commands Tab</h3>
+  <p>Navigate to the <b>Commands</b> tab. You should see the <code>/start</code> command created in your first tutorial.</p>
+  <img src="/assets/img/step2-code.jpg" alt="Commands Tab" class="img-step">
+
+  <h3>Step 3: Open the Code Editor</h3>
+  <p>Click on the command name (<code>/start</code>) to open the TBL code editor.</p>
+  <img src="/assets/img/step3-code.jpg" alt="Code Editor Open" class="img-step">
+
+  <h3>Step 4: Add Your First TBL Code</h3>
+  <p>Type the following simple code in the editor to send a message:</p>
+  <pre><code>Bot.sendMessage("Hello! This message is from Bot codes");</code></pre>
+  <img src="/assets/img/step4-code.jpg" alt="Add TBL Code" class="img-step">
+
+  <h3>Step 5: Save Your Code</h3>
+  <p>Click the <b>Save</b> button at the bottom to store your changes.</p>
+  <h3>Step 6: Test Your Bot</h3>
+  <p>Go to Telegram, open your bot, and send <code>/start</code>. Your bot should reply with the message you added in TBL.</p>
+  <img src="/assets/img/step5-code.jpg" alt="Test Bot" class="img-step">
+
+  <h3>Congratulations!</h3>
+  <p>🎉 You have successfully added your first TBL code to your bot. Explore the <a href="/docs">documentation</a> to unlock more commands, inline keyboards, and advanced bot features.</p>
+  <div style="display:flex; justify-content:center; margin:50px auto; max-width:900px;">
+  <a href="/tutorials/adding-first-bot" 
+     style="padding:10px 22px; border:2px dotted #888; border-radius:8px; background:transparent; color:#0088cc; text-decoration:none; text-align:center; transition:all 0.2s; line-height:1.2;">
+     
+     <div style="font-size:16px; font-weight:bold;">Previous </div>
+     <div style="font-size:12px; color:#666;">Adding your first bot</div>
+  </a>
+</div>
+
+
+</section>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="/cookies">Cookies</a>
+    <a href="/resources">Resources</a>
+  </div>
+</footer>
+</body>
+</html>
