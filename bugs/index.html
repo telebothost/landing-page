@@ -162,61 +162,64 @@
 <script src="/assets/res.js" type="text/javascript" charset="utf-8"></script>
 <script>
   $('#bugReportForm').on('submit', async function(e) {
-  e.preventDefault();
-  
-  const fileInput = $('#screenshot')[0]
-  let screenshotBase64 = null
-  
-  if (fileInput.files.length > 0) {
-    const file = fileInput.files[0]
-    if (file.size > 5 * 1024 * 1024) {
-      alert('File size exceeds 5MB. Please upload a smaller image.')
-      return
+    e.preventDefault();
+    
+    const fileInput = $('#screenshot')[0];
+    let screenshotBase64 = null;
+    
+    if (fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      if (file.size > 5 * 1024 * 1024) {
+        alert('File size exceeds 5MB. Please upload a smaller image.');
+        return;
+      }
+      
+      screenshotBase64 = await fileToBase64(file);
     }
     
-    screenshotBase64 = await fileToBase64(file)
-  }
-  
-  const payload = {
-    name: $('#name').val(),
-    email: $('#email').val(),
-    description: $('#description').val(),
-    screenshot: screenshotBase64 // null if no image
-  }
-  
-  try {
-    const res = await fetch('https://rapid-band-9ffb.teleservices-api.workers.dev/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    })
+    const payload = {
+      name: $('#name').val(),
+      email: $('#email').val(),
+      description: $('#description').val(),
+      screenshot: screenshotBase64 // null if no image
+    };
     
-    const data = await res.json()
-    if (data.success) {
-      alert('Thank you for reporting the bug! Rewards may apply for quality reports.')
-      $('#bugReportForm')[0].reset()
-    } else {
-      alert('Failed to send bug report. Please try again.')
+    try {
+      const res = await fetch('https://images.soumya765.workers.dev/report', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+      
+      const data = await res.json();
+      
+      if (res.ok && data.success) {
+        alert('✅ Thank you for reporting the bug! Rewards may apply for quality reports.');
+        $('#bugReportForm')[0].reset();
+      } else if (data.error) {
+        alert('⚠️ ' + data.error);
+      } else {
+        alert('⚠️ Failed to send bug report. Please try again.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('❌ An error occurred. Please try later.');
     }
-  } catch (err) {
-    console.error(err)
-    alert('An error occurred. Please try later.')
+  });
+  
+  // Helper: Convert file to Base64
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        resolve(reader.result.split(',')[1]); // strip "data:*/*;base64,"
+      };
+      reader.onerror = error => reject(error);
+    });
   }
-})
-
-// Helper: Convert file to Base64
-function fileToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => {
-      // Remove "data:*/*;base64," prefix
-      resolve(reader.result.split(',')[1])
-    }
-    reader.onerror = error => reject(error)
-  })
-}
 </script>
-
 </body>
 </html>
