@@ -1,165 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TeleBot Host - Report a Bug</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/style.css" type="text/css" media="all" />
-  <style>
-    section {
-      padding: 80px 20px 50px;
-      max-width: 700px;
-      margin: auto;
-    }
-    h2 {
-      font-size: 2rem;
-      color: #0088cc;
-      text-align: center;
-      margin-bottom: 10px;
-    }
-    p.subtitle {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #555;
-    }
-    p.note {
-      background: #e0f7ff;
-      color: #0077b0;
-      padding: 12px 16px;
-      font-size: 0.95rem;
-      margin-bottom: 25px;
-      border-left: 4px solid #0088cc;
-    }
-    form {
-      background: transparent;
-      padding: 0;
-    }
-    form label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: #333;
-    }
-    form input, form textarea {
-      width: 100%;
-      padding: 12px 14px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 1rem;
-      background: #fdfdfd;
-      color: #333;
-      transition: border 0.3s, box-shadow 0.3s, transform 0.2s;
-    }
-    form input:focus, form textarea:focus {
-      outline: none;
-      border-color: #0088cc;
-      box-shadow: 0 0 0 4px rgba(0,136,204,0.2);
-    }
-    form textarea {
-      resize: vertical;
-      min-height: 140px;
-    }
-    form button {
-      background: #0088cc;
-      color: #fff;
-      padding: 14px 22px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: 600;
-      transition: background 0.3s, transform 0.2s;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-    }
-    form button:hover {
-      background: #0077b0;
-    }
-    input[type="file"] {
-      padding: 10px;
-      border-radius: 10px;
-      background: #fdfdfd;
-      border: 1px solid #ccc;
-      cursor: pointer;
-      transition: border 0.3s, box-shadow 0.3s;
-    }
-    input[type="file"]:focus {
-      outline: none;
-      border-color: #0088cc;
-      box-shadow: 0 0 0 4px rgba(0,136,204,0.2);
-    }
-    .alert {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 14px 20px;
-      border-radius: 8px;
-      color: #fff;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 9999;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-    }
-    .alert.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .alert.success { background-color: #28a745; }
-    .alert.error { background-color: #dc3545; }
-    .alert.warning { background-color: #ffc107; color: #333; }
-    .spinner {
-      border: 3px solid #f3f3f3;
-      border-top: 3px solid #fff;
-      border-radius: 50%;
-      width: 16px;
-      height: 16px;
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg);}
-      100% { transform: rotate(360deg);}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TeleBot Host - Report a Bug</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css" type="text/css" media="all" />
+<style>
+  section { padding: 80px 20px 50px; max-width: 700px; margin: auto; }
+  h2 { font-size: 2rem; color: #0088cc; text-align: center; margin-bottom: 10px; }
+  p.subtitle { text-align: center; margin-bottom: 20px; color: #555; }
+  p.note { background: #e0f7ff; color: #0077b0; padding: 12px 16px; font-size: 0.95rem; margin-bottom: 25px; border-left: 4px solid #0088cc; }
+  form { background: transparent; padding: 0; }
+  form label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; }
+  form input, form textarea { width: 100%; padding: 12px 14px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 10px; font-size: 1rem; background: #fdfdfd; color: #333; transition: border 0.3s, box-shadow 0.3s, transform 0.2s; }
+  form input:focus, form textarea:focus { outline: none; border-color: #0088cc; box-shadow: 0 0 0 4px rgba(0,136,204,0.2); }
+  form textarea { resize: vertical; min-height: 140px; }
+  form button { background: #0088cc; color: #fff; padding: 14px 22px; border: none; border-radius: 10px; cursor: pointer; font-size: 1rem; font-weight: 600; transition: background 0.3s, transform 0.2s; width: 100%; display: flex; justify-content: center; align-items: center; gap: 8px; }
+  form button:hover { background: #0077b0; }
+  input[type="file"] { padding: 10px; border-radius: 10px; background: #fdfdfd; border: 1px solid #ccc; cursor: pointer; transition: border 0.3s, box-shadow 0.3s; }
+  input[type="file"]:focus { outline: none; border-color: #0088cc; box-shadow: 0 0 0 4px rgba(0,136,204,0.2); }
+.alert {
+  position: fixed;
+  top: -100px; /* hidden above screen */
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 300px;
+  max-width: 90%;
+  padding: 14px 20px;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  text-align: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.alert.show {
+  top: 30px;   /* slide down */
+  opacity: 1;
+}
+
+.alert.success { background-color: #28a745; }
+.alert.error   { background-color: #dc3545; }
+.alert.warning { background-color: #ffc107; color: #333; }
+  .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #fff; border-radius: 50%; width: 16px; height: 16px; animation: spin 0.8s linear infinite; }
+  @keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
+</style>
 </head>
 <body>
 <header id="header">
   <div class="container nav-container">
     <a href="/" class="logo">
-      <img src="/assets/img/logo.png" alt="TeleBot Host Logo">
-      TeleBot Host
+      <img src="/assets/img/logo.png" alt="TeleBot Host Logo"> TeleBot Host
     </a>
     <nav class="nav-links">
       <a href="/" class="nav-link">Home</a>
     </nav>
   </div>
 </header>
+
 <section>
   <h2>Report a Bug</h2>
   <p class="subtitle">Help us improve TeleBot Host by reporting any bugs or issues you encounter.</p>
   <p class="note"><i class="fas fa-gift" style="margin: 5px;"></i> Reporting a meaningful bug can earn you <strong>free premium membership</strong> or other rewards! Make your report detailed and clear.</p>
+
   <form id="bugReportForm" enctype="multipart/form-data">
     <label for="name">Your Name</label>
     <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
     <label for="email">Email</label>
     <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
     <label for="description">Bug Description</label>
     <textarea id="description" name="description" placeholder="Describe the issue in detail" required></textarea>
+
     <label for="screenshot">Optional Screenshot (Max 5MB)</label>
     <input type="file" id="screenshot" name="screenshot" accept="image/*">
+
+    <!-- Cloudflare Turnstile -->
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAB3SDO8OyNEqXe2B"></div>
+
     <button type="submit"><span class="btn-text">Submit Report</span></button>
   </form>
 </section>
+
 <footer class="footer">
   <div class="footer-links">
     <a href="/privacy">Privacy</a>
@@ -168,55 +96,30 @@
     <a href="/resources">Resources</a>
   </div>
 </footer>
+
 <div id="customAlert" class="alert"><span class="alert-text"></span></div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
-  $('#bugReportForm').on('submit', async function(e) {
-    e.preventDefault();
-    const button = $(this).find('button');
-    const btnText = button.find('.btn-text');
-    button.prop('disabled', true);
-    btnText.html('<div class="spinner"></div>');
-    const fileInput = $('#screenshot')[0];
-    let screenshotBase64 = null;
-    if (fileInput.files.length > 0) {
-      const file = fileInput.files[0];
-      if (file.size > 5 * 1024 * 1024) {
-        showAlert('File size exceeds 5MB. Please upload a smaller image.', 'warning');
-        button.prop('disabled', false);
-        btnText.html('Submit Report');
-        return;
-      }
-      screenshotBase64 = await fileToBase64(file);
-    }
-    const payload = {
-      name: $('#name').val(),
-      email: $('#email').val(),
-      description: $('#description').val(),
-      screenshot: screenshotBase64
-    };
-    try {
-      const res = await fetch('https://img-host-six.vercel.app/report', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
-      if (res.ok && data.success) {
-        showAlert('✅ Thank you for reporting the bug! Rewards may apply for quality reports.', 'success');
-        $('#bugReportForm')[0].reset();
-      } else if (data.error) {
-        showAlert('⚠️ ' + data.error, 'error');
-      } else {
-        showAlert('⚠️ Failed to send bug report. Please try again.', 'error');
-      }
-    } catch (err) {
-      console.error(err);
-      showAlert('❌ An error occurred. Please try later.', 'error');
-    }
-    button.prop('disabled', false);
-    btnText.html('Submit Report');
-  });
+  function sanitizeInput(str) {
+    return str.replace(/[<>]/g, "");
+  }
+
+  function showAlert(message, type) {
+  const alertBox = $('#customAlert');
+  alertBox.removeClass('success error warning show');
+  alertBox.addClass(type);
+  alertBox.find('.alert-text').text(message);
+  
+  // Show alert
+  setTimeout(() => alertBox.addClass('show'), 50);
+  
+  // Hide after 4s
+  setTimeout(() => {
+    alertBox.removeClass('show');
+  }, 4000);
+}
 
   function fileToBase64(file) {
     return new Promise((resolve, reject) => {
@@ -227,13 +130,73 @@
     });
   }
 
-  function showAlert(message, type) {
-    const alertBox = $('#customAlert');
-    alertBox.removeClass('success error warning').addClass(type);
-    alertBox.find('.alert-text').text(message);
-    alertBox.addClass('show');
-    setTimeout(() => alertBox.removeClass('show'), 4000);
-  }
+  $('#bugReportForm').on('submit', async function(e) {
+    e.preventDefault();
+    const button = $(this).find('button');
+    const btnText = button.find('.btn-text');
+    button.prop('disabled', true);
+    btnText.html('<div class="spinner"></div>');
+
+    // Validate Turnstile
+    const turnstileToken = window.turnstile && window.turnstile.getResponse();
+    if (!turnstileToken) {
+      showAlert('⚠️ Please complete the CAPTCHA first.', 'warning');
+      button.prop('disabled', false);
+      btnText.html('Submit Report');
+      return;
+    }
+
+    // Sanitize inputs
+    const name = sanitizeInput($('#name').val());
+    const email = sanitizeInput($('#email').val());
+    const description = sanitizeInput($('#description').val());
+
+    // Handle file
+    const fileInput = $('#screenshot')[0];
+    let screenshotBase64 = null;
+    if (fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      if (!file.type.startsWith('image/')) {
+        showAlert('⚠️ Invalid file type. Please upload an image.', 'warning');
+        button.prop('disabled', false);
+        btnText.html('Submit Report');
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        showAlert('⚠️ File size exceeds 5MB. Please upload a smaller image.', 'warning');
+        button.prop('disabled', false);
+        btnText.html('Submit Report');
+        return;
+      }
+      screenshotBase64 = await fileToBase64(file);
+    }
+
+    const payload = { name, email, description, screenshot: screenshotBase64, turnstileToken };
+
+    try {
+      const res = await fetch('https://img-host-six.vercel.app/report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        showAlert('✅ Thank you for reporting the bug! Rewards may apply for quality reports.', 'success');
+        $('#bugReportForm')[0].reset();
+        if (window.turnstile) window.turnstile.reset();
+      } else if (data.error) {
+        showAlert('⚠️ ' + data.error, 'error');
+      } else {
+        showAlert('⚠️ Failed to send bug report. Please try again.', 'error');
+      }
+    } catch (err) {
+      console.error(err);
+      showAlert('❌ An error occurred. Please try later.', 'error');
+    }
+
+    button.prop('disabled', false);
+    btnText.html('Submit Report');
+  });
 </script>
 </body>
 </html>

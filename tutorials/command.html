@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TeleBot Host - Adding and Configuring Commands (Beginner Friendly)</title>
+  <meta name="description" content="Detailed, step-by-step beginner guide to add and configure commands for your Telegram bot using TeleBot Host. Clear explanations and practical examples.">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://telebothost.com/tutorials/commands.html">
+  <meta property="og:title" content="TeleBot Host - Adding and Configuring Commands">
+  <meta property="og:description" content="Detailed, step-by-step beginner guide to add and configure commands for your Telegram bot using TeleBot Host. Clear explanations and practical examples.">
+  <meta property="og:image" content="https://telebothost.com/assets/images/tutorials.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://telebothost.com/tutorials/commands.html">
+  <meta property="twitter:title" content="TeleBot Host - Adding and Configuring Commands">
+  <meta property="twitter:description" content="Detailed, step-by-step beginner guide to add and configure commands for your Telegram bot using TeleBot Host. Clear explanations and practical examples.">
+  <meta property="twitter:image" content="https://telebothost.com/assets/images/tutorials.jpg">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/style.css" />
+  <style>
+
+    section { padding:80px 20px; max-width:900px; margin:auto; line-height:1.7; }
+    h2 { font-size:2rem; color:#0088cc; text-align:center; margin-bottom:15px; }
+    h3 { font-size:1.4rem; color:#0088cc; margin-top:30px; margin-bottom:15px; }
+    h4 { font-size:1.2rem; color:#0088cc; margin-top:20px; margin-bottom:10px; }
+    p.subtitle { text-align:center; margin-bottom:50px; color:#666; font-size:1.05rem; }
+    p, li { color:#333; }
+    ul { margin-left:20px; }
+    pre { background:#f9f9f9; padding:15px; border-radius:10px; overflow-x:auto; border:1px solid #eee; margin:15px 0; }
+    code { color:#d63384; }
+    a { color:#0088cc; text-decoration:none; font-weight: bold; }
+    .step { margin:18px 0; padding-left:10px; }
+    .note { background:#f1f5f9; border-left:4px solid #0088cc; padding:10px 12px; border-radius:6px; margin:10px 0; }
+    .example { background:#fff7ed; border-left:4px solid #d97706; padding:10px 12px; border-radius:6px; margin:10px 0; }
+    .small { font-size:0.95rem; color:#555; }
+  </style>
+</head>
+<body>
+<header id="header">
+  <div class="container nav-container">
+    <a href="/" class="logo">
+      <img src="/assets/img/logo.png" alt="TeleBot Host Logo">
+      TeleBot Host
+    </a>
+    <nav class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">TBL Language Reference</a>
+    </nav>
+  </div>
+</header>
+
+<section>
+  <h2>Adding and Configuring Commands</h2>
+  <p class="subtitle">An expanded, easy-to-follow step-by-step guide for first-time users. Each step tells you exactly what to click and what to type.</p>
+
+  <h3>Quick recap (if you followed Tutorial 2)</h3>
+  <p class="small">You already added your bot and created a simple <code>/start</code> command. This page shows more steps and explains each option clearly so you can build useful commands.</p>
+
+  <h3>Overview — What is a Command?</h3>
+  <p class="small">A command is a trigger (like <code>/start</code> or <code>hi</code>) that tells your bot what to do. When a user sends that trigger, your bot will respond with the message or action you set.</p>
+
+  <hr>
+
+  <h3>Step 1 — Open the Commands tab</h3>
+  <div class="step">
+    <ol>
+      <li>Go to your TeleBot Host dashboard and select the bot you want to manage.</li>
+      <li>Click the <b>Commands</b> tab in the bot panel. You will see a list of existing commands.</li>
+      <li>If this is empty, don’t worry — we will add commands now.</li>
+    </ol>
+  </div>
+
+  <h3>Step 2 — Add a new command</h3>
+  <div class="step">
+    <ol>
+      <li>Click the <b>+</b> (Add Command) button.</li>
+      <li>A form appears with fields. Fill them as shown below (we explain each one after this).</li>
+      <li>When done, click <b>Save</b>. Your new command appears in the commands list.</li>
+    </ol>
+  </div>
+
+  <h3>Step 3 — What each field means (easy, one-by-one)</h3>
+
+  <h4>Command Name</h4>
+  <p class="small">This is the word users will type to trigger the command. Examples:</p>
+  <ul>
+    <li><code>/start</code> — common welcome command</li>
+    <li><code>/help</code> — shows help text</li>
+    <li><code>hi</code> — works without slash if you want</li>
+  </ul>
+  <div class="note">Tip: Keep it short and clear. Prefer slashes for main commands (for example <code>/start</code>).</div>
+
+  <h4>Bot Response</h4>
+  <p class="small">Text the bot will send when the command is used. This can be a short message or a formatted message using Markdown. Example:</p>
+  <pre>Welcome! Use these options:
+- Info
+- Support</pre>
+  <div class="note">If you add both a Bot Response and code, the response will be sent automatically while code can do more actions. Use either or both.</div>
+
+  <h4>Keyboard</h4>
+  <p class="small">Optional buttons shown with the message. Use a comma (,) to separate buttons on the same row and <code>\n</code> to start a new row.</p>
+  <div class="example">
+    <b>Same row example</b>: <code>Yes, No</code> → shows Yes and No next to each other.<br>
+    <b>New row example</b>: <code>Option 1\nOption 2</code> → Option 1 on first row, Option 2 on second row.
+  </div>
+  <div class="note">If you choose a keyboard type that expects an answer, make sure your keyboard options match what you expect users to tap.</div>
+
+  <h4>Need Reply</h4>
+  <p class="small">If you enable <b>Need Reply</b>, the bot will wait for the user's next message and treat it as the answer to this command. Use this for forms or questions.</p>
+  <div class="example">
+    <b>Example:</b> Command asks "Please enter your email" and you enable Need Reply. The next message the user sends will be captured as the email.
+  </div>
+  <div class="note">Important: Use Need Reply only when you actually want to collect user input. It creates a short session for that user.</div>
+
+  <h4>Aliases</h4>
+  <p class="small">Other triggers that will run the same command. Add common variations so users can type different words and still get the same result.</p>
+  <pre>Command: /hello
+Aliases: hi, hey, hola</pre>
+  <div class="note">Add aliases as comma-separated words (no slashes needed). Aliases make your bot more forgiving to different user inputs.</div>
+
+  <h4>Allow Only Group (deprecated)</h4>
+  <p class="small">This setting is old and not recommended. You can ignore it for new commands.</p>
+
+  <hr>
+
+  <h3>Step 4 — Save and test the command (easy test)</h3>
+  <div class="step">
+    <ol>
+      <li>After saving your command, open Telegram and go to your bot.</li>
+      <li>Type the command exactly (for example <code>/start</code> or <code>hi</code>).</li>
+      <li>Confirm the bot replies with the Bot Response and shows keyboard buttons if you added them.</li>
+    </ol>
+  </div>
+
+  <h3>Step 5 — Example: Create a simple help command (walkthrough)</h3>
+  <div class="step">
+    <ol>
+      <li>Click <b>+</b> to add a command.</li>
+      <li>Command Name: <code>/help</code></li>
+      <li>Bot Response:
+        <pre>Welcome! Choose one:
+- Info
+- Contact</pre>
+      </li>
+      <li>Keyboard: <code>Info, Contact</code></li>
+      <li>Need Reply: <b>Off</b></li>
+      <li>Save. Test in Telegram by typing <code>/help</code>.</li>
+    </ol>
+  </div>
+
+  <h3>Step 6 — Example: Collect user input (Need Reply example)</h3>
+  <div class="step">
+    <ol>
+      <li>Create a command with:
+        <ul>
+          <li>Command Name: <code>/email</code></li>
+          <li>Bot Response: <code>Please enter your email address</code></li>
+          <li>Need Reply: <b>On</b></li>
+        </ul>
+      </li>
+      <li>Save the command.</li>
+      <li>User types <code>/email</code>. The bot asks "Please enter your email address".</li>
+      <li>User replies with their email. Your bot panel will receive that reply as the user's response for this command (check logs or use code later to store it).</li>
+    </ol>
+    <div class="note">How to use the reply later: after you receive the reply, you can edit the command to add code that saves the reply to a database or variable (advanced step).</div>
+  </div>
+
+  <h3>Step 7 — Edit or delete a command</h3>
+  <div class="step">
+    <ol>
+      <li>In Commands list, click the command name to open the edit form.</li>
+      <li>Change any field (name, response, keyboard, aliases, need reply).</li>
+      <li>Click <b>Save</b> to apply changes.</li>
+      <li>To delete: click the three dot on top then click on <b>Delete</b> button (confirm when asked).</li>
+    </ol>
+  </div>
+
+  <h3>Step 8 — Command priority and matching (simple)</h3>
+  <p class="small">When the bot receives a message, it checks for matching commands. Exact matches and slash commands have priority. If no command matches, the fallback <code>*</code> command runs (if set).</p>
+  <div class="note">If two commands could match the same text, prefer unique names or use aliases carefully to avoid conflicts.</div>
+
+
+</section>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="/cookies">Cookies</a>
+    <a href="/resources">Resources</a>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1" />  
+  <title>TeleBot Host - Special Commands (Easy TBL Guide)</title>  
+  <meta name="description" content="Easy guide to TBL special commands (@, !, @@, *, /channel_update, /inline_query). Simple explanation for beginners." />  
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />  
+  <link rel="stylesheet" href="/assets/style.css" />  
+
+  <style>  
+    section { padding:80px 20px; max-width:900px; margin:auto; line-height:1.7; }  
+    h2 { font-size:2rem; color:#0088cc; text-align:center; margin-bottom:15px; }  
+    h3 { font-size:1.4rem; color:#0088cc; margin-top:25px; margin-bottom:15px; }  
+    p.subtitle { text-align:center; margin-bottom:30px; color:#666; font-size:1.05rem; }  
+    p, li { color:#333; }  
+    ul { margin-left:20px; }  
+    .box { background:#f9f9f9; border-left:4px solid #0088cc; padding:12px; border-radius:6px; margin:12px 0; }  
+    .note { background:#fff7ed; border-left:4px solid #d97706; padding:12px; border-radius:6px; margin:12px 0; color:#333; }  
+  </style>  
+</head>  
+<body>  
+<header id="header">  
+  <div class="container nav-container">  
+    <a href="/" class="logo">  
+      <img src="/assets/img/logo.png" alt="TeleBot Host Logo" />  
+      TeleBot Host  
+    </a>  
+    <nav class="nav-links">  
+      <a href="/" class="nav-link">Home</a>  
+      <a href="/tutorials/" class="nav-link">TBL Tutorials</a>  
+    </nav>  
+  </div>  
+</header>  
+
+<section>  
+  <h2>Special Commands in TBL (Easy Guide)</h2>  
+  <p class="subtitle">Learn the special commands in TBL in a simple way. No coding knowledge needed.</p>  
+
+  <div class="box">  
+    <strong>Important Rules:</strong>  
+    <ul>  
+      <li>All normal commands run inside a function.</li>  
+      <li>@ runs differently: it is not function-wrapped.</li>  
+      <li>Top-level return does not work in @.</li>  
+      <li>@ is synchronous, but you can define async functions inside it if needed.</li>  
+      <li>Use @ for shared settings and variables that other commands can access.</li>  
+    </ul>  
+  </div>  
+
+  <h3>@ — Startup and Configuration</h3>  
+  <p>Think of the @ command as your bot’s “setup area.” It runs automatically when the bot starts and prepares everything your bot will use later.</p>  
+  <ul>  
+    <li><strong>Main Purpose:</strong> Store shared values and settings that all commands can use, like admin IDs, feature flags, or default messages.</li>  
+    <li><strong>How it works:</strong> @ runs once when the bot starts. Because it is not inside a function, normal return or early-exit commands do not behave the same as in other commands.</li>  
+    <li><strong>Async tasks:</strong> @ is synchronous, which means it runs step by step. If you need to do tasks that take time (like loading a file or fetching a small setting), you must define a separate async function inside @ and then call it carefully.</li>  
+    <li><strong>Do not:</strong> Put any user interaction logic in @. Commands that wait for user input should go in normal commands.</li>  
+    <li><strong>Do:</strong> Only define settings, shared values, or helper functions that other commands will use.</li>  
+    <li><strong>Example use:</strong> You can store the bot’s admin list, default greetings, or feature switches so that any other command can access them easily.</li>  
+  </ul>  
+
+  <h3>! — Error Handling</h3>  
+  <p>Runs automatically if a command produces an error. Use it to log problems or notify users that something went wrong.</p>  
+
+  <h3>@@ — After Every Command</h3>  
+  <p>Runs after each command. Useful for logging, cleaning temporary data, or counting command uses.</p>  
+
+  <h3>* — Fallback</h3>  
+  <p>Runs if no other command matches. Use it to guide users, show a menu, or suggest the next step.</p>  
+<p>* is master Command it can handle any type of updates that telegram support</p>
+  <h3>/channel_update — Channel Posts</h3>  
+  <p>Runs when the bot receives channel update like channel post .</p>  
+
+  <h3>/inline_query — Inline Mode</h3>  
+  <p>Runs when users call your bot inline. Use it to show quick results or options instantly.</p>  
+
+  <div class="note">  
+    <strong>Tip:</strong> Keep @ for setup, ! for errors, @@ for after-command tasks, * for unknown messages, and channel/inline commands for their specific events.  
+  </div>  
+</section>  
+
+<footer class="footer">  
+  <div class="footer-links">  
+    <a href="/privacy">Privacy</a>  
+    <a href="/terms">Terms</a>  
+    <a href="/cookies">Cookies</a>  
+    <a href="/resources">Resources</a>  
+  </div>  
+</footer>  
+</body>  
+</html>
