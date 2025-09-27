@@ -31,11 +31,10 @@
             color: var(--dark);
             line-height: 1.6;
             background-color: #ffffff;
-            overflow-x: hidden;
         }
 body {
-  overflow-x: scroll; /* allows scrolling */
-  scrollbar-width: none; /* Firefox */
+  overflow-x: hidden;
+  scrollbar-width: none;
 }
 body::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge */
