@@ -1,0 +1,8 @@
+# TeleBotHost - robots.txt
+
+# Allow all bots to access the entire site
+User-agent: *
+Disallow:
+
+# Sitemap location
+Sitemap: https://telebothost.com/sitemap.xml
