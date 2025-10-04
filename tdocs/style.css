@@ -391,17 +391,50 @@ h4[id]:hover .anchor-link {
 .adsbygoogle {
   margin: 20px 0;
   text-align: center;
+  min-height: 90px; /* Ensure minimum height for ads */
+  display: block !important;
+}
+
+/* Prevent Discover mode by ensuring proper ad container */
+.adsbygoogle[data-ad-format="auto"] {
+  min-height: 250px;
+}
+
+.adsbygoogle[data-ad-format="fluid"] {
+  min-height: 200px;
+}
+
+.adsbygoogle[data-ad-format="autorelaxed"] {
+  min-height: 300px;
 }
 
 @media (max-width: 768px) {
   .adsbygoogle {
     margin: 15px 0;
+    min-height: 80px;
+  }
+  
+  .adsbygoogle[data-ad-format="auto"] {
+    min-height: 200px;
+  }
+  
+  .adsbygoogle[data-ad-format="fluid"] {
+    min-height: 150px;
   }
 }
 
 @media (max-width: 480px) {
   .adsbygoogle {
     margin: 10px 0;
+    min-height: 70px;
+  }
+  
+  .adsbygoogle[data-ad-format="auto"] {
+    min-height: 180px;
+  }
+  
+  .adsbygoogle[data-ad-format="fluid"] {
+    min-height: 120px;
   }
 }
 
