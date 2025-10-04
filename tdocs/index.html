@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, interactive-widget=resizes-content">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="TeleBotHost Team">
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<!-- SEO Meta Tags -->
+<meta name="description" content="TBL Language Documentation – Learn everything about TeleBotHost Language (TBL) with detailed guides, examples, and best practices for bot development.">
+<meta name="keywords" content="Telegram bot hosting, free Telegram bot hosting, best Telegram bot hosting, secure Telegram bot server, scalable bot hosting, fast Telegram bot hosting, 24/7 Telegram bot uptime, automated Telegram bots, TeleBotHost, Tele-Bot-Host, TeleBotHaven, TelebotCreator, online Telegram bot hosting, Telegram bot deployment, cloud bot hosting, serverless Telegram bot hosting, PythonAnywhere Telegram bots, AWS Lambda Telegram bots, Oracle Cloud Telegram bots, HostArmada Telegram bot hosting, high-performance bot hosting, Telegram bot management, reliable bot servers, affordable Telegram bot hosting, top Telegram bot hosting 2025, free tier bot hosting, Telegram bot automation, Telegram bot server cost, Telegram bot hosting comparison, Telegram bot hosting tutorial, Telegram bot hosting guide, Telegram bot hosting platform review, host Telegram bots instantly, Telegram bot hosting solutions, Telegram bot hosting providers, Telegram bot hosting features, Telegram bot hosting for beginners, Telegram bot hosting experts, Telegram bot server performance, best free Telegram bot host, Telegram bot hosting tips, Telegram bot development, Telegram bot hosting reviews, Telegram bot cloud hosting, Telegram bot hosting fast server, Telegram bot hosting online, top free Telegram bot hosting, Telegram bot automation tools, Telegram bot platform, cheap Telegram bot servers, scalable Telegram hosting, high-speed bot hosting, Telegram bot server setup, Telegram bot hosting security, best hosting for Telegram bots, Telegram bot server management, Telegram bot hosting service, Telegram bot hosting site, top Telegram bot platforms, TBL Language, TeleBotHost, Telegram bots, bot development, TBL documentation, TBL tutorial, TeleBotHost guides, Telegram API, bot programming">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="TBL Language Documentation | TeleBotHost">
+<meta property="og:description" content="Learn everything about TBL Language for Telegram bots with examples, guides, and best practices from TeleBotHost.">
+<meta property="og:url" content="https://telebothost.com/">
+<meta property="og:image" content="https://telebothost.com/assets/images/docs.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TBL Language Documentation | TeleBotHost">
+<meta name="twitter:description" content="Comprehensive TBL Language Documentation for building powerful Telegram bots. Learn with examples, tutorials, and guides.">
+<meta name="twitter:image" content="https://telebothost.com/assets/images/docs.png">
+
+<!-- Additional SEO Meta Tags -->
+<meta name="theme-color" content="#3B82F6">
+<meta name="msapplication-TileColor" content="#3B82F6">
+<meta name="application-name" content="TeleBotHost Documentation">
+<meta name="apple-mobile-web-app-title" content="TBL Docs">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "TBL Language Documentation | TeleBotHost",
+  "description": "Learn everything about TBL Language for Telegram bots with examples, guides, and best practices from TeleBotHost.",
+  "author": {
+    "@type": "Organization",
+    "name": "TeleBotHost Team"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TeleBotHost",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://telebothost.com/assets/img/logo.png"
+    }
+  },
+  "datePublished": "2025-01-01",
+  "dateModified": "2025-01-01",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://telebothost.com/docs"
+  },
+  "about": {
+    "@type": "Thing",
+    "name": "TBL Language",
+    "description": "Telegram Bot Language for rapid bot development"
+  },
+  "keywords": "TBL Language, TeleBotHost, Telegram bots, bot development, TBL documentation, TBL tutorial, Telegram API, bot programming"
+}
+</script>
+
+<title>TBL Language Documentation | TeleBotHost</title>
+  <!-- Preload critical resources -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"></noscript>
+  
+  <!-- Load CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+  
+  <!-- AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2719295794573158" crossorigin="anonymous"></script>
+  
+  <!-- Highlight.js for syntax highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <img src="/assets/img/logo.png" alt="TeleBot Host Logo">
+        TeleBot Host
+      </a>
+      <nav class="nav-links">
+        <a href="/" class="nav-link">Home</a>
+      </nav>
+    </div>
+  </header>
+  <main class="main-content">
+    <section class="docs">
+      <div class="container">
+        <h2 class="section-title">TBL Language Reference</h2>
+        <p class="section-subtitle">Full reference guide for TBL (Tele Bot Lang)</p>
+
+        <div class="doc-content">
+
+      <!-- 1. Introduction -->
+      <h2 id="intro">Introduction</h2>
+      <p><b>TBL (Tele Bot Lang)</b> is a lightweight scripting language designed specifically for Telegram bot development.  
+      It provides a JavaScript-inspired syntax with built-in functions for rapid bot creation, without the overhead of external dependencies.</p>
+
+      <h3>Key Features</h3>
+      <ul>
+        <li>Simplified command-based structure</li>
+        <li>Predefined variables for user, chat, and message context</li>
+        <li>Built-in API methods for sending messages, keyboards, and inline responses</li>
+        <li>Support for HTTP requests, global variables, and modular extensions</li>
+        <li>Support both synchronous and asynchronous execution, with 80% sync and 20% aync behaviour where <code>await</code>, <code>Promise</code> are valid</li>
+      </ul>
+
+      <div class="alert info">
+        <i class="fas fa-info-circle"></i>
+        <div>TBL scripts are <b>command-based</b>, meaning they respond to specific triggers instead of listening for events.</div>
+      </div>
+
+      <!-- Ad placement 1: After introduction -->
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-format="fluid"
+           data-ad-layout-key="-fb+5w+4e-db+86"
+           data-ad-client="ca-pub-2719295794573158"
+           data-ad-slot="8786409519"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+
+      <!-- 2. Getting Started -->
+      <h2 id="getting-started">Getting Started</h2>
+      <p>This section explains the basic steps to create and test your first Telegram bot using TBL.</p>
+
+      <h3>Step 1: Create a Telegram Bot</h3>
+      <ol>
+        <li>Open Telegram and search for <a href="https://t.me/BotFather" target="_blank">@BotFather</a>.</li>
+        <li>Send <code>/newbot</code> to create a new bot.</li>
+        <li>Choose a name and a username (must end with <code>bot</code>).</li>
+        <li>Copy the generated bot token.</li>
+      </ol>
+
+      <div class="code-container">
+        <pre><code class="language-javascript">const botToken = "123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ";</code></pre>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+
+      <h3>Step 2: Register on TBL Platform</h3>
+      <ol>
+        <li>Log into the TBL platform.</li>
+        <li>Click "Create New Bot".</li>
+        <li>Enter the bot name and paste the token from BotFather.</li>
+        <li>Click "Create" to initialize your bot.</li>
+      </ol>
+
+      <h3>Step 3: Add Basic Commands</h3>
+      <p>Create a <code>/start</code> command for user onboarding:</p>
+      <div class="code-container">
+        <pre><code class="language-javascript">Bot.sendMessage("Hello " + user.first_name + "! Welcome to my bot.")</code></pre>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+
+      <p>Example: <code>/help</code> command:</p>
+      <div class="code-container">
+        <pre><code class="language-javascript">
+Bot.sendMessage("Available commands:\n/start - Start bot\n/help - Show help")</code></pre>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+
+      <!-- Ad placement 2: After Getting Started section -->
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-format="fluid"
+           data-ad-layout-key="-fb+5w+4e-db+86"
+           data-ad-client="ca-pub-2719295794573158"
+           data-ad-slot="8786409519"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+
+ <!-- 3. Command Structure -->
+<h2 id="commands">Command Structure</h2>
+<p>Commands are the <b>core building blocks</b> of TBL. Instead of using event listeners like <code>bot.on()</code>, TBL follows a <b>command-driven model</b>.
+  Each command acts like a rule: when the trigger matches, the bot runs its script.</p>
+
+<h3 id="cmd-anatomy">Anatomy of a Command</h3>
+<p>A command can include these parts:</p>
+<ul>
+  <li><b>Command Name</b> → the trigger (e.g. <code>/start</code>, <code>hi</code>, <code>/help</code>)</li>
+  <li><b>Answer</b> → a quick static reply before running any code (supports Markdown)</li>
+  <li><b>Code Block</b> → logic written in TBL’s JavaScript-like syntax</li>
+  <li><b>Keyboard</b> → optional buttons for easy replies</li>
+  <li><b>Aliases</b> → alternative triggers for the same command</li>
+  <li><b>Need Reply</b> → makes the bot wait for the next user input</li>
+</ul>
+
+<h3 id="cmd-example">Example Command</h3>
+<ul>
+<li><b>command: </b><code>/start</code></li>
+<li><b>answer: </b> <code>Welcome! Choose an option:</code></li>
+<li><b>keyboard: </b><code>Help, About\nContact</code></li>
+</ul>
+<div class="code-container">
+  <pre><code class="language-javascript">Bot.sendMessage("Hello " + user.first_name + "!")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<p>In this example:</p>
+<ul>
+  <li><b>Command</b>: <code>/start</code> triggers the command</li>
+  <li><b>Answer</b>: bot instantly replies with "Welcome! Choose an option:"</li>
+  <li><b>Keyboard</b>: provides 2 rows of buttons → [Help, About] and [Contact]</li>
+  <li><b>Code</b>: sends a personalized message using the user’s first name</li>
+</ul>
+
+<h3 id="cmd-answer">Answer</h3>
+<p>Answers are quick static messages. They appear <b>before</b> any code runs.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">/*Command: /help
+answer: I can do these things:
+- /start → Start the bot
+- /about → Info about me*/
+Bot.sendMessage("Extra help details...")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<!-- Ad placement 3: After Command Structure examples -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-fb+5w+4e-db+86"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="8786409519"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<h3 id="cmd-needreply">Need Reply</h3>
+<p>If <code>need_reply</code> is set to <code>true</code>, the bot waits for the next user message before continuing.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">/*command: /ask
+answer: What is your favorite color?
+need_reply: true*/
+Bot.sendMessage("You answered: " + message)</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="cmd-aliases">Aliases</h3>
+<p>Aliases let one command have multiple triggers.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">/*Command: /hello
+aliases: hi, hey, hola*/
+Bot.sendMessage("Hello there!")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="cmd-keyboard">Keyboards</h3>
+<p>Commands can show custom keyboards:</p>
+<ul>
+  <li><b>Same row</b>: use commas → <code>Yes,No</code></li>
+  <li><b>New row</b>: use <code>\n</code> → <code>Yes\nNo</code></li>
+</ul>
+<div class="code-container">
+  <pre><code class="language-javascript">/*Command: /menu
+answer: Choose an option:
+keyboard: Yes,No\nMaybe*/
+Bot.sendMessage("Waiting for your choice...")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="special-commands">Special Commands</h3>
+<p>TBL provides special system-level commands:</p>
+<ul>
+  <li><b>@</b> → Initialization (runs before any others command execution)</li>
+  <li><b>!</b> → Error handler (catches exceptions)</li>
+  <li><b>@@</b> → Post-processing (runs after every command)</li>
+  <li><b>*</b> → Wildcard (fallback when nothing else matches and master command that is able to handle all types of updates) [<a href="https://core.telegram.org/bots/api#update">Avilable Updates</a>]</li>
+  <li><b>/inline_query</b> → Handles inline queries if not created inline Updates will listen by <code>*</code></li>
+  <li><b>/channel_update</b> → Handles channel updates if not created inline Updates will listen by <code>*</code></li>
+</ul>
+
+<h3 id="cmd-init">@ Command (Initialization)</h3>
+<p>Runs before executing any command, Useful for defining global variables or helper functions.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">
+Command: @
+let config = { adminId: 123456 }
+function formatName(u) {
+  return u.first_name + (u.last_name ? " " + u.last_name : "")
+}</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+      <div class="alert warning">
+        <i class="fas fa-exclamation-triangle"></i>
+        <div>@ command only support synchronous execution means no await here, however you can use an async function then use await in the async function </div>
+      </div>
+
+<h3 id="cmd-error">! Command (Error Handler)</h3>
+<p>Handles all runtime errors automatically.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">
+Command: !
+Bot.sendMessage("⚠️ An error occurred. Please try again.")
+// in ! comamand we have error global variable to get details about error</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="cmd-wildcard">* Command (Wildcard)</h3>
+<p>Fallback when no other command matches.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">
+Command: *
+Bot.sendMessage("I didn’t understand that. Try /help.")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="cmd-inline">/inline_query</h3>
+<p>Handles inline mode queries (when users type <code>@yourbot query</code> in Telegram).</p>
+<div class="code-container">
+  <pre><code class="language-javascript">
+Command: /inline_query
+Bot.sendMessage("You searched: " + request.query)</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="cmd-channel">/channel_update</h3>
+<p>Handles channel posts automatically.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">Command: /channel_update
+Bot.sendMessage("New channel post received!")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="cmd-best">Best Practices</h3>
+<ul>
+  <li>Use <b>clear names</b> → <code>/buy_ticket</code>, not <code>/cmd69</code></li>
+  <li>Use <b>aliases</b> for typos or multiple languages</li>
+  <li>Always define <b>!</b> to avoid silent errors</li>
+  <li>Keep commands <b>modular</b> (one task per command)</li>
+  <li>Test async code carefully (especially with <code>await</code>)</li>
+</ul>
+      <div class="alert warning">
+        <i class="fas fa-exclamation-triangle"></i>
+        <div>Always define a <b>!</b> command to capture and handle runtime errors.</div>
+      </div>
+
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="8142878854"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!-- Global Predefined Values -->
+<h2 id="globals">Global Predefined Values</h2>
+<p>TBL provides a set of <b>predefined global variables</b>. These are available in every command, so you don’t need to declare them manually. They make it easier to work with Telegram updates, users, chats, and the bot itself.</p>
+
+<h3 id="update">update</h3>
+<p>The raw Telegram update object. Contains everything Telegram sends (messages, edits, queries, etc.).</p>
+<div class="code-container">
+<pre><code class="language-json">
+{
+  "update_id": 109608973,
+  "message": {
+    "message_id": 17261,
+    "from": {
+      "id": 5723455420,
+      "is_bot": false,
+      "first_name": "Soumyadeep ∞",
+      "username": "soumyadeepdas765",
+      "language_code": "en",
+      "is_premium": true
+    },
+    "chat": {
+      "id": 5723455420,
+      "first_name": "Soumyadeep ∞",
+      "username": "soumyadeepdas765",
+      "type": "private"
+    },
+    "date": 1758100437,
+    "text": "/start",
+    "entities": [
+      {
+        "offset": 0,
+        "length": 6,
+        "type": "bot_command"
+      }
+    ]
+  }
+}
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="request">request</h3>
+<p>Simplified version of <code>update</code>. TBL automatically detects the type of update. like when the update type is <code>message</code> then request will be <code>update.message</code></p>
+
+<h3 id="message">message</h3>
+<p>Contains only the text of a message (if applicable).</p>
+<div class="code-container">
+  <pre><code class="language-json">"Hello bot"</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="user">user</h3>
+<p>Information about the user interacting with the bot.</p>
+<div class="code-container">
+<pre><code class="language-json">
+{
+  "id": 5723455420,
+  "is_bot": false,
+  "first_name": "Soumyadeep ∞",
+  "username": "soumyadeepdas765",
+  "language_code": "en",
+  "is_premium": true,
+  "last_name": "",
+  "telegramid": 5723455420,
+  "premium": true,
+  "blocked": false,
+  "block_reason": null,
+  "blocked_at": null
+}
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="chat">chat</h3>
+<p>Details about the current chat (private, group, or channel).</p>
+<div class="code-container">
+<pre><code class="language-json">
+{
+  "id": 5723455420,
+  "first_name": "Soumyadeep ∞",
+  "username": "soumyadeepdas765",
+  "type": "private",
+  "chatid": 5723455420,
+  "chatId": 5723455420,
+  "blocked": false,
+  "block_reason": null,
+  "blocked_at": null
+}
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="bot">bot</h3>
+<p>Information about the bot including owner, status, and platform info.</p>
+<div class="code-container">
+  <pre><code class="language-json">
+{
+  "id": 42, // bot id in our platform , a unique identifier for each bot
+  "token": "123456:ABC...",
+  "name": "DemoBot",
+  "bot_id": 987654321, // Bot actual Telegram id
+  "owner": "somemail@telebothost.com",//bot owner mail
+  "status": "working",
+  "created_at": "2025-01-01",
+  "updated_at": "2025-01-10",
+  "_securityNote": "All bot tokens are securely encrypted in storage and during transmission.",
+  "_fairUseNote": "Usage must comply with policies. Harmful or unfair use may result in a ban."
+}
+  </code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="params">params</h3>
+<p>Extra text after a command. Example: "/start hello" → <code>params = "hello"</code>.</p>
+<div class="code-container">
+  <pre><code class="language-json">"hello"</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="options">options</h3>
+<p>Custom data passed between commands when chaining or using API callbacks.</p>
+<div class="code-container">
+  <pre><code class="language-json">
+//passing custom 
+{
+  "name": "Alice",
+  "step": 2
+}
+
+//when callback of Telegram Api call 
+{
+  "ok": true,
+  "result": {...}
+}
+  </code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="content">content</h3>
+<p>Contains the response body from an HTTP request.</p>
+
+<h3 id="inspect">inspect()</h3>
+<p>Helper function to print any object for debugging.</p>
+<p>like if you did <code>inspect(data)</code> it will return bot <a href="#bot">Details</a></p>
+
+<h3 id="msg">msg</h3>
+<p><code>msg</code> is a simplified version of <code>update</code>. It’s only available for <code>message</code> updates.</p>
+<p>Whenever a message update is received, <code>msg</code> will contain the same object as <code>update.message</code>.</p>
+
+<h3 id="error">error</h3>
+<p>It's a object that gives information about error got by ! command</p>
+
+<!-- Ad placement 4: After Global Predefined Values -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-fb+5w+4e-db+86"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="8786409519"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!-- Global Classes -->
+<h2 id="classes">Global Classes</h2>
+<p>
+  TBL provides several predefined classes. These classes give you direct access
+  to Telegram features, user data, and external utilities.
+  The most important one is <code>Api</code>, which works as a direct wrapper
+  for the official <a href="https://core.telegram.org/bots/api" target="_blank">Telegram Bot API</a>.
+</p>
+
+<h3 id="class-api">Api</h3>
+<p>
+  The <code>Api</code> class lets you call any method supported by Telegram.
+  It is very flexible — you can use it directly, with command callbacks, or with async/await.
+  This class is essential whenever you need full control over Telegram messages, files, and interactions.
+</p>
+      <div class="alert info">
+        <i class="fas fa-info-circle"></i>
+        <div>Api methods are case <b>insensitive</b> so you can use both <code>sendMessage</code> or <code>sendmessage</code> </div>
+      </div>
+      <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-fb+5w+4e-db+86"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="8786409519"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h4 id="api-normal">1. Normal Usage</h4>
+<p>
+  The simplest way to use <code>Api</code> is to call a method directly.  
+  By default, if you don’t provide <code>chat_id</code>, it will automatically use the current chat.
+</p>
+<div class="code-container">
+  <pre><code class="language-javascript">
+// Send a message (chat_id is optional, defaults to current chat)
+Api.sendMessage({
+  text: "Hello " + msg.from.first_name
+})
+
+// Send a photo with caption
+Api.sendPhoto({
+  chat_id: msg.chat.id,
+  photo: "https://example.com/cat.jpg",
+  caption: "Here is a cat 🐱"
+})
+  </code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="api-onrun">2. Usage with <code>on_run</code> Callback</h4>
+<p>
+  Every API call can be linked with another command using <code>on_run</code>.  
+  After the API method finishes, its full result is automatically passed to the next command 
+  as <code>options</code>. This allows you to work with Telegram’s response without writing extra logic.
+</p>
+<div class="code-container">
+  <pre><code class="language-javascript">
+// Call Api.getMe and continue in another command
+Api.getMe({ on_run: "afterGetMe" })
+/*
+//you can pass tbl_options too like
+Api.getMe({ on_run: "afterGetMe", tbl_options: {key: 111} })
+//in afterGetMe tbl_options.key avilable 
+*/
+// Inside "afterGetMe" command:
+if (options.ok) {
+  Api.sendMessage({
+    text: "Bot username: @" + options.result.username
+  })
+}
+  </code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<p>
+  This style is useful when you want to split logic across multiple commands, 
+  especially for complex flows or long-running bots.
+</p>
+
+<h4 id="api-async">3. Usage with Async / Await</h4>
+<p>
+  You can also use <code>async/await</code> with any Api method.  
+  The method returns a full Telegram response object, where <code>ok</code> indicates success 
+  and <code>result</code> contains the actual data.
+</p>
+<div class="code-container">
+  <pre><code class="language-javascript">
+  let data = await Api.getMe()
+  if (data.ok) {
+    let me = data.result
+    Api.sendMessage({
+      text: "My bot id is " + me.id
+    })
+  }
+  </code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<p>
+  This approach is preferred when you want to stay inside a single command 
+  and handle multiple API calls in sequence, keeping your code clean and readable.
+</p>
+
+
+<!-- Bot Class -->
+<h2 id="class-bot">Bot Class</h2>
+<p>
+  The <b>Bot</b> class is used for controlling your bot directly.
+  It provides methods for running commands, sending messages, and managing persistent bot-level properties.
+  Unlike <code>Api</code>, the <code>Bot</code> methods are designed to be easier to use inside commands.
+</p>
+
+   <div class="alert info">
+        <i class="fas fa-info-circle"></i>
+        <div>Bot methods are case sensitive, so only strict name allowed like <b>sendMessage</b> abd <b>sendmessage</b> are treated as separate method</div>
+      </div>
+
+
+<h3 id="bot-run">1. Command Execution</h3>
+<p>
+  You can tell the bot to run another command. This is useful if you want to move the user to a new flow.
+  These methods don’t return any value – they just execute.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">// Run another command
+Bot.runCommand("/start")
+
+// Run with options
+Bot.runCommand("/start", {key: 111})
+// key is avilable now in /start and accessable with options.key
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p>
+  Example: If the user types <code>/begin</code>, you can redirect them to <code>/start</code>:
+</p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">Bot.runCommand("/start")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="bot-send">2. Sending Messages</h3>
+<p>
+  These methods send messages or media to the current chat.
+  They return the <code>Telegram API response</code>.
+  Using <code>await</code> is optional – you can wait for the result or just send without waiting.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">// Send plain text
+Bot.sendMessage("Hello user!") 
+
+// Send with HTML formatting
+let res = await Bot.sendMessage("Hello <b>friend</b>", { parse_mode: "html" })
+Bot.inspect(res) // See the Telegram response
+
+// Send with a keyboard
+Bot.sendKeyboard("Choose an option:", "Yes,No")
+
+// Send files
+Bot.sendDocument("file.pdf", { caption: "Here is your file" })
+Bot.sendPhoto("photo.jpg", { caption: "Nice view!" })
+Bot.sendAudio("music.mp3", { performer: "Artist", title: "Track" })
+Bot.sendVideo("video.mp4", { caption: "Watch this" })
+Bot.sendVoice("voice.ogg")
+
+// Debugging an object
+Bot.inspect({ user: "Alice", id: 123 })
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p><b>Example output when sending a text message:</b></p>
+
+<div class="code-container">
+  <pre><code>{
+  "ok": true,
+  "result": {
+    "message_id": 42,
+    "chat": { "id": 5723455420, "type": "private" },
+    "text": "Hello user!"
+  }
+}
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="8142878854"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h3 id="bot-props">3. Properties</h3>
+<p>
+  Bot properties are simple key-value storage.
+  They let you save data that belongs to the bot itself (not a specific user).
+  All property methods are synchronous, so <code>await</code> is not required.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">// Set properties
+
+// set(key, value, type)
+Bot.set("version", "1.2.3", "string")
+Bot.set("config", { apiKey: "xyz" }, "json")
+
+// Get values
+let v = Bot.get("version")   // "1.2.3"
+let c = Bot.get("config")    // { apiKey: "xyz" }
+
+// Delete one property
+Bot.del("version")
+
+// Get all properties
+let all = Bot.getAll()
+// -> { config: { apiKey: "xyz" } }
+
+// Delete all
+Bot.delAll()
+
+// Check if a property exists
+let has = Bot.has("config")  // true
+
+// Count all properties
+let count = Bot.count()      // e.g. 1
+
+// Get all property names
+let names = Bot.getNames()   // ["config"]
+
+/* 
+//avilable data types
+'string'    // String values
+'number'    // Numeric values  
+'boolean'   // Boolean values
+'date'      // Date objects
+'json'      // Objects/Arrays (stored as JSON)
+'buffer'    // Buffer objects (binary data)
+'set'       // Set objects
+'list'      // Array objects
+'map'       // Map objects
+*/
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+      <div class="alert info">
+        <i class="fas fa-info-circle"></i>
+        <div>type is optional on set methods if not provided will auto detects it's actual type</div>
+      </div>
+
+<p><b>Example workflow:</b></p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">// Save a global config
+Bot.set("welcome", "Hello new user!", "string")
+
+// Later, use it in a message
+let msg = Bot.get("welcome")
+Bot.sendMessage(msg)
+
+// Update a property
+Bot.set("welcome", "Hi there 👋", "string")
+
+// Remove a property
+Bot.del("welcome")
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="bot-prop-alias">4. Property Aliases</h3>
+<p>
+  All property methods have short aliases.
+  They work exactly the same, just different names.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">// Setting values
+Bot.setProp("theme", "dark", "string")
+Bot.setProperty("lang", "en", "string")
+
+// Getting values
+Bot.getProp("theme")        // "dark"
+Bot.getProperty("lang")     // "en"
+
+// Deleting values
+Bot.delProp("theme")
+Bot.delProperty("lang")
+
+// Get all / delete all
+Bot.getAllProp()            // { }
+Bot.getAllProperty()        // { }
+Bot.delAllProp()
+Bot.delAllProperty()
+
+// Checking and counting
+Bot.hasProp("theme")        // false
+Bot.countProps()            // 0
+Bot.getPropNames()          // []
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<!-- HTTP Class -->
+<h2 id="class-http">HTTP Class</h2>
+<p>
+The <b>HTTP</b> class allows your bot to make external API requests (GET, POST, etc.) and handle responses flexibly.  
+It supports direct calls with <code>await</code>, chaining commands for success/error handling.
+</p>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-fb+5w+4e-db+86"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="8786409519"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h3 id="http-get">1. GET Requests</h3>
+<p>Simple GET request:</p>
+
+<div class="code-container">
+<pre><code class="language-js">
+// GET request using direct URL
+let data = await HTTP.get("https://jsonplaceholder.typicode.com/todos/1")
+Bot.inspect(data)
+// we will have data.content(raw string ), data.headers, data.cookies, data.data(parsed)
+/* Demo data
+{
+  ok: true,
+  status: 200,
+  statusText: 'OK',
+  content: '{"ok":true,"ping":true}', //content is String
+  data: {
+    ok: true,
+    ping: true
+  }, // if it JSON then auto parsed
+  headers: {
+    'content-type': 'application/json; charset=utf-8'
+    ...more
+  },
+  cookies: []
+}
+*/
+// GET request using object with options
+let data2 = await HTTP.get({
+  url: "https://jsonplaceholder.typicode.com/todos/2",
+  headers: { "Authorization": "Bearer ABC123" }
+})
+Bot.inspect(data2)
+</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="http-post">2. POST Requests</h3>
+<p>POST request example:</p>
+
+<div class="code-container">
+<pre><code class="language-js">
+// POST request
+let payload = { name: "Alice", age: 25 }
+let response = await HTTP.post({
+  url: "https://jsonplaceholder.typicode.com/posts",
+  body: payload,
+  headers: { "Authorization": "Bearer ABC123" }
+})
+Bot.inspect(response)
+</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="http-callback">3. Success / Error Commands with <code>tbl_options</code></h3>
+<p>
+You can define commands to run automatically on success or error.  
+If <code>error</code> command is missing, the <code>success</code> command will run instead.
+</p>
+
+<div class="code-container">
+<pre><code class="language-js">
+// HTTP GET with success/error commands
+HTTP.get({
+  url: "https://jsonplaceholder.typicode.com/todos/1",
+    success: "onSuccess",
+    error: "onError",
+    tbl_options: {key : value} //optinal for passing custom values only 
+})
+// you can get tbl_options on next command like  
+tbl_options.key
+// "onSuccess" command will receive options = HTTP response
+// "onError" command will receive options = HTTP error
+// on success you will get content and in error command you will get error 
+// error command only run when there an internal error like request failed due to some reasons like 
+// wrong url, API have 500 etc...
+//
+</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<div class="code-container">
+<pre><code class="language-js">
+// Example success command
+/*command: onSuccess*/
+Bot.sendMessage("Fetched title: " + content)
+
+// Example error command
+/*command: onError*/
+Bot.sendMessage("HTTP request failed: " + error.status)
+</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="http-advanced">4. Advanced Options</h3>
+<ul>
+  <li><b>headers</b> – Custom headers</li>
+  <li><b>body</b> – Object or data to send in POST requests</li>
+  <li><b>query</b> – Object of query parameters for GET requests</li>
+  <li><b>timeout</b> – Request timeout in milliseconds</li>
+</ul>
+
+<div class="code-container">
+<pre><code class="language-js">
+// GET with query params and headers, and success/error commands
+HTTP.get({
+  url: "https://api.example.com/search",
+  query: { q: "telebot", limit: 5 },
+  headers: { "X-Api-Key": "123ABC" },
+  timeout: 5000,
+  success: "searchSuccess",
+  error: "searchError"
+})
+</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="http-usage-notes">Usage Notes</h3>
+<ul>
+  <li>All HTTP methods return <code>response</code> object on callback command: <code>{ ok, status, data or error }</code>.</li>
+  <li>You can use <code>await</code> to wait for the response or skip it if not needed.</li>
+  <li>If <code>error</code> command is missing, the <code>success</code> command will run instead.</li>
+</ul>
+
+<!-- Ad placement 5: After HTTP Class -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-fb+5w+4e-db+86"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="8786409519"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!-- User Class -->
+<h2 id="class-user">User Class</h2>
+<p>
+  The <b>User</b> class is used to store and manage data for each user individually.
+  Every user has their own private storage, and these methods let you save, read, and delete that data.
+</p>
+
+<h3 id="class-user-basic">1. Basic Operations</h3>
+<p>
+  Use these methods to save and read single values for the current user.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-js">
+// Save user data
+User.set("name", "Alice")
+User.set("age", 25, "number")
+
+// Read user data
+let name = User.get("name")      // "Alice"
+let age = User.getProp("age")    // 25
+
+Bot.sendMessage("Name: " + name + ", Age: " + age)
+// → Name: Alice, Age: 25
+</code></pre>
+</div>
+
+<h3 id="class-user-del">2. Deleting Properties</h3>
+<p>
+  Remove specific values when you don’t need them anymore.
+  If the property doesn’t exist, it just returns <code>null</code> when read.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-js">
+// Delete property
+User.del("age")
+
+let age = User.get("age")        // null
+Bot.sendMessage("After delete, age = " + age)
+// → After delete, age = null
+</code></pre>
+</div>
+
+<h3 id="class-user-bulk">3. Bulk Operations</h3>
+<p>
+  You can work with all stored data at once. This is useful to inspect or reset the user’s storage.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-js">
+// Save multiple values
+User.set("country", "India")
+User.set("verified", true, "boolean")
+
+// Get all user data
+let all = User.getAll()
+Bot.inspect(all)
+// → { "name": "Alice", "country": "India", "verified": true }
+
+// Delete all properties
+User.delAll()
+
+let all2 = User.getAll()
+Bot.inspect(all2)
+// → {}
+</code></pre>
+</div>
+
+<h3 id="user-check">4. Checking & Counting</h3>
+<p>
+  Check if data exists, count stored keys, or list property names.
+</p>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-fb+5w+4e-db+86"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="8786409519"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div class="code-container">
+  <pre><code class="language-js">
+// Check if property exists
+let hasName = User.has("name")   // true or false
+
+// Count total properties
+let total = User.count()         // e.g. 2
+
+// Get property names
+let names = User.getNames()      // ["name", "country"]
+
+Bot.inspect({ hasName, total, names })
+// → { "hasName": true, "total": 2, "names": ["name", "country"] }
+</code></pre>
+</div>
+<!-- we will add that soon 
+<h3 id="user-batch">5. Batch Operations</h3>
+<p>
+  Fetch multiple values at once instead of calling <code>User.get()</code> many times.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-js">
+// Save multiple values
+User.set("theme", "dark")
+User.set("lang", "en")
+
+// Get multiple values at once
+let data = User.getMultiple(["theme", "lang", "name"])
+Bot.inspect(data)
+// → { "theme": "dark", "lang": "en", "name": "Alice" }
+</code></pre>
+</div>
+-->
+<h3 id="class-user-notes">Notes</h3>
+<ul>
+  <li>All methods only work for the current user — no other user can access this data.</li>
+  <li><code>get</code>, <code>set</code>, and <code>del</code> have multiple aliases (like <code>getProp</code>, <code>getProperty</code>).</li>
+  <li>Reading data is <b>synchronous</b> and returns the value directly.</li>
+  <li>Saving and deleting are <b>asynchronous</b>, but you don’t need <code>await</code> — they just return <code>undefined</code>.</li>
+</ul>
+
+<h2 id="class-msg">msg Class</h2>
+<p>
+The <b>msg</b> class lets you interact with Telegram messages.  
+You can send, reply, edit, delete, forward, copy, react, and perform chat actions.  
+All methods return <b>promises</b>, but using <code>await</code> is <b>optional</b> — only required if you need the response object.
+</p>
+
+<h3 id="class-msg-methods">Available Methods</h3>
+<ul>
+  <li><b>Core Messaging:</b> <code>msg.reply()</code>, <code>msg.send()</code></li>
+  <li><b>Media Messages:</b> <code>msg.replyPhoto()</code>, <code>msg.replyVideo()</code>, <code>msg.replyDocument()</code></li>
+  <li><b>Message Management:</b> <code>msg.editText()</code>, <code>msg.delete()</code>, <code>msg.react()</code>, <code>msg.pin()</code>, <code>msg.unpin()</code></li>
+  <li><b>Forwarding & Copying:</b> <code>msg.forward()</code>, <code>msg.copy()</code></li>
+  <li><b>Special Messages:</b> <code>msg.replySticker()</code>, <code>msg.replyDice()</code></li>
+  <li><b>Chat Actions:</b> <code>msg.sendChatAction()</code></li>
+</ul>
+
+<h3 id="class-msg-core">1. Core Messaging</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Reply to the current message
+msg.reply("Hello!")  // Fire-and-forget
+let result = await msg.reply("Hello!"); // Use await if you need the API response
+
+// Send a new message
+msg.send("This is a new message")
+await msg.send("This is a new message", { parse_mode: "Markdown" })  // await optional
+</code></pre>
+</div>
+
+<h3 id="class-msg-media">2. Media Messages</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Reply with a photo
+msg.replyPhoto("https://example.com/cat.jpg", { caption: "Cute cat 🐱" })
+await msg.replyPhoto("https://example.com/cat.jpg", { caption: "Cute cat 🐱" }) // await optional
+
+// Reply with a video
+msg.replyVideo("https://example.com/video.mp4")
+await msg.replyVideo("https://example.com/video.mp4", { caption: "Watch this!" })
+
+// Reply with a document
+msg.replyDocument("file.pdf")
+await msg.replyDocument("file.pdf")
+</code></pre>
+</div>
+
+<h3 id="class-msg-edit">3. Message Management</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Edit message text
+msg.editText("Updated text")
+await msg.editText("Updated text", { parse_mode: "Markdown" })
+
+// Delete message
+msg.delete(msg.message_id)
+await msg.delete(msg.message_id)
+
+// Add reactions
+msg.react("👍")
+msg.react("🔥", true) // Big emoji
+
+// Pin & unpin messages
+msg.pin()
+msg.unpin(msg.message_id)
+</code></pre>
+</div>
+
+<h3 id="class-msg-forward">4. Forwarding & Copying</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Forward message
+msg.forward(123456789)
+await msg.forward(123456789)
+
+// Copy message
+msg.copy(123456789, { caption: "Copied message" })
+await msg.copy(123456789, { caption: "Copied message" })
+</code></pre>
+</div>
+
+<h3 id="class-msg-special">5. Special Messages</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Reply with a sticker
+msg.replySticker("CAACAgUAAxkBAAECX-9g1...")
+await msg.replySticker("CAACAgUAAxkBAAECX-9g1...")
+
+// Reply with a dice
+msg.replyDice("🎲")
+await msg.replyDice("🎲")
+</code></pre>
+</div>
+
+<h3 id="class-msg-chat-action">6. Chat Actions</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Show typing indicator
+msg.sendChatAction("typing")
+await msg.sendChatAction("typing") // await optional
+
+// Other actions: "upload_photo", "record_video", "record_audio", "upload_document"
+</code></pre>
+</div>
+
+<h3 id="class-msg-info">7. Message Object Access</h3>
+<p>The <b>msg</b> object contains the full Telegram message data:</p>
+<ul>
+  <li><code>msg.text</code> - Message text</li>
+  <li><code>msg.chat</code> - Chat info (id, type, title, etc.)</li>
+  <li><code>msg.from</code> - Sender info</li>
+  <li><code>msg.message_id</code> - Unique message ID</li>
+  <li><code>msg.date</code> - Timestamp</li>
+  <li>All other standard Telegram <a href="https://core.telegram.org/bots/api#message">Message</a> fields are available</li>
+</ul>
+
+<p>All methods also work in lowercase (e.g., <code>msg.replyphoto</code>).  
+Markdown parsing is enabled by default for text methods.</p>
+
+<!-- Ad placement 6: After msg Class -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-fb+5w+4e-db+86"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="8786409519"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<h2 id="class-modules">Modules Class</h2>
+<p>
+  The <b>modules</b> object gives you access to popular Node.js libraries directly in TBL.
+  Use <code>modules.moduleName.method()</code> to perform common tasks like encryption, validation, date handling, CSV/YAML parsing, random data generation, and more.
+</p>
+
+<h3 id="module-jwt">1. JWT</h3>
+<p>
+  <b>JWT</b> is used for creating and verifying JSON Web Tokens.
+  Useful for authentication, session management, or secure data transfer.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/jsonwebtoken" target="_blank">jsonwebtoken</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Create a token
+const token = modules.JWT.sign({ userId: 123 }, "secret");
+
+// Verify a token
+const decoded = modules.JWT.verify(token, "secret");
+
+// Demo response:
+// token → "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+// decoded → { userId: 123, iat: 1690000000 }
+</code></pre>
+</div>
+
+<h3 id="module-bcrypt">2. bcrypt</h3>
+<p>
+  <b>bcrypt</b> hashes passwords and verifies them. Essential for secure password storage.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/bcrypt" target="_blank">bcrypt</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Hash a password
+const hash = await modules.bcrypt.hash("password123", 10);
+
+// Verify password
+const match = await modules.bcrypt.compare("password123", hash);
+
+// Demo response:
+// hash → "$2b$10$e0N...."
+// match → true
+</code></pre>
+</div>
+
+<h3 id="module-crypto">3. crypto</h3>
+<p>
+  <b>crypto</b> provides cryptographic functions, including hashing, encryption, and decryption.
+</p>
+<p>Docs: <a href="https://nodejs.org/api/crypto.html" target="_blank">Node.js crypto</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Create SHA256 hash
+const hash = modules.crypto.createHash("sha256").update("data").digest("hex");
+
+// Demo response:
+// hash → "3a6eb...9f1"
+</code></pre>
+</div>
+
+<h3 id="module-ParseCSV">4. ParseCSV</h3>
+<p>
+  Parses CSV strings into JSON objects. Useful for reading CSV files in bots or scripts.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/csv-parse" target="_blank">csv-parse</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Parse CSV string
+const result = modules.ParseCSV.parse("name,age\nAlice,25\nBob,30");
+
+// Demo response:
+// result → [{ name: "Alice", age: "25" }, { name: "Bob", age: "30" }]
+</code></pre>
+</div>
+
+<h3 id="module-ParseYML">5. ParseYML</h3>
+<p>
+  Parses YAML strings into JSON objects. Useful for reading YAML configuration files.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/js-yaml" target="_blank">js-yaml</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Parse YAML string
+const result = modules.ParseYML.parse("name: Alice\nage: 25");
+
+// Demo response:
+// result → { name: "Alice", age: 25 }
+</code></pre>
+</div>
+
+<h3 id="module-UUID">6. UUID</h3>
+<p>
+  Generates unique identifiers (UUID v4 or v6). Useful for unique keys, transaction IDs, or session identifiers.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/uuid" target="_blank">uuid</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Generate v4 UUID
+const id = modules.UUID.uuidv4();
+
+// Demo response:
+// id → "550e8400-e29b-41d4-a716-446655440000"
+</code></pre>
+</div>
+
+<h3 id="module-moment">7. moment</h3>
+<p>
+  A powerful library for date and time manipulation. Format, parse, and calculate dates easily.
+</p>
+<p>Docs: <a href="https://momentjs.com/" target="_blank">momentjs</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Format current date
+const dateStr = modules.moment().format("YYYY-MM-DD");
+
+// Demo response:
+// dateStr → "2025-09-19"
+</code></pre>
+</div>
+
+<h3 id="module-lodash">8. lodash</h3>
+<p>
+  A utility library for array, object, and function operations. Very handy for filtering, mapping, and transforming data.
+</p>
+<p>Docs: <a href="https://lodash.com/docs/" target="_blank">lodash</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Filter array
+const result = modules.lodash.filter([1,2,3,4], n => n > 2);
+
+// Demo response:
+// result → [3,4]
+</code></pre>
+</div>
+
+<h3 id="module-randomstring">9. randomstring</h3>
+<p>
+  Generates random alphanumeric strings, useful for temporary passwords, tokens, or unique identifiers.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/randomstring" target="_blank">randomstring</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Generate 10-character random string
+const str = modules.randomstring.generate(10);
+
+// Demo response:
+// str → "a1b2c3d4e5"
+</code></pre>
+</div>
+
+<h3 id="module-validator">10. validator</h3>
+<p>
+  Validates strings like emails, URLs, and other formats.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/validator" target="_blank">validator</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Validate email
+const valid = modules.validator.isEmail("test@example.com");
+
+// Demo response:
+// valid → true
+</code></pre>
+</div>
+
+<h3 id="module-chance">11. chance</h3>
+<p>
+  Generates random data, such as names, addresses, and phone numbers.
+</p>
+<p>Docs: <a href="https://chancejs.com/" target="_blank">chancejs</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Generate random name
+const name = modules.chance.name();
+
+// Demo response:
+// name → "Alice Johnson"
+</code></pre>
+</div>
+
+<h3 id="module-math">12. math</h3>
+<p>
+  Mathematical functions like square root, powers, trigonometry, etc.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/mathjs" target="_blank">mathjs</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Square root
+const val = modules.math.sqrt(25);
+
+// Demo response:
+// val → 5
+</code></pre>
+</div>
+
+<h3 id="module-qs">13. qs</h3>
+<p>
+  Parses and formats query strings.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/qs" target="_blank">qs</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Parse query string
+const obj = modules.qs.parse("a=1&b=2");
+
+// Demo response:
+// obj → { a: "1", b: "2" }
+</code></pre>
+</div>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-fb+5w+4e-db+86"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="8786409519"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h3 id="module-cheerio">14. cheerio</h3>
+<p>
+  Parse and manipulate HTML in Node.js (like jQuery). Useful for scraping and DOM manipulation.
+</p>
+<p>Docs: <a href="https://cheerio.js.org/" target="_blank">cheerio</a></p>
+<div class="code-container">
+<pre><code class="language-js">
+// Load HTML
+const $ = modules.cheerio.load("&lt;p&gt;Hello&lt;/p&gt;");
+const text = $("p").text();
+
+// Demo response:
+// text → "Hello"
+</code></pre>
+</div>
+
+<h3 id="module-dayjs">15. dayjs</h3>
+<p>
+  Lightweight alternative to Moment.js for date and time operations.
+</p>
+<p>Docs: <a href="https://day.js.org/" target="_blank">dayjs</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Format current date
+const today = modules.dayjs().format("YYYY-MM-DD");
+
+// Demo response:
+// today → "2025-09-19"
+
+//We have our own Basic library for time parsing too
+</code></pre>
+</div>
+
+<h3 id="module-zod">16. zod</h3>
+<p>
+  Schema validation library for structured data. Useful for input validation.
+</p>
+<p>Docs: <a href="https://zod.dev/" target="_blank">zod</a></p>
+<div class="code-container">
+  <pre><code class="language-js">
+// Validate string
+const result = modules.zod.string().parse("Hello");
+
+// Demo response:
+// result → "Hello"
+</code></pre>
+</div>
+
+<h3 id="module-shortid">17. shortid</h3>
+<p>
+Generates short unique IDs for objects, users, or temporary references.  
+Useful when you need compact unique identifiers.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/shortid" target="_blank">shortid</a></p>
+<div class="code-container">
+<pre><code class="language-js">
+// Generate short ID
+const id = modules.shortid.generate();
+
+// Demo response:
+// id → "ppBqWA9"
+</code></pre>
+</div>
+
+<h3 id="module-deepmerge">18. deepmerge</h3>
+<p>
+Deeply merges multiple objects. Useful for combining configs or nested data structures.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/deepmerge" target="_blank">deepmerge</a></p>
+<div class="code-container">
+<pre><code class="language-js">
+// Merge two objects
+const merged = modules.deepmerge({ a: 1, b: { x: 1 } }, { b: { y: 2 }, c: 3 });
+
+// Demo response:
+// merged → { a: 1, b: { x: 1, y: 2 }, c: 3 }
+</code></pre>
+</div>
+
+<h3 id="module-humanizeDuration">19. humanizeDuration</h3>
+<p>
+Formats durations (milliseconds) into human-readable strings, like "2 hours" or "5 minutes".
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/humanize-duration" target="_blank">humanize-duration</a></p>
+<div class="code-container">
+<pre><code class="language-js">
+// Convert milliseconds to human-readable
+const duration = modules.humanizeDuration(3600000);
+
+// Demo response:
+// duration → "1 hour"
+</code></pre>
+</div>
+
+<h3 id="module-uaParser">20. uaParser</h3>
+<p>
+Parses user-agent strings to extract browser, OS, and device information.  
+Useful for analytics, logs, or customizing content.
+</p>
+<p>Docs: <a href="https://www.npmjs.com/package/ua-parser-js" target="_blank">ua-parser-js</a></p>
+<div class="code-container">
+<pre><code class="language-js">
+// Parse user-agent
+const ua = modules.uaParser.parse("Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+
+// Demo response:
+// ua → { browser: { name: "Firefox", version: "xx" }, os: { name: "Windows", version: "10" }, device: { model: "", type: "", vendor: "" } }
+</code></pre>
+</div>
+
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="8142878854"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!-- Libs Class -->
+<h2 id="class-libs">Libs Class</h2>
+<p>
+The <b>Libs</b> class gives direct access to TBL’s built-in libraries.  
+Each library contains ready-to-use helpers for randomization, date/time operations, resource tracking, referral systems, Telegram utilities, and membership checking.  
+Use the syntax <code>Libs.&lt;library&gt;.&lt;method&gt;()</code>.  
+Most methods return promises—<code>await</code> is optional unless you need the returned value.
+</p>
+
+<h3 id="libs-list">Available Libraries</h3>
+<ul>
+  <li><b>ResourcesLib</b> – Manage user/global counters, balances, or any persistent value.</li>
+  <li><b>dateTimeFormat</b> – Format, add/subtract, and calculate differences between dates.</li>
+  <li><b>MCL (Membership Checker Lib)</b> – Check user membership in channels/groups and related tasks.</li>
+  <li><b>random</b> – Generate random numbers, strings, colors, dates, and complex distributions.</li>
+  <li><b>refLib</b> – Create referral links and track invited users.</li>
+  <li><b>tgUtil</b> – Telegram-specific helpers for names, links, mentions, escaping text, etc.</li>
+</ul>
+
+<h3 id="libs-resources">1. ResourcesLib</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Create or get a user resource (e.g., balance)
+let coins = Libs.ResourcesLib.userRes("coins")
+coins.add(50)                       // add value
+let current = coins.value()          // get current value
+
+// Global resource example
+let globalCounter = Libs.ResourcesLib.anotherRes("visits")
+globalCounter.add(1)
+</code></pre>
+<p>
+Persistent storage for user or global properties.  
+<a href="https://github.com/telebothost/tbl-libs/blob/main/Lib-Docs/ResourcesLib.md" target="_blank">Full ResourcesLib Documentation</a>
+</p>
+</div>
+
+<h3 id="libs-datetime">2. dateTimeFormat</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Current date/time in custom mask
+let now = Libs.dateTimeFormat.getCurrentDate("yyyy-mm-dd HH:MM:ss")
+
+// Add days to a date
+let future = Libs.dateTimeFormat.addDays(new Date(), 7)
+
+// Time difference between two dates
+let diff = Libs.dateTimeFormat.getTimeDifference("2025-01-01","2025-02-01")
+</code></pre>
+<p>
+Full set of date formatting and calculation utilities.  
+<a href="https://github.com/telebothost/tbl-libs/blob/main/Lib-Docs/dateTimeFormat.md" target="_blank">Full dateTimeFormat Documentation</a>
+</p>
+</div>
+
+<h3 id="libs-mcl">3. MCL – Membership Checker</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Check if a user is a member of specific channels
+let joined = await Libs.mcl.check(user.id, ["@Chan1", "@Chan2"])
+
+/* returns 
+{
+  all_joined: true,
+  valid: [ '@Channel1', '@Channel2' ],
+  left: [],
+  invalid: [],
+  details: [
+    {
+      channel: '@Channel1',
+      member: { /* full getChatMember response */ }
+    }
+  ]
+}
+*/
+
+</code></pre>
+<p>
+Validate user subscriptions across one or more Telegram channels or groups before allowing bot actions.  
+<a href="https://github.com/telebothost/tbl-libs/blob/main/Lib-Docs/mcl.md" target="_blank">Full MCL Documentation</a>
+</p>
+</div>
+
+<h3 id="libs-random">4. random</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Random integer between 1 and 10
+let num = Libs.random.randomInt(1, 10)
+
+// Random string of 8 letters
+let str = Libs.random.randomString(8, { charset: "alpha" })
+
+// Random date within range
+let date = Libs.random.randomDate(new Date(2023,0,1), new Date(2025,0,1))
+
+// Random color
+let color = Libs.random.randomColor("rgb")
+</code></pre>
+<p>
+Comprehensive random generation utilities.  
+<a href="https://github.com/telebothost/tbl-libs/blob/main/Lib-Docs/random.md" target="_blank">Full random Documentation</a>
+</p>
+</div>
+
+<h3 id="libs-ref">5. refLib</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Create a referral link
+let refLink = Libs.refLib.getRefLink(bot.name)
+
+// Count referrals for a user
+let count = Libs.refLib.getRefCount(user.id)
+
+</code></pre>
+<p>
+Tools for building and tracking referral systems.  
+<a href="https://github.com/telebothost/tbl-libs/blob/main/Lib-Docs/refLib.md" target="_blank">Full refLib Documentation</a>
+</p>
+</div>
+
+<h3 id="libs-tgutil">6. tgUtil</h3>
+<div class="code-container">
+<pre><code class="language-js">
+// Get a user’s full name
+let fullName = Libs.tgUtil.getFullName(user)
+
+// Create a clickable HTML link to a user profile
+let link = Libs.tgUtil.getLinkFor(user, "html")
+
+// Escape text for Markdown
+let safeText = Libs.tgUtil.escapeText("*Hello*", "markdown")
+
+// Create an inline button
+let btn = Libs.tgUtil.createInlineButton("Press Me", "/callback_data")
+</code></pre>
+<p>
+Telegram-specific helpers for mentions, chat links, message links, and safe text formatting.  
+<a href="https://github.com/telebothost/tbl-libs/blob/main/Lib-Docs/tgUtil.md" target="_blank">Full tgUtil Documentation</a>
+</p>
+</div>
+
+<h3 id="libs-usage">Usage Tips</h3>
+<ul>
+  <li>All method names are case sensitive.</li>
+  <li>Use <code>await</code> only if the lib is asynchronous like MCL lib</li>
+  <li>Libraries can be combined in the same command for advanced workflows.</li>
+</ul>
+
+<!-- Ad placement 8: After Libs Class -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-fb+5w+4e-db+86"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="8786409519"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<!-- content will stop here -->
+        </div>
+      </div>
+    </section>
+  </main>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="autorelaxed"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="8529358835"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="/cookies">Cookies</a>
+    <a href="/resources">Resources</a>
+  </div>
+</footer>
+
+<!-- Load scripts with optimization -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+<script src="script.js" type="text/javascript" charset="utf-8" defer></script>
+
+<!-- Initialize highlight.js after DOM is ready -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof hljs !== 'undefined') {
+    hljs.highlightAll();
+  }
+});
+</script>
+</body>
+</html>
