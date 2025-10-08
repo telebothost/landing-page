@@ -303,11 +303,18 @@ body::-webkit-scrollbar {
             margin-bottom: 15px;
         }
         
-        .intro-feature i {
-            color: var(--success);
-            margin-right: 10px;
-            font-size: 1.2rem;
-        }
+.intro-feature-icon {
+    color: var(--success);
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+/* If you need to control the fill color separately */
+.intro-feature-icon {
+    fill: var(--success);
+    width: 1.2rem;
+    height: 1.2rem;
+}
         
         .intro-image {
             flex: 1;
