@@ -625,14 +625,14 @@ Bot.inspect(msg) // Full Telegram response
 
 <h4 id="api-chained">4. Chained Methods on Messages</h4>
 <p>
-  Every message object returned from <code>Bot.sendMessage()</code>, <code>Bot.sendPhoto()</code>, etc. now supports <b>chained methods</b>.
+  Every message object returned from <code>Bot.sendMessage()</code>, <code>Api.sendMessage</code>, etc. now supports <b>chained methods</b>.
   These let you quickly react, edit, reply, pin, forward, or delete the message.
 </p>
 
 <div class="code-container">
   <pre><code class="language-javascript">
 // Send a message and chain methods
-let data = await Api.sendMessage("Hello user!")
+let data = await Api.sendMessage({text: "Hello user!"})
 await data.pin()                          // Pin the message
 await data.react("👍")                     // Add reaction
 await data.editText("Updated text")       // Edit message text
