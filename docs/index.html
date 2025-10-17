@@ -36,8 +36,9 @@ Telegram bot hosting, free Telegram bot hosting, best Telegram bot hosting, secu
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2719295794573158" crossorigin="anonymous" defer></script>
   <!-- Highlight.js for syntax highlighting -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" defer>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script defer>hljs.highlightAll();</script>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -167,8 +168,74 @@ Bot.sendMessage("Available commands:\n/start - Start bot\n/help - Show help")</c
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+<!-- What's New -->
+<h2 id="whats-new">What's New in TBL</h2>
+<p>The latest TBL update introduces <b>major new features</b> for developers, giving more control, flexibility, and integration possibilities.  
+Here’s a breakdown of everything new:</p>
 
- <!-- 3. Command Structure -->
+<h3> 1. Webhook Support</h3>
+<p>TBL now supports <b><a href="#class-webhook">Webhook</a> mode</b>. You can call bot commands directly using HTTP requests — perfect for building websites, dashboards, or automation tools that interact with your bot in real-time.</p>
+
+<h3> 2. New <code>Bot.read()</code> Method</h3>
+<p>A new method <code>Bot.read("/command")</code> allows you to <b>read another command’s source code</b> as a string.  
+It’s ideal for dynamic command management, code previews, or admin tools.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">// Example usage
+let code = Bot.read("/start")
+Bot.sendMessage("Here's the code for /start:\n" + code)</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<p><b>Use case:</b> Create AI code analyzers, AI chatbot or documentation systems inside your bot.</p>
+
+<h3> 3. Buffer Support</h3>
+<p>TBL’s sandbox now supports the safe version of Node.js’s <b><a href="https://www.w3schools.com/nodejs/nodejs_buffer.asp">Buffer</a></b> class.  
+You can process binary data, files, and base64 strings directly in your commands.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">// Example
+let buf = Buffer.from("TBL Rocks!")
+Bot.sendMessage("Buffer length: " + buf.length)</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<p><b>Use case:</b> Work with files, encodings, and binary data safely inside the TBL VM.</p>
+
+<h3>4. Improved <code>Bot.runCommand()</code></h3>
+<p><code>Bot.runCommand()</code> has been improved — it now runs inside <b>any update type</b> (messages, callbacks, inline queries, webhooks, etc.).  
+Previously, it only worked with message updates.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">// Works everywhere now
+Bot.runCommand("/start")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<p><b>Use case:</b> Trigger other commands programmatically — regardless of where the update originated.</p>
+
+<h3> 5. Dynamic Command Handlers</h3>
+<p>TBL now supports <b><a href="#cmd-dynamic">Dynamic Commands</a></b> — allowing any <code>update type</code> to have its own handler in the form <code>/handle_{type}</code>.  
+For example, when a user joins a group, TBL automatically runs <code>/handle_new_chat_member</code> if it exists.</p>
+<div class="code-container">
+  <pre><code class="language-javascript">/*Command: /handle_new_chat_member*/
+Bot.sendMessage("👋 Welcome " + user.first_name + "!")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<p>This applies to all non-message updates like <b>chat_member</b>, <b>poll_answer</b>, <b>message_reaction</b>, etc.</p>
+<ul>
+  <li><code>/handle_chat_member</code> → runs when user status changes</li>
+  <li><code>/handle_poll_answer</code> → runs on poll responses</li>
+  <li><code>/handle_message_reaction</code> → runs on new reactions</li>
+  <li><code>/handle_chat_boost</code> → runs on chat boost updates</li>
+</ul>
+<p><b>Special Commands</b> like <code>/inline_query</code> and <code>/channel_update</code> are still supported and prioritized.</p>
+
+<h3> Summary</h3>
+<ul>
+  <li><b>Webhook:</b> Trigger commands via HTTP requests.</li>
+  <li><b>Bot.read():</b> Read another command’s source code.</li>
+  <li><b>Buffer:</b> Safe support for Node.js Buffer class.</li>
+  <li><b>Bot.runCommand():</b> Works in all update types.</li>
+  <li><b>Dynamic Commands:</b> Handle any Telegram update using <code>/handle_{type}</code> pattern.</li>
+</ul>
+
+
+<!-- 3. Command Structure -->
 <h2 id="commands">Command Structure</h2>
 <p>Commands are the <b>core building blocks</b> of TBL. Instead of using event listeners like <code>bot.on()</code>, TBL follows a <b>command-driven model</b>.
   Each command acts like a rule: when the trigger matches, the bot runs its script.</p>
@@ -186,9 +253,9 @@ Bot.sendMessage("Available commands:\n/start - Start bot\n/help - Show help")</c
 
 <h3 id="cmd-example">Example Command</h3>
 <ul>
-<li><b>command: </b><code>/start</code></li>
-<li><b>answer: </b> <code>Welcome! Choose an option:</code></li>
-<li><b>keyboard: </b><code>Help, About\nContact</code></li>
+  <li><b>command:</b> <code>/start</code></li>
+  <li><b>answer:</b> <code>Welcome! Choose an option:</code></li>
+  <li><b>keyboard:</b> <code>Help, About\nContact</code></li>
 </ul>
 <div class="code-container">
   <pre><code class="language-javascript">Bot.sendMessage("Hello " + user.first_name + "!")</code></pre>
@@ -246,57 +313,54 @@ Bot.sendMessage("Waiting for your choice...")</code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
-<h3 id="special-commands">Special Commands</h2>
+<h3 id="special-commands">Special Commands</h3>
 <p>TBL provides special system-level commands:</p>
 <ul>
-  <li><b>@</b> → Initialization (runs before any others command execution)</li>
-  <li><b>!</b> → Error handler (catches exceptions)</li>
+  <li><b>@</b> → Initialization (runs before any other command)</li>
+  <li><b>!</b> → Error handler (catches runtime errors)</li>
   <li><b>@@</b> → Post-processing (runs after every command)</li>
-  <li><b>*</b> → Wildcard (fallback when nothing else matches and master command that is able to handle all types of updates) [<a href="https://core.telegram.org/bots/api#update">Avilable Updates</a>]</li>
-  <li><b>/inline_query</b> → Handles inline queries if not created inline Updates will listen by <code>*</code></li>
-  <li><b>/channel_update</b> → Handles channel updates if not created inline Updates will listen by <code>*</code></li>
+  <li><b>*</b> → Wildcard (fallback when no command matches; master handler for all update types)</li>
+  <li><b>/inline_query</b> → Handles inline queries if defined; otherwise handled by <code>*</code></li>
+  <li><b>/channel_update</b> → Handles channel updates if defined; otherwise handled by <code>*</code></li>
 </ul>
 
-<h3 id="cmd-init">@ Command (Initialization)</h3>
-<p>Runs before executing any command, Useful for defining global variables or helper functions.</p>
-<div class="code-container">
-  <pre><code class="language-javascript">
-Command: @
-let config = { adminId: 123456 }
-function formatName(u) {
-  return u.first_name + (u.last_name ? " " + u.last_name : "")
-}</code></pre>
-  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<h3 id="cmd-dynamic">Dynamic Update Handlers</h3>
+<p>TBL now supports <b>dynamic command handlers</b> for every Telegram update type.</p>
+<p>Any update (other than messages) can be handled automatically by creating a command following this pattern:</p>
+<div class="alert info">
+  <i class="fas fa-bolt"></i>
+  <div><code>/handle_{update_type}</code> → will be executed for that specific update type.</div>
 </div>
-      <div class="alert warning">
-        <i class="fas fa-exclamation-triangle"></i>
-        <div>@ command only support synchronous execution means no await here, however you can use an async function then use await in the async function </div>
-      </div>
 
-<h3 id="cmd-error">! Command (Error Handler)</h3>
-<p>Handles all runtime errors automatically.</p>
+<p>For example:</p>
 <div class="code-container">
-  <pre><code class="language-javascript">
-Command: !
-Bot.sendMessage("⚠️ An error occurred. Please try again.")
-// in ! comamand we have error global variable to get details about error</code></pre>
+  <pre><code class="language-javascript">/*Command: /handle_chat_member*/
+Bot.sendMessage("A chat member update occurred!")</code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
-<h3 id="cmd-wildcard">* Command (Wildcard)</h3>
-<p>Fallback when no other command matches.</p>
-<div class="code-container">
-  <pre><code class="language-javascript">
-Command: *
-Bot.sendMessage("I didn’t understand that. Try /help.")</code></pre>
-  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-</div>
+<p>This feature works for all update types listed in the <a href="https://core.telegram.org/bots/api#update">Telegram Bot API</a>, including:</p>
+<ul>
+  <li><code>my_chat_member</code></li>
+  <li><code>chat_member</code></li>
+  <li><code>chat_join_request</code></li>
+  <li><code>business_message</code></li>
+  <li><code>edited_business_message</code></li>
+  <li><code>poll</code></li>
+  <li><code>poll_answer</code></li>
+  <li><code>message_reaction</code></li>
+  <li><code>message_reaction_count</code></li>
+  <li><code>chat_boost</code></li>
+  <li><code>removed_chat_boost</code></li>
+  <li>...and all other Telegram update types</li>
+</ul>
+
+<p>If a <code>/handle_{update_type}</code> command is not defined, the update will fall back to <code>/channel_update</code> (for channel-related updates) or <code>*</code> as a universal fallback.</p>
 
 <h3 id="cmd-inline">/inline_query</h3>
 <p>Handles inline mode queries (when users type <code>@yourbot query</code> in Telegram).</p>
 <div class="code-container">
-  <pre><code class="language-javascript">
-Command: /inline_query
+  <pre><code class="language-javascript">Command: /inline_query
 Bot.sendMessage("You searched: " + request.query)</code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
@@ -309,19 +373,19 @@ Bot.sendMessage("New channel post received!")</code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
-<h3 id="cmd-best">Best Practices</h2>
+<h3 id="cmd-best">Best Practices</h3>
 <ul>
   <li>Use <b>clear names</b> → <code>/buy_ticket</code>, not <code>/cmd69</code></li>
-  <li>Use <b>aliases</b> for typos or multiple languages</li>
+  <li>Use <b>aliases</b> for multiple triggers or languages</li>
   <li>Always define <b>!</b> to avoid silent errors</li>
   <li>Keep commands <b>modular</b> (one task per command)</li>
-  <li>Test async code carefully (especially with <code>await</code>)</li>
+  <li>Use <code>/handle_{type}</code> for any special update type</li>
+  <li>Test async code carefully, especially with <code>await</code></li>
 </ul>
-      <div class="alert warning">
-        <i class="fas fa-exclamation-triangle"></i>
-        <div>Always define a <b>!</b> command to capture and handle runtime errors.</div>
-      </div>
-
+<div class="alert warning">
+  <i class="fas fa-exclamation-triangle"></i>
+  <div>Always define a <b>!</b> command to capture and handle runtime errors.</div>
+</div>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -375,6 +439,7 @@ Bot.sendMessage("New channel post received!")</code></pre>
 
 <h3 id="request">request</h3>
 <p>Simplified version of <code>update</code>. TBL automatically detects the type of update. like when the update type is <code>message</code> then request will be <code>update.message</code></p>
+<p>And in Webhook <b>request</b> object contains info like ip, body, params, header etc..</p>
 
 <h3 id="message">message</h3>
 <p>Contains only the text of a message (if applicable).</p>
@@ -494,96 +559,121 @@ Bot.sendMessage("New channel post received!")</code></pre>
 
 <h3 id="class-api">Api</h3>
 <p>
-  The <code>Api</code> class lets you call any method supported by Telegram.
-  It is very flexible — you can use it directly, with command callbacks, or with async/await.
-  This class is essential whenever you need full control over Telegram messages, files, and interactions.
+  The <code>Api</code> class lets you call any Telegram method.
+  You can use it directly, with callbacks, async/await, or with chained message methods.
 </p>
-      <div class="alert info">
-        <i class="fas fa-info-circle"></i>
-        <div>Api methods are case <b>insensitive</b> so you can use both <code>sendMessage</code> or <code>sendmessage</code> </div>
-      </div>
-      <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="fluid"
-     data-ad-layout-key="-fb+5w+4e-db+86"
-     data-ad-client="ca-pub-2719295794573158"
-     data-ad-slot="8786409519"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<h4 id="api-normal">1. Normal Usage</h4>
+
+<div class="alert info">
+  <i class="fas fa-info-circle"></i>
+  <div>Api methods are case <b>insensitive</b>. You can use both <code>sendMessage</code> or <code>sendmessage</code>.</div>
+</div>
+
+<h4 id="api-simple">1. Simple Usage</h4>
 <p>
-  The simplest way to use <code>Api</code> is to call a method directly.  
-  By default, if you don’t provide <code>chat_id</code>, it will automatically use the current chat.
+  The simplest way to use <code>Api</code> is to call a method directly.
+  No <code>await</code> is needed. The message will be sent in the background.
 </p>
+
 <div class="code-container">
   <pre><code class="language-javascript">
-// Send a message (chat_id is optional, defaults to current chat)
-Api.sendMessage({
-  text: "Hello " + msg.from.first_name
-})
+// Send a simple message
+Api.sendMessage({ text: "Hello user!" })
 
-// Send a photo with caption
-Api.sendPhoto({
-  chat_id: msg.chat.id,
-  photo: "https://example.com/cat.jpg",
-  caption: "Here is a cat 🐱"
-})
+// Send a photo
+Api.sendPhoto({ photo: "https://example.com/cat.jpg", caption: "Cute cat" })
   </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
-<h4 id="api-onrun">2. Usage with <code>on_run</code> Callback</h4>
+<h4 id="api-onrun">2. Using <code>on_run</code> Callback</h4>
 <p>
-  Every API call can be linked with another command using <code>on_run</code>.  
-  After the API method finishes, its full result is automatically passed to the next command 
-  as <code>options</code>. This allows you to work with Telegram’s response without writing extra logic.
+  You can pass <code>on_run</code> to any Api call to run another command when the call finishes.
+  Useful if you want to continue logic in a separate command.
 </p>
+
 <div class="code-container">
   <pre><code class="language-javascript">
-// Call Api.getMe and continue in another command
+// Get bot info and continue in another command
 Api.getMe({ on_run: "afterGetMe" })
-/*
-//you can pass tbl_options too like
-Api.getMe({ on_run: "afterGetMe", tbl_options: {key: 111} })
-//in afterGetMe tbl_options.key avilable 
-*/
-// Inside "afterGetMe" command:
+
+// Inside "afterGetMe" command
 if (options.ok) {
-  Api.sendMessage({
-    text: "Bot username: @" + options.result.username
-  })
+  Api.sendMessage({ text: "Bot username: @" + options.result.username })
 }
   </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
+
+<h4 id="api-async">3. Using Async / Await</h4>
 <p>
-  This style is useful when you want to split logic across multiple commands, 
-  especially for complex flows or long-running bots.
+  For sequential logic, you can use <code>async/await</code>.
+  This lets you store results in variables and act on them immediately.
 </p>
 
-<h4 id="api-async">3. Usage with Async / Await</h4>
-<p>
-  You can also use <code>async/await</code> with any Api method.  
-  The method returns a full Telegram response object, where <code>ok</code> indicates success 
-  and <code>result</code> contains the actual data.
-</p>
 <div class="code-container">
   <pre><code class="language-javascript">
-  let data = await Api.getMe()
-  if (data.ok) {
-    let me = data.result
-    Api.sendMessage({
-      text: "My bot id is " + me.id
-    })
-  }
+let me = await Api.getMe()
+if (me.ok) {
+  Api.sendMessage({ text: "My bot id is " + me.result.id })
+}
+
+let msg = await Api.sendMessage({ text: "Hello again!" })
+Bot.inspect(msg) // Full Telegram response
   </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
+
+<h4 id="api-chained">4. Chained Methods on Messages</h4>
 <p>
-  This approach is preferred when you want to stay inside a single command 
-  and handle multiple API calls in sequence, keeping your code clean and readable.
+  Every message object returned from <code>Bot.sendMessage()</code>, <code>Bot.sendPhoto()</code>, etc. now supports <b>chained methods</b>.
+  These let you quickly react, edit, reply, pin, forward, or delete the message.
 </p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">
+// Send a message and chain methods
+let data = await Api.sendMessage("Hello user!")
+await data.pin()                          // Pin the message
+await data.react("👍")                     // Add reaction
+await data.editText("Updated text")       // Edit message text
+await data.reply("Thanks for replying")   // Reply to message
+
+  </code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4>Supported Chained Methods</h4>
+<ul>
+  <li>editText(text, opts = {})</li>
+  <li>editCaption(caption, opts = {})</li>
+  <li>editMedia(media, opts = {})</li>
+  <li>editReplyMarkup(rm, opts = {})</li>
+  <li>delete()</li>
+  <li>pin(dn = false)</li>
+  <li>unpin()</li>
+  <li>react(emoji, big = false)</li>
+  <li>forward(to, opts = {})</li>
+  <li>copy(to, opts = {})</li>
+  <li>reply(text, opts = {})</li>
+  <li>replyPhoto(photo, opts = {})</li>
+  <li>replyVideo(video, opts = {})</li>
+  <li>replyAudio(audio, opts = {})</li>
+  <li>replyVoice(voice, opts = {})</li>
+  <li>replyDocument(doc, opts = {})</li>
+  <li>replySticker(sticker, opts = {})</li>
+  <li>replyAnimation(anim, opts = {})</li>
+  <li>replyLocation(lat, lon, opts = {})</li>
+  <li>replyContact(phone, fn, opts = {})</li>
+  <li>replyPoll(q, options, opts = {})</li>
+  <li>replyDice(emoji="", opts = {})</li>
+  <li>get()</li>
+  <li>getChat()</li>
+  <li>getChatMember(uid)</li>
+  <li>downloadFile()</li>
+  <li>editLiveLocation(lat, lon, opts = {})</li>
+  <li>stopLiveLocation(opts = {})</li>
+  <li>stopPoll(opts = {})</li>
+</ul>
 
 
 <!-- Bot Class -->
@@ -594,16 +684,52 @@ if (options.ok) {
   Unlike <code>Api</code>, the <code>Bot</code> methods are designed to be easier to use inside commands.
 </p>
 
-   <div class="alert info">
-        <i class="fas fa-info-circle"></i>
-        <div>Bot methods are case sensitive, so only strict name allowed like <b>sendMessage</b> abd <b>sendmessage</b> are treated as separate method</div>
-      </div>
+<h3 id="bot-methods">Available Methods</h3>
+<p>The following methods are available in the <b>Bot</b> class:</p>
+<ul>
+  <li>runCommand</li>
+  <li>run</li>
+  <li>sendMessage</li>
+  <li>sendKeyboard</li>
+  <li>sendDocument</li>
+  <li>sendPhoto</li>
+  <li>sendAudio</li>
+  <li>sendVideo</li>
+  <li>sendVoice</li>
+  <li>inspect</li>
+  <li>read</li>
+  <li>set</li>
+  <li>setProp</li>
+  <li>setProperty</li>
+  <li>get</li>
+  <li>getProp</li>
+  <li>getProperty</li>
+  <li>del</li>
+  <li>delProp</li>
+  <li>delProperty</li>
+  <li>getAll</li>
+  <li>getAllProp</li>
+  <li>getAllProperty</li>
+  <li>delAll</li>
+  <li>delAllProp</li>
+  <li>delAllProperty</li>
+  <li>has</li>
+  <li>hasProp</li>
+  <li>count</li>
+  <li>countProps</li>
+  <li>getNames</li>
+  <li>getPropNames</li>
+</ul>
 
+<div class="alert info">
+  <i class="fas fa-info-circle"></i>
+  <div>Bot methods are case sensitive, so only strict name allowed like <b>sendMessage</b> and <b>sendmessage</b> are treated as separate methods.</div>
+</div>
 
 <h3 id="bot-run">1. Command Execution</h3>
 <p>
   You can tell the bot to run another command. This is useful if you want to move the user to a new flow.
-  These methods don’t return any value – they just execute.
+  These methods don’t return any value – they just execute the command.
 </p>
 
 <div class="code-container">
@@ -611,27 +737,45 @@ if (options.ok) {
 Bot.runCommand("/start")
 
 // Run with options
-Bot.runCommand("/start", {key: 111})
-// key is avilable now in /start and accessable with options.key
+Bot.runCommand("/start", { key: 111 })
+// key is available now in /start and accessible with options.key
 </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
+<div class="alert warning">
+  <i class="fas fa-exclamation-triangle"></i>
+  <div>
+    Currently, <b>Bot.run()</b> and <b>Bot.runCommand()</b> errors only throw when awaited.<br>
+    Example: <code>await Bot.run("/cmd")</code> will throw, but <code>Bot.run("/cmd")</code> will silently fail.<br>
+    This issue will be fixed in future versions.
+  </div>
+</div>
+
+<h3 id="bot-read">2. Reading Command Code</h3>
 <p>
-  Example: If the user types <code>/begin</code>, you can redirect them to <code>/start</code>:
+  The <code>Bot.read()</code> method lets you read the <b>raw code</b> of another command as a string.
+  It does <b>not</b> return any metadata like <code>answer</code>, <code>keyboard</code>, or <code>need_reply</code>.
+  Useful for dynamically inspecting or reusing command logic.
 </p>
 
 <div class="code-container">
-  <pre><code class="language-javascript">Bot.runCommand("/start")</code></pre>
+  <pre><code class="language-javascript">// Read the raw code of a command
+let code = Bot.read("/start")
+
+// Display or use the command code
+Bot.sendMessage(code)
+</code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
-<h3 id="bot-send">2. Sending Messages</h3>
+<h3 id="bot-send">3. Sending Messages</h3>
 <p>
   These methods send messages or media to the current chat.
   They return the <code>Telegram API response</code>.
   Using <code>await</code> is optional – you can wait for the result or just send without waiting.
 </p>
+<p>With await it's support <a href="#api-chained">Api Chained method</a> too </p>
 
 <div class="code-container">
   <pre><code class="language-javascript">// Send plain text
@@ -653,34 +797,15 @@ Bot.sendVoice("voice.ogg")
 
 // Debugging an object
 Bot.inspect({ user: "Alice", id: 123 })
+
+//chain example 
+let data =await Bot.sendMessage("pinned message")
+data.pin()//pin the previous message 
 </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
-<p><b>Example output when sending a text message:</b></p>
-
-<div class="code-container">
-  <pre><code>{
-  "ok": true,
-  "result": {
-    "message_id": 42,
-    "chat": { "id": 5723455420, "type": "private" },
-    "text": "Hello user!"
-  }
-}
-</code></pre>
-  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-</div>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-2719295794573158"
-     data-ad-slot="8142878854"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<h3 id="bot-props">3. Properties</h3>
+<h3 id="bot-props">4. Properties</h3>
 <p>
   Bot properties are simple key-value storage.
   They let you save data that belongs to the bot itself (not a specific user).
@@ -689,10 +814,8 @@ Bot.inspect({ user: "Alice", id: 123 })
 
 <div class="code-container">
   <pre><code class="language-javascript">// Set properties
-
-// set(key, value, type)
-Bot.set("version", "1.2.3", "string")
-Bot.set("config", { apiKey: "xyz" }, "json")
+Bot.set("version", "1.2.3", "String")
+Bot.set("config", { apiKey: "xyz" }, "Json")
 
 // Get values
 let v = Bot.get("version")   // "1.2.3"
@@ -703,7 +826,6 @@ Bot.del("version")
 
 // Get all properties
 let all = Bot.getAll()
-// -> { config: { apiKey: "xyz" } }
 
 // Delete all
 Bot.delAll()
@@ -716,47 +838,28 @@ let count = Bot.count()      // e.g. 1
 
 // Get all property names
 let names = Bot.getNames()   // ["config"]
-
-/* 
-//avilable data types
-'string'    // String values
-'number'    // Numeric values  
-'boolean'   // Boolean values
-'date'      // Date objects
-'json'      // Objects/Arrays (stored as JSON)
-'buffer'    // Buffer objects (binary data)
-'set'       // Set objects
-'list'      // Array objects
-'map'       // Map objects
-*/
-</code></pre>
-  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-</div>
-      <div class="alert info">
-        <i class="fas fa-info-circle"></i>
-        <div>type is optional on set methods if not provided will auto detects it's actual type</div>
-      </div>
-
-<p><b>Example workflow:</b></p>
-
-<div class="code-container">
-  <pre><code class="language-javascript">// Save a global config
-Bot.set("welcome", "Hello new user!", "string")
-
-// Later, use it in a message
-let msg = Bot.get("welcome")
-Bot.sendMessage(msg)
-
-// Update a property
-Bot.set("welcome", "Hi there 👋", "string")
-
-// Remove a property
-Bot.del("welcome")
 </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
-<h3 id="bot-prop-alias">4. Property Aliases</h3>
+<h4>Supported Property Data Types</h4>
+<p>The following data types are supported when storing bot properties:</p>
+<ul>
+  <li><b>String</b> – Plain text or automatically converted values.</li>
+  <li><b>Number</b> – Numeric values (integers or floats).</li>
+  <li><b>Boolean</b> – True or false values.</li>
+  <li><b>List</b> – Arrays (ordered lists).</li>
+  <li><b>Date</b> – Date objects.</li>
+  <li><b>Json</b> – Objects or arrays (stored as JSON).</li>
+</ul>
+
+<div class="alert info">
+  <i class="fas fa-info-circle"></i>
+  <div>The <code>type</code> parameter is optional in <b>Bot.set()</b>.
+    If not provided, the type is automatically detected.</div>
+</div>
+
+<h3 id="bot-prop-alias">5. Property Aliases</h3>
 <p>
   All property methods have short aliases.
   They work exactly the same, just different names.
@@ -764,8 +867,8 @@ Bot.del("welcome")
 
 <div class="code-container">
   <pre><code class="language-javascript">// Setting values
-Bot.setProp("theme", "dark", "string")
-Bot.setProperty("lang", "en", "string")
+Bot.setProp("theme", "dark", "String")
+Bot.setProperty("lang", "en", "String")
 
 // Getting values
 Bot.getProp("theme")        // "dark"
@@ -776,19 +879,18 @@ Bot.delProp("theme")
 Bot.delProperty("lang")
 
 // Get all / delete all
-Bot.getAllProp()            // { }
-Bot.getAllProperty()        // { }
+Bot.getAllProp()
+Bot.getAllProperty()
 Bot.delAllProp()
 Bot.delAllProperty()
 
 // Checking and counting
-Bot.hasProp("theme")        // false
-Bot.countProps()            // 0
-Bot.getPropNames()          // []
+Bot.hasProp("theme")
+Bot.countProps()
+Bot.getPropNames()
 </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
-
 <!-- HTTP Class -->
 <h2 id="class-http">HTTP Class</h2>
 <p>
@@ -1051,6 +1153,488 @@ Bot.inspect(data)
   <li>Saving and deleting are <b>asynchronous</b>, but you don’t need <code>await</code> — they just return <code>undefined</code>.</li>
 </ul>
 
+<!-- 🌐 Webhook Class Documentation -->
+<h2 id="class-webhook">Webhook</h2>
+<p>
+  The <code>Webhook</code> class provides secure URL generation and validation for webhook endpoints.
+  It helps you create authenticated URLs that can trigger specific commands in your bot —
+  either for individual users or globally accessible actions.
+</p>
+
+<div class="alert info">
+  <i class="fas fa-info-circle"></i>
+  <div>
+    Webhook URLs are <strong>cryptographically signed</strong> to prevent unauthorized access.
+    They can be used for both <em>user-specific</em> and <em>global</em> operations safely.
+  </div>
+</div>
+
+<h3 id="webhook-types">Webhook Types: Global vs User-Based</h3>
+
+<h4 id="global-webhooks"> Global Webhooks</h4>
+<p>
+  <strong>Global webhooks</strong> are publicly accessible URLs that don't require user authentication.
+  Perfect for actions that are open to all users, such as forms, landing pages, or general public APIs.
+</p>
+<ul>
+  <li>No user ID is included in the URL</li>
+  <li>Accessible by anyone with the link</li>
+  <li>Ideal for open resources and integrations</li>
+  <li>Use the <code>Webhook.getGlobalUrl()</code> method</li>
+</ul>
+
+<h4 id="user-webhooks"> User-Based Webhooks</h4>
+<p>
+  <strong>User-based webhooks</strong> include a cryptographically signed user ID in the URL.
+  These URLs are private and can only be used by the associated user.
+</p>
+<ul>
+  <li>Includes user ID in the URL signature</li>
+  <li>Accessible only by the intended user</li>
+  <li>Ideal for dashboards, profiles, or personalized actions</li>
+  <li>Use <code>Webhook.getUrl()</code> or <code>Webhook.getUrlFor()</code></li>
+</ul>
+
+<h3 id="webhook-strategies">Usage Strategies</h3>
+
+<h4 id="strategy-global">Strategy 1: Global Webhooks for Public Access</h4>
+<p>Use when you need endpoints that anyone can access (no authentication required):</p>
+<div class="code-container">
+<pre><code class="language-javascript">let publicUrl = Webhook.getGlobalUrl("showLanding", { page: "home" })
+
+let formUrl = Webhook.getGlobalUrl("submitForm", {
+  formId: "contact",
+  redirect: "https://example.com/thank-you"
+})
+
+Api.sendMessage({
+  text: `Visit our landing page: ${publicUrl}`
+})</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="strategy-user">Strategy 2: User Webhooks for Personalized Actions</h4>
+<p>Use when you need webhooks tied to a specific user, preserving context and identity:</p>
+<div class="code-container">
+<pre><code class="language-javascript">let dashboardUrl = Webhook.getUrl("showDashboard", { section: "profile" })
+
+let actionUrl = Webhook.getUrlFor({
+  user_id: msg.from.id,
+  command: "processOrder",
+  options: { orderId: 12345, amount: 99.99 }
+})
+
+Api.sendMessage({
+  text: `Visit your personal dashboard: ${dashboardUrl}`
+})</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="webhook-methods">Webhook Methods</h3>
+
+<h4 id="method-geturl"><code>getUrl(command, options)</code></h4>
+<p>Generates a secure user-based webhook URL for the current user.</p>
+<div class="code-container">
+<pre><code class="language-javascript">let url1 = Webhook.getUrl("showProfile")
+
+let url2 = Webhook.getUrl("processData", {
+  action: "update",
+  item: "settings"
+})</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="method-geturlfor"><code>getUrlFor({ user_id, command, redirect, options })</code></h4>
+<p>Generates a secure user-specific webhook URL, optionally including a redirect URL.</p>
+<div class="code-container">
+<pre><code class="language-javascript">let url1 = Webhook.getUrlFor({
+  command: "login",
+  redirect: "https://myapp.com/dashboard"
+})
+
+let url2 = Webhook.getUrlFor({
+  user_id: 123456789,
+  command: "resetPassword",
+  options: { token: "abc123" }
+})</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="method-getglobalurl"><code>getGlobalUrl(command, options, redirect)</code></h4>
+<p>Creates a globally accessible webhook (no user ID required).</p>
+<div class="code-container">
+<pre><code class="language-javascript">let apiUrl = Webhook.getGlobalUrl("publicApi", {
+  version: "v1",
+  endpoint: "status"
+})
+
+let formUrl = Webhook.getGlobalUrl(
+  "submitContact",
+  { form: "support" },
+  "https://example.com/thank-you"
+)</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="method-validate"><code>validate(botId, command, user_id, options, sig)</code></h4>
+<p>Validates a webhook signature to ensure authenticity (used internally by the framework).</p>
+
+<h2 id="class-res">Response Object (<code>res</code>)</h2>
+<p>
+  The <code>res</code> object allows webhook commands to send structured HTTP responses.
+  It supports JSON, HTML, XML, text, redirects, and template rendering with EJS.
+</p>
+
+<h3 id="res-methods">Response Methods</h3>
+
+<h4 id="res-set"><code>set(key, value)</code></h4>
+<p>Sets HTTP headers on the response object.</p>
+<div class="code-container">
+<pre><code class="language-javascript">res.set("Content-Type", "application/json")
+   .set("X-Custom-Header", "my-value")</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="res-status"><code>status(code)</code></h4>
+<p>Sets the HTTP response status code.</p>
+<div class="code-container">
+<pre><code class="language-javascript">res.status(200)
+res.status(404)
+res.status(500)</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="res-send"><code>send(body)</code></h4>
+<p>Sends a response with any content type.</p>
+<div class="code-container">
+<pre><code class="language-javascript">res.send("Hello World")
+res.send({ message: "Success", data: { id: 1 } })
+res.status(201).send("Resource created")</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="res-json"><code>json(obj)</code></h4>
+<p>Sends a JSON response with application/json content type.</p>
+<div class="code-container">
+<pre><code class="language-javascript">res.json({
+  status: "success",
+  user: user.name,
+  data: processedData
+})</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="res-html"><code>html(content)</code></h4>
+<p>Sends an HTML response. Auto-renders EJS templates if tags detected.</p>
+<div class="code-container">
+<pre><code class="language-javascript">res.html("&lt;h1&gt;Welcome&lt;/h1&gt;&lt;p&gt;Hello World&lt;/p&gt;")
+
+res.html(`
+  &lt;h1&gt;Welcome &lt;%= user.first_name %&gt;&lt;/h1&gt;
+  &lt;p&gt;Your ID: &lt;%= user.id %&gt;&lt;/p&gt;
+  &lt;% if (user.premium) { %&gt;
+    &lt;div class='premium'&gt;Premium User&lt;/div&gt;
+  &lt;% } %&gt;
+`)</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="res-xml"><code>xml(content)</code></h4>
+<p>Sends an XML response with application/xml content type.</p>
+<div class="code-container">
+<pre><code class="language-javascript">res.xml('&lt;?xml version="1.0"?&gt;&lt;response&gt;&lt;status&gt;success&lt;/status&gt;&lt;/response&gt;')</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="res-text"><code>text(content)</code></h4>
+<p>Sends a plain text response. Auto-renders EJS templates if tags detected.</p>
+<div class="code-container">
+<pre><code class="language-javascript">res.text("This is plain text")
+
+const textTemplate = 'Hello <%= name %>, welcome!'
+res.text(textTemplate)</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="res-redirect"><code>redirect(url)</code></h4>
+<p>Redirects the request to a different URL.</p>
+<div class="code-container">
+<pre><code class="language-javascript">res.redirect("https://example.com/success")
+res.redirect("/another-command")</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="res-render"><code>render(commandPath, options)</code></h4>
+<p>Renders another command's code as response with automatic content type detection.</p>
+<div class="code-container">
+<pre><code class="language-javascript">res.render("user-profile")
+
+res.render("api-data.json", {
+  data: { user: { name: "John", age: 30 } }
+})
+
+res.render("dashboard.html", {
+  data: { 
+    user: user,
+    stats: userStats,
+    params: params 
+  }
+})</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="res-renderejs"><code>renderEJS(template, data)</code></h4>
+<p>Renders EJS template with provided data and returns HTML response.</p>
+<div class="code-container">
+<pre><code class="language-javascript">res.renderEJS(`
+  &lt;h1&gt;Welcome &lt;%= user.name %&gt;&lt;/h1&gt;
+  &lt;p&gt;Your role: &lt;%= user.role %&gt;&lt;/p&gt;
+`, {
+  user: { name: "Alice", role: "admin" }
+})</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="res-methodnotfound"><code>methodNotFound(methodName)</code></h4>
+<p>Returns 404 error for unsupported methods.</p>
+<div class="code-container">
+<pre><code class="language-javascript">res.methodNotFound("unknownMethod")</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="res-end"><code>end()</code></h4>
+<p>Finalizes the response and returns the result.</p>
+<div class="code-container">
+<pre><code class="language-javascript">res.status(200).json({ success: true }).end()</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="res-render-details">res.render() In-Depth</h3>
+
+<h4 id="render-content-types">Automatic Content Type Detection</h4>
+<p><code>res.render()</code> automatically detects content type from file extension:</p>
+<div class="code-container">
+<pre><code class="language-javascript">res.render("page.html")           // Content-Type: text/html
+res.render("data.json")           // Content-Type: application/json  
+res.render("script.js")           // Content-Type: application/javascript
+res.render("style.css")           // Content-Type: text/css
+res.render("api.xml")             // Content-Type: application/xml
+res.render("plain-text")          // Content-Type: text/plain</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="render-data-passing">Data Passing and Template Context</h4>
+<p>All template rendering methods have access to multiple data sources:</p>
+<div class="code-container">
+<pre><code class="language-javascript">// Webhook URL: /webhook/showProfile?section=settings&view=compact
+
+res.render("profile-template.html", {
+  data: {
+    user: user,                    // Current user object
+    profile: userProfile,          // Additional profile data
+    preferences: userPrefs         // User preferences
+  }
+})
+
+// In profile-template.html, you can access:
+// - user, profile, preferences from data object
+// - params (from URL query string: {section: "settings", view: "compact"})
+// - All TBL variables (msg, Api, State, etc.)</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="res-examples">Practical Examples</h3>
+
+<h4 id="example-api">Example 1: JSON API Endpoint</h4>
+<div class="code-container">
+<pre><code class="language-javascript">let userData = {
+  id: user.id,
+  name: user.first_name,
+  premium: user.premium || false,
+  join_date: user.join_date
+}
+
+res.status(200)
+   .set("Access-Control-Allow-Origin", "*")
+   .json({
+     status: "success",
+     data: userData,
+     timestamp: Date.now()
+   })
+   .end()</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="example-dashboard">Example 2: User Dashboard with res.render()</h4>
+<div class="code-container">
+<pre><code class="language-javascript">// Command: dashboard-html (contains HTML template)
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Dashboard - &lt;%= user.first_name %&gt;&lt;/title&gt;
+  &lt;style&gt;
+    body { font-family: Arial; margin: 40px; }
+    .premium { color: gold; }
+    .section { margin: 20px 0; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Welcome &lt;%= user.first_name %&gt; &lt;%= user.last_name %&gt;&lt;/h1&gt;
+  
+  &lt;% if (params.view === "compact") { %&gt;
+    &lt;div class="compact-view"&gt;
+      &lt;p&gt;Quick Overview&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;% } else { %&gt;
+    &lt;div class="full-view"&gt;
+      &lt;div class="section"&gt;
+        &lt;h3&gt;Profile&lt;/h3&gt;
+        &lt;p&gt;Email: &lt;%= user.email %&gt;&lt;/p&gt;
+        &lt;p&gt;Member since: &lt;%= new Date(user.join_date).toLocaleDateString() %&gt;&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;% } %&gt;
+
+  &lt;% if (data.stats) { %&gt;
+    &lt;div class="section"&gt;
+      &lt;h3&gt;Statistics&lt;/h3&gt;
+      &lt;p&gt;Total orders: &lt;%= data.stats.totalOrders %&gt;&lt;/p&gt;
+      &lt;p&gt;Account balance: $&lt;%= data.stats.balance %&gt;&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;% } %&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+// Command: showDashboard (renders the template)
+let userStats = {
+  totalOrders: 15,
+  balance: 245.50
+}
+
+res.render("dashboard-html", {
+  data: {
+    stats: userStats
+  }
+})
+
+// URL: /webhook/showDashboard?view=compact
+// Will render the compact view based on params.view</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="example-render-json">Example 3: Dynamic JSON API with res.render()</h4>
+<div class="code-container">
+<pre><code class="language-javascript">// Command: user-api.json (contains JSON template)
+{
+  "status": "success",
+  "user": {
+    "id": &lt;%= user.id %&gt;,
+    "username": "&lt;%= user.first_name %&gt; &lt;%= user.last_name %&gt;",
+    "premium": &lt;%= user.premium %&gt;,
+    "join_date": "&lt;%= user.join_date %&gt;"
+  },
+  "request_params": {
+    "format": "&lt;%= params.format %&gt;",
+    "include_stats": &lt;%= params.include_stats === "true" %&gt;
+  },
+  "&lt;%= params.include_stats === "true" ? "statistics" : "" %&gt;": &lt;% if (params.include_stats === "true") { %&gt;{
+    "total_orders": &lt;%= data.stats.orders %&gt;,
+    "success_rate": &lt;%= data.stats.successRate %&gt;
+  }&lt;% } else { %&gt;null&lt;% } %&gt;
+}
+
+// Command: getUserData (renders the JSON template)
+let userStatistics = {
+  orders: 42,
+  successRate: 95.5
+}
+
+res.render("user-api.json", {
+  data: {
+    stats: userStatistics
+  }
+})
+
+// URL: /webhook/getUserData?format=detailed&include_stats=true
+// Outputs dynamic JSON based on parameters</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="example-webhook-flow">Example 4: Complete Webhook Flow</h4>
+<div class="code-container">
+<pre><code class="language-javascript">// Command: start - send webhook URL to user
+let dashboardUrl = Webhook.getUrl("showDashboard")
+Api.sendMessage({
+  text: `Click here to access your dashboard: ${dashboardUrl}`,
+  parse_mode: "HTML"
+})
+
+// Command: showDashboard - render personalized view
+if (!user) {
+  return res.status(401).json({ error: "User not found" })
+}
+
+res.renderEJS(`
+  &lt;h1&gt;Dashboard for &lt;%= user.first_name %&gt;&lt;/h1&gt;
+  &lt;div&gt;
+    &lt;a href="&lt;%= Webhook.getUrl('profile') %&gt;"&gt;Profile&lt;/a&gt; |
+    &lt;a href="&lt;%= Webhook.getUrl('settings') %&gt;"&gt;Settings&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;% if (params.ref === "welcome") { %&gt;
+    &lt;div class="welcome-message"&gt;
+      Welcome to your new dashboard!
+    &lt;/div&gt;
+  &lt;% } %&gt;
+`)</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4 id="example-error-handling">Example 5: Error Handling with res.render()</h4>
+<div class="code-container">
+<pre><code class="language-javascript">// Command: error-template.html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Error &lt;%= data.error.code %&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Error &lt;%= data.error.code %&gt;&lt;/h1&gt;
+  &lt;p&gt;&lt;%= data.error.message %&gt;&lt;/p&gt;
+  &lt;% if (data.error.details) { %&gt;
+    &lt;div class="details"&gt;
+      &lt;strong&gt;Details:&lt;/strong&gt;
+      &lt;p&gt;&lt;%= data.error.details %&gt;&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;% } %&gt;
+  &lt;a href="&lt;%= Webhook.getUrl('home') %&gt;"&gt;Return to Home&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+// Command: protectedAction
+if (!user || !user.hasAccess) {
+  return res.status(403).render("error-template.html", {
+    data: {
+      error: {
+        code: 403,
+        message: "Access Denied",
+        details: "You don't have permission to access this resource"
+      }
+    }
+  })
+}
+
+// Continue with normal processing...</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<div class="alert warning">
+  <i class="fas fa-exclamation-triangle"></i>
+  <div>
+    <strong>Security Note:</strong>
+    All webhook URLs are digitally signed and protected against tampering.
+    Always validate actions on your server, and never rely solely on client-side data.
+  </div>
+</div>
 <h2 id="class-msg">msg Class</h2>
 <p>
 The <b>msg</b> class lets you interact with Telegram messages.  
@@ -1098,12 +1682,11 @@ await msg.replyDocument("file.pdf")
 </code></pre>
 </div>
 
-<h3 id="class-msg-edit">3. Message Management</h3>
+<h3 id="class-msg-delete">3. Message Management</h3>
 <div class="code-container">
 <pre><code class="language-js">
 // Edit message text
 msg.editText("Updated text")
-await msg.editText("Updated text", { parse_mode: "Markdown" })
 
 // Delete message
 msg.delete(msg.message_id)
@@ -1113,7 +1696,7 @@ await msg.delete(msg.message_id)
 msg.react("👍")
 msg.react("🔥", true) // Big emoji
 
-// Pin & unpin messages
+// Pin & unpin messages only for group or super group with proper admin Rights
 msg.pin()
 msg.unpin(msg.message_id)
 </code></pre>
@@ -1663,6 +2246,82 @@ Telegram-specific helpers for mentions, chat links, message links, and safe text
   <li>Libraries can be combined in the same command for advanced workflows.</li>
 </ul>
 
+<!-- Known Error Behaviors Page -->
+<h2 id="current-error">Current Error Behaviors</h2>
+<p>
+This page describes the current known issues with how errors work in TBL.  
+These are temporary behaviors that will be fixed or improved in future updates.
+</p>
+
+<h3 id="async-error">1. Bot.run() and Bot.runCommand() Errors</h3>
+<p>
+Currently, errors inside <code>Bot.run()</code> or <code>Bot.runCommand()</code> only throw when the function is <b>awaited</b>.  
+If you call them without <code>await</code>, the error will not be thrown — it will silently fail.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">// Only throws when awaited
+await Bot.run("/invalid_command")
+
+// This will not throw, error ignored
+Bot.run("/invalid_command")</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p>
+This is a known issue and will be fixed so that <code>Bot.run()</code> properly reports errors even when not awaited.
+</p>
+
+<h3 id="telegram-api-error">2. Telegram API Errors Are Silent</h3>
+<p>
+At the moment, Telegram API errors (such as invalid parameters, missing chat IDs, or access errors)  
+are <b>silent</b> — they do not throw or stop script execution.  
+These errors only appear in the website’s Error Tab logs.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">// Example: text can't be empty 
+Bot.sendMessage("")
+
+// This error will only appear in Error Tab logs</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p>
+Future updates will make these errors more visible and optionally throwable for better debugging.
+</p>
+
+<h3 id="http-error">3. HTTP Errors Are Silent and Unlogged</h3>
+<p>
+HTTP request errors (network issues, bad URLs, or invalid responses) currently behave silently.  
+They are <b>not logged</b> in the dashboard and do not throw exceptions.  
+The only indication is through the <code>res.error</code> field returned in the response.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">let res = await HTTP.get("https://invalid.url")
+
+if (res.error) {
+  Bot.sendMessage("HTTP error: " + res.error)
+}</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p>
+In the future, these errors will be logged and optionally displayed in the Error Tab for better tracking.
+</p>
+
+<h3 id="fix-plan">Planned Fixes</h3>
+<ul>
+  <li><b>Bot.run() / Bot.runCommand():</b> Will throw properly even without <code>await</code>.</li>
+  <li><b>Telegram API Errors:</b> Will include a setting to control whether they throw or stay silent.</li>
+  <li><b>HTTP Errors:</b> Will be logged in the dashboard and include better error info in the response.</li>
+</ul>
+
+<p>
+These changes are planned for the next update to make error handling more predictable and developer-friendly.
+</p>
+
 <!-- content will stop here -->
     </div>
 </section>
@@ -1684,7 +2343,7 @@ Telegram-specific helpers for mentions, chat links, message links, and safe text
   </div>
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script src="script.js" type="text/javascript" charset="utf-8" defer></script>
 </body>
 </html>
