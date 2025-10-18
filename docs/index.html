@@ -623,9 +623,9 @@ Bot.inspect(msg) // Full Telegram response
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
-<h4 id="api-chained">4. Chained Methods on Messages</h4>
+<h4 id="api-chained">4. Chained Methods on Api.xxx Response</h4>
 <p>
-  Every message object returned from <code>Bot.sendMessage()</code>, <code>Api.sendMessage()</code>, etc. now supports <b>chained methods</b>.
+  Every response object returned from <code>Bot.sendMessage()</code>, <code>Api.sendMessage()</code>, etc. now supports <b>chained methods</b>.
   These let you quickly react, edit, reply, pin, forward, or delete the message.
 </p>
 
@@ -636,7 +636,7 @@ let data = await Api.sendMessage({text: "Hello user!"})
 await data.pin()                          // Pin the message
 await data.react("👍")                     // Add reaction
 await data.editText("Updated text")       // Edit message text
-await data.reply("Thanks for replying")   // Reply to message
+await data.reply("Replied Message")   // Reply to message
 
   </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -644,35 +644,33 @@ await data.reply("Thanks for replying")   // Reply to message
 
 <h4>Supported Chained Methods</h4>
 <ul>
-  <li>editText(text, opts = {})</li>
-  <li>editCaption(caption, opts = {})</li>
-  <li>editMedia(media, opts = {})</li>
-  <li>editReplyMarkup(rm, opts = {})</li>
+  <li>editText(text, {...options})</li>
+  <li>editCaption(caption, {...options})</li>
+  <li>editMedia(media, {...options})</li>
+  <li>editReplyMarkup(rm, {...options})</li>
   <li>delete()</li>
-  <li>pin(dn = false)</li>
+  <li>pin(dn = false)</li> <code>dn → disable notification</code>
   <li>unpin()</li>
   <li>react(emoji, big = false)</li>
-  <li>forward(to, opts = {})</li>
-  <li>copy(to, opts = {})</li>
-  <li>reply(text, opts = {})</li>
-  <li>replyPhoto(photo, opts = {})</li>
-  <li>replyVideo(video, opts = {})</li>
-  <li>replyAudio(audio, opts = {})</li>
-  <li>replyVoice(voice, opts = {})</li>
-  <li>replyDocument(doc, opts = {})</li>
-  <li>replySticker(sticker, opts = {})</li>
-  <li>replyAnimation(anim, opts = {})</li>
-  <li>replyLocation(lat, lon, opts = {})</li>
-  <li>replyContact(phone, fn, opts = {})</li>
-  <li>replyPoll(q, options, opts = {})</li>
-  <li>replyDice(emoji="", opts = {})</li>
-  <li>get()</li>
-  <li>getChat()</li>
-  <li>getChatMember(uid)</li>
+  <li>forward(to, {...options})</li>
+  <li>copy(to, {...options})</li>
+  <li>reply(text, {...options})</li>
+  <li>replyPhoto(photo, {...options})</li>
+  <li>replyVideo(video, {...options})</li>
+  <li>replyAudio(audio, {...options})</li>
+  <li>replyVoice(voice, {...options})</li>
+  <li>replyDocument(doc, {...options})</li>
+  <li>replySticker(sticker, {...options})</li>
+  <li>replyAnimation(anim, {...options})</li>
+  <li>replyLocation(lat, lon, {...options})</li>
+  <li>replyContact(phone, fn, {...options})</li>
+  <li>replyPoll(q, options, {...options})</li>
+  <li>replyDice(emoji="", {...options})</li>
+  <li>get()</li> <i>Get message id</i>
   <li>downloadFile()</li>
-  <li>editLiveLocation(lat, lon, opts = {})</li>
-  <li>stopLiveLocation(opts = {})</li>
-  <li>stopPoll(opts = {})</li>
+  <li>editLiveLocation(lat, lon, {...options})</li>
+  <li>stopLiveLocation({...options})</li>
+  <li>stopPoll({...options})</li>
 </ul>
 
 
