@@ -1112,6 +1112,8 @@ Bot.inspect(data)
   <li>Saving and deleting are <b>asynchronous</b>, but you don’t need <code>await</code> — they just return <code>undefined</code>.</li>
 </ul>
 
+
+
 <!-- 🌐 Webhook Class Documentation -->
 <h2 id="class-webhook">Webhook</h2>
 <p>
@@ -2205,6 +2207,72 @@ Telegram-specific helpers for mentions, chat links, message links, and safe text
   <li>Libraries can be combined in the same command for advanced workflows.</li>
 </ul>
 
+<h3 id="class-tbl">TBL</h3>
+<p>
+  The <code>TBL</code> class provides methods to manage bots in TeleBotHost.
+  You can clone bots, transfer bot using this class
+</p>
+<h4 id="class-tbl-clone">1. Clone Bot</h4>
+<p>
+  <code>TBL.clone</code> creates a copy of an existing bot, optionally including all properties and starting it immediately.
+  You can also pass custom properties to the cloned bot.
+</p>
+<div class="code-container">
+<pre><code class="language-js">
+const res = TBL.clone({
+  bot_id: bot.id,          // Required: ID of the bot to clone
+  start_now: true,         // Optional: start cloned bot immediately
+  bot_token: '12345:abc',  // Required if start_now=true
+  all_prop: true,          // Optional: copy all bot properties
+  bot_props: {             // Optional: custom properties
+    theme: 'dark',
+    welcome: 'Welcome to my new bot!'
+  }
+});
+
+// Inspect the cloned bot
+Bot.inspect(res);
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<div class="alert info">
+  <i class="fas fa-info-circle"></i>
+  <div>
+    <strong>Important:</strong> Cloning may take upto 4–5 seconds to complete.
+  </div>
+</div>
+
+<h4 id="class-tbl-transfer">2. Transfer Bot</h4>
+<p>
+  <code>TBL.transfer</code> allows you to transfer the bot to another TeleBotHost user.
+</p>
+
+<div class="code-container">
+<pre><code class="language-js">
+const result = TBL.transfer({
+  bot_id: bot.id,                 // Bot ID to transfer
+  to_mail: 'newuser@telebothost.com' // Target owner's email
+});
+</code></pre>
+</div>
+
+<div class="alert info">
+  <i class="fas fa-info-circle"></i>
+  <div>
+    <strong>Important:</strong> Transferring a bot may take 4–5 seconds. 
+    The method is synchronous and blocks execution while the server completes the transfer.
+  </div>
+</div>
+
+<h4 id="class-tbl-notes">Notes & Best Practices</h4>
+<ul>
+  <li>Both <code>TBL.clone</code> and <code>TBL.transfer</code> are synchronous and return immediately after the operation finishes.</li>
+  <li>Use <code>Bot.inspect(res)</code> to verify bot details after cloning or transferring.</li>
+  <li>When cloning with <code>start_now: true</code>, ensure a valid <code>bot_token</code> is provided.</li>
+  <li>Custom properties in <code>bot_props</code> are automatically type-detected (string, number, boolean, etc.).</li>
+  <li>Avoid calling clone/transfer repeatedly in loops or performance-critical sections due to the blocking nature.</li>
+</ul>
 <!-- Known Error Behaviors Page -->
 <h2 id="current-error">Current Error Behaviors</h2>
 <p>
