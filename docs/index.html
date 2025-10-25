@@ -2083,7 +2083,7 @@ Most methods return promises—<code>await</code> is optional unless you need th
   <li><b>MCL (Membership Checker Lib)</b> – Check user membership in channels/groups and related tasks.</li>
   <li><b>random</b> – Generate random numbers, strings, colors, dates, and complex distributions.</li>
   <li><b>refLib</b> – Create referral links and track invited users.</li>
-  <li><b>tgUtil</b> – Telegram-specific helpers for names, links, mentions, escaping text, etc.</li>
+  <li><b>tgutil</b> – Telegram-specific helpers for names, links, mentions, escaping text, etc.</li>
 </ul>
 
 <h3 id="libs-resources">1. ResourcesLib</h3>
@@ -2187,24 +2187,24 @@ Tools for building and tracking referral systems.
 </p>
 </div>
 
-<h3 id="libs-tgutil">6. tgUtil</h3>
+<h3 id="libs-tgutil">6. tgutil</h3>
 <div class="code-container">
 <pre><code class="language-js">
 // Get a user’s full name
-let fullName = Libs.tgUtil.getFullName(user)
+let fullName = Libs.tgutil.getFullName(user)
 
 // Create a clickable HTML link to a user profile
-let link = Libs.tgUtil.getLinkFor(user, "html")
+let link = Libs.tgutil.getLinkFor(user, "html")
 
 // Escape text for Markdown
-let safeText = Libs.tgUtil.escapeText("*Hello*", "markdown")
+let safeText = Libs.tgutil.escapeText("*Hello*", "markdown")
 
 // Create an inline button
-let btn = Libs.tgUtil.createInlineButton("Press Me", "/callback_data")
+let btn = Libs.tgutil.createInlineButton("Press Me", "/callback_data")
 </code></pre>
 <p>
 Telegram-specific helpers for mentions, chat links, message links, and safe text formatting.  
-<a href="https://github.com/telebothost/tbl-libs/blob/main/Lib-Docs/tgUtil.md" target="_blank">Full tgUtil Documentation</a>
+<a href="https://github.com/telebothost/tbl-libs/blob/main/Lib-Docs/tgutil.md" target="_blank">Full tgutil Documentation</a>
 </p>
 </div>
 
