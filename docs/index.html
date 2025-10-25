@@ -2050,6 +2050,14 @@ const ua = modules.uaParser.parse("Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
 </code></pre>
 </div>
 
+<h4 id="crypto-formdata-update">Crypto & FormData Module Update</h4>
+<p>
+  You no longer need to use <code>modules.crypto.xxx</code>; you can directly access methods with <code>crypto.xxx</code>.<br>
+  The crypto library is now included by default since it’s one of the most commonly used modules.
+</p>
+<p>
+  Similarly, the <code>form-data</code> library is also included by default as <code>FormData</code>, allowing you to use <code>FormData.xxx</code> directly.
+</p>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
