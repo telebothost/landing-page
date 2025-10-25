@@ -578,8 +578,8 @@ if (me.ok) {
   Api.sendMessage({ text: "My bot id is " + me.result.id })
 }
 
-let msg = await Api.sendMessage({ text: "Hello again!" })
-Bot.inspect(msg) // Full Telegram response
+let sent = await Api.sendMessage({ text: "Hello again!" })
+Bot.inspect(sent) // Full Telegram response
   </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
