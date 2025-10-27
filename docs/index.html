@@ -1112,137 +1112,191 @@ Bot.inspect(data)
   <li>Saving and deleting are <b>asynchronous</b>, but you don’t need <code>await</code> — they just return <code>undefined</code>.</li>
 </ul>
 
-
-
 <!-- 🌐 Webhook Class Documentation -->
 <h2 id="class-webhook">Webhook</h2>
 <p>
-  The <code>Webhook</code> class provides secure URL generation and validation for webhook endpoints.
-  It helps you create authenticated URLs that can trigger specific commands in your bot —
-  either for individual users or globally accessible actions.
+  The <code>Webhook</code> class is used to generate secure URLs for your bot’s webhook endpoints.
+  These URLs can trigger bot commands directly from external sources — like web pages, APIs, or user dashboards —
+  while keeping data protected with cryptographic signatures.
 </p>
 
 <div class="alert info">
   <i class="fas fa-info-circle"></i>
   <div>
-    Webhook URLs are <strong>cryptographically signed</strong> to prevent unauthorized access.
-    They can be used for both <em>user-specific</em> and <em>global</em> operations safely.
+    Webhook URLs are <strong>signed and verified</strong> automatically.
+    They can be global (open for everyone) or user-based (private to a specific user).
   </div>
 </div>
 
-<h3 id="webhook-types">Webhook Types: Global vs User-Based</h3>
+
+
+<h3 id="webhook-types">Webhook Types</h3>
 
 <h4 id="global-webhooks"> Global Webhooks</h4>
 <p>
-  <strong>Global webhooks</strong> are publicly accessible URLs that don't require user authentication.
-  Perfect for actions that are open to all users, such as forms, landing pages, or general public APIs.
+  <strong>Global webhooks</strong> are public endpoints anyone can access.
+  Ideal for open integrations, landing pages, or APIs that don’t require authentication.
 </p>
 <ul>
-  <li>No user ID is included in the URL</li>
+  <li>Do not include user ID</li>
   <li>Accessible by anyone with the link</li>
-  <li>Ideal for open resources and integrations</li>
-  <li>Use the <code>Webhook.getGlobalUrl()</code> method</li>
+  <li>Best for public forms, APIs, or info endpoints</li>
+  <li>Use <code>Webhook.getGlobalUrl()</code></li>
 </ul>
 
 <h4 id="user-webhooks"> User-Based Webhooks</h4>
 <p>
-  <strong>User-based webhooks</strong> include a cryptographically signed user ID in the URL.
-  These URLs are private and can only be used by the associated user.
+  <strong>User-based webhooks</strong> are tied to a specific user and contain a secure signature for that user.
+  Perfect for personalized dashboards, user actions, or account-specific operations.
 </p>
 <ul>
-  <li>Includes user ID in the URL signature</li>
-  <li>Accessible only by the intended user</li>
-  <li>Ideal for dashboards, profiles, or personalized actions</li>
+  <li>Include encrypted user ID</li>
+  <li>Accessible only by the signed user</li>
   <li>Use <code>Webhook.getUrl()</code> or <code>Webhook.getUrlFor()</code></li>
 </ul>
 
-<h3 id="webhook-strategies">Usage Strategies</h3>
 
-<h4 id="strategy-global">Strategy 1: Global Webhooks for Public Access</h4>
-<p>Use when you need endpoints that anyone can access (no authentication required):</p>
-<div class="code-container">
-<pre><code class="language-javascript">let publicUrl = Webhook.getGlobalUrl("showLanding", { page: "home" })
-
-let formUrl = Webhook.getGlobalUrl("submitForm", {
-  formId: "contact",
-  redirect: "https://example.com/thank-you"
-})
-
-Api.sendMessage({
-  text: `Visit our landing page: ${publicUrl}`
-})</code></pre>
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
-</div>
-
-<h4 id="strategy-user">Strategy 2: User Webhooks for Personalized Actions</h4>
-<p>Use when you need webhooks tied to a specific user, preserving context and identity:</p>
-<div class="code-container">
-<pre><code class="language-javascript">let dashboardUrl = Webhook.getUrl("showDashboard", { section: "profile" })
-
-let actionUrl = Webhook.getUrlFor({
-  user_id: msg.from.id,
-  command: "processOrder",
-  options: { orderId: 12345, amount: 99.99 }
-})
-
-Api.sendMessage({
-  text: `Visit your personal dashboard: ${dashboardUrl}`
-})</code></pre>
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
-</div>
 
 <h3 id="webhook-methods">Webhook Methods</h3>
 
-<h4 id="method-geturl"><code>getUrl(command, options)</code></h4>
-<p>Generates a secure user-based webhook URL for the current user.</p>
+<h4 id="method-geturl"><code>getUrl(command, { options, params, redirect })</code></h4>
+<p>
+  Generates a secure user-based webhook for the current user.  
+  You can include optional parameters and redirect URLs.
+</p>
 <div class="code-container">
-<pre><code class="language-javascript">let url1 = Webhook.getUrl("showProfile")
+<pre><code class="language-javascript">let syncUrl = Webhook.getUrl("syncGameData", {
+  options: { level: 10 },
+  params: { ref: "profile", lang: "en" }
+})
 
-let url2 = Webhook.getUrl("processData", {
-  action: "update",
-  item: "settings"
+Api.sendMessage({
+  text: `Sync your game data: ${syncUrl}`
 })</code></pre>
 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
-<h4 id="method-geturlfor"><code>getUrlFor({ user_id, command, redirect, options })</code></h4>
-<p>Generates a secure user-specific webhook URL, optionally including a redirect URL.</p>
+
+
+<h4 id="method-geturlfor"><code>getUrlFor({ user_id, command, options, params, redirect })</code></h4>
+<p>
+  Generates a webhook for a specific user.  
+  Ideal for sending personalized links or actions to a given user ID.
+</p>
 <div class="code-container">
-<pre><code class="language-javascript">let url1 = Webhook.getUrlFor({
-  command: "login",
-  redirect: "https://myapp.com/dashboard"
+<pre><code class="language-javascript">let upgradeUrl = Webhook.getUrlFor({
+  user_id: 123,
+  command: "syncGameData",
+  redirect: "https://telebothost.com",
+  options: { plan: "pro" },
+  params: { ref: "upgrade" }
 })
 
-let url2 = Webhook.getUrlFor({
-  user_id: 123456789,
-  command: "resetPassword",
-  options: { token: "abc123" }
+Api.sendMessage({
+  text: `Upgrade your plan here: ${upgradeUrl}`
 })</code></pre>
 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
-<h4 id="method-getglobalurl"><code>getGlobalUrl(command, options, redirect)</code></h4>
-<p>Creates a globally accessible webhook (no user ID required).</p>
+
+
+<h4 id="method-getglobalurl"><code>getGlobalUrl(command, { options, params, redirect })</code></h4>
+<p>
+  Creates a globally accessible webhook URL that does not require user authentication.
+  You can attach query parameters or redirect links for external flows.
+</p>
 <div class="code-container">
-<pre><code class="language-javascript">let apiUrl = Webhook.getGlobalUrl("publicApi", {
-  version: "v1",
-  endpoint: "status"
+<pre><code class="language-javascript">let statsUrl = Webhook.getGlobalUrl("getStats", {
+  options: { days: 30 },
+  redirect: "https://telebothost.com",
+  params: { ref: "home" }
 })
 
-let formUrl = Webhook.getGlobalUrl(
-  "submitContact",
-  { form: "support" },
-  "https://example.com/thank-you"
-)</code></pre>
+Api.sendMessage({
+  text: `View global statistics: ${statsUrl}`
+})</code></pre>
 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
-<h4 id="method-validate"><code>validate(botId, command, user_id, options, sig)</code></h4>
-<p>Validates a webhook signature to ensure authenticity (used internally by the framework).</p>
+
+<h3 id="best-practices">Best Practices</h3>
+<ul>
+  <li>Always use <code>params</code> for visible query strings (e.g., tracking or page context)</li>
+  <li>Use <code>options</code> for internal, signed data</li>
+  <li>Include a <code>redirect</code> if the webhook should lead back to an external page</li>
+  <li>Avoid sharing <code>user-based</code> URLs publicly</li>
+</ul>
+
+<table>
+  <tr><th>Method</th><th>Access Type</th><th>Use Case</th></tr>
+  <tr><td><code>getGlobalUrl()</code></td><td>Public</td><td>Open APIs, landing pages</td></tr>
+  <tr><td><code>getUrl()</code></td><td>Private (current user)</td><td>User dashboard, game data</td></tr>
+  <tr><td><code>getUrlFor()</code></td><td>Private (specific user)</td><td>Account links, user actions</td></tr>
+</table>
+
+<!-- 🌐 Webapp Class Documentation -->
+<h2 id="class-webapp">Webapp</h2>
+<p>
+  The <code>Webapp</code> class is used to generate clean, global URLs for your bot’s
+  web integrations — such as dashboards, pages, or lightweight APIs.
+  Unlike <code>Webhook</code>, these URLs are <strong>not cryptographically signed</strong>,
+  making them ideal for open, public, or embed-style resources.
+</p>
+
+<div class="alert info">
+  <i class="fas fa-globe"></i>
+  <div>
+    <strong>Webapp URLs</strong> are public and do not contain user authentication data.
+    They are best used for pages that do not need secure user verification.
+  </div>
+</div>
+
+<h3 id="webapp-purpose">When to Use</h3>
+<p>
+  Use the <code>Webapp</code> class whenever you need a static or semi-dynamic link for:
+</p>
+<ul>
+  <li>Landing pages or info dashboards</li>
+  <li>Public web components or previews</li>
+  <li>Lightweight APIs or micro webviews</li>
+  <li>Embedded pages that don’t require a signed user context</li>
+</ul>
+
+
+<h3 id="webapp-methods">Webapp Methods</h3>
+
+<h4 id="method-geturl"><code>getUrl(command, { options, params })</code></h4>
+<p>
+  Generates a global webapp URL for the specified command.
+  You can include <code>options</code> for internal configuration
+  and <code>params</code> for visible query parameters.
+</p>
+
+<div class="code-container">
+<pre><code class="language-javascript">let dashboardUrl = Webapp.getUrl("dashboard", {
+  options: { theme: "dark", userId: 123 },
+  params: { ref: "home", lang: "en" }
+})
+
+Api.sendMessage({
+  text: `Open the web dashboard: ${dashboardUrl}`
+})</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3 id="best-practices">✨ Best Practices</h3>
+<ul>
+  <li>Use <code>Webapp</code> for public or semi-public resources only</li>
+  <li>Use <code>params</code> for readable URL parameters (e.g. <code>?ref=home&lang=en</code>)</li>
+  <li>Use <code>options</code> for app-level configuration</li>
+
+  <li>For secure user-specific links, prefer <code>Webhook</code></li>
+</ul>
+
 
 <h2 id="class-res">Response Object (<code>res</code>)</h2>
 <p>
-  The <code>res</code> object allows webhook commands to send structured HTTP responses.
+  The <code>res</code> object allows webhook and Webapp commands to send structured HTTP responses.
   It supports JSON, HTML, XML, text, redirects, and template rendering with EJS.
 </p>
 
@@ -1344,31 +1398,6 @@ res.render("dashboard.html", {
 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
-<h4 id="res-renderejs"><code>renderEJS(template, data)</code></h4>
-<p>Renders EJS template with provided data and returns HTML response.</p>
-<div class="code-container">
-<pre><code class="language-javascript">res.renderEJS(`
-  &lt;h1&gt;Welcome &lt;%= user.name %&gt;&lt;/h1&gt;
-  &lt;p&gt;Your role: &lt;%= user.role %&gt;&lt;/p&gt;
-`, {
-  user: { name: "Alice", role: "admin" }
-})</code></pre>
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
-</div>
-
-<h4 id="res-methodnotfound"><code>methodNotFound(methodName)</code></h4>
-<p>Returns 404 error for unsupported methods.</p>
-<div class="code-container">
-<pre><code class="language-javascript">res.methodNotFound("unknownMethod")</code></pre>
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
-</div>
-
-<h4 id="res-end"><code>end()</code></h4>
-<p>Finalizes the response and returns the result.</p>
-<div class="code-container">
-<pre><code class="language-javascript">res.status(200).json({ success: true }).end()</code></pre>
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
-</div>
 
 <h3 id="res-render-details">res.render() In-Depth</h3>
 
@@ -2356,6 +2385,41 @@ In the future, these errors will be logged and optionally displayed in the Error
 <p>
 These changes are planned for the next update to make error handling more predictable and developer-friendly.
 </p>
+
+<!-- ⚙️ TBL Free Plan Limits -->
+<h2 id="tbl-free-plan">TBL Free Plan Limits</h2>
+
+<p>
+  The <strong>Free Plan</strong> in TBL provides a secure sandbox for running bots with limited resources.
+  It’s designed for small projects, testing, and basic automation.
+</p>
+
+<hr>
+
+<h3>Execution</h3>
+<ul>
+  <li><strong>Execution timeout:</strong> 15 seconds</li>
+  <li><strong>Output buffer size:</strong> 512 KB</li>
+  <li><strong>Parallel processes:</strong> up to 10 with <code>Promise.all()</code></li>
+</ul>
+
+<h3> File System</h3>
+<ul>
+  <li><strong>File access:</strong> Disabled</li>
+  <li><strong>File storage limit:</strong> 0 bytes</li>
+</ul>
+
+<h3>Persistent Storage (Properties)</h3>
+<ul>
+  <li><strong>Per bot:</strong> 2 MB</li>
+  <li><strong>Per account:</strong> 20 MB</li>
+</ul>
+
+<h3> Support</h3>
+<ul>
+  <li><strong>Support contact:</strong> Available for all free users</li>
+</ul>
+
 
 <!-- content will stop here -->
     </div>
