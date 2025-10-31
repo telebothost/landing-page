@@ -1,243 +1,543 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Overlay Highlight Search</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding-top: 80px;
-  background: #f7f7f7;
-  position: relative;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, interactive-widget=resizes-content">
+    <meta name="google" content="notranslate">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-header#header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #007bff;
-  color: white;
-  z-index: 1000;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
+    <title>TeleBot Host - Free Telegram Bot Hosting</title>
+    <meta name="description" content="Host your Telegram bots for free with TeleBotHost – the fastest, most secure, and scalable Telegram bot hosting platform. 1-click deployment, 24/7 uptime, and fully managed hosting. Compete with top platforms like AWS Lambda, PythonAnywhere, Oracle Cloud, HostArmada, and more.">
+<meta name="keywords" content="
+Telegram bot hosting, free Telegram bot hosting, best Telegram bot hosting, secure Telegram bot server, scalable bot hosting, fast Telegram bot hosting, 24/7 Telegram bot uptime, automated Telegram bots, TeleBotHost, Tele-Bot-Host, TeleBotHaven, TelebotCreator, online Telegram bot hosting, Telegram bot deployment, cloud bot hosting, serverless Telegram bot hosting, PythonAnywhere Telegram bots, AWS Lambda Telegram bots, Oracle Cloud Telegram bots, HostArmada Telegram bot hosting, high-performance bot hosting, Telegram bot management, reliable bot servers, affordable Telegram bot hosting, top Telegram bot hosting 2025, free tier bot hosting, Telegram bot automation, Telegram bot server cost, Telegram bot hosting comparison, Telegram bot hosting tutorial, Telegram bot hosting guide, Telegram bot hosting platform review, host Telegram bots instantly, Telegram bot hosting solutions, Telegram bot hosting providers, Telegram bot hosting features, Telegram bot hosting for beginners, Telegram bot hosting experts, Telegram bot server performance, best free Telegram bot host, Telegram bot hosting tips, Telegram bot development, Telegram bot hosting reviews, Telegram bot cloud hosting, Telegram bot hosting fast server, Telegram bot hosting online, top free Telegram bot hosting, Telegram bot automation tools, Telegram bot platform, cheap Telegram bot servers, scalable Telegram hosting, high-speed bot hosting, Telegram bot server setup, Telegram bot hosting security, best hosting for Telegram bots, Telegram bot server management, Telegram bot hosting service, Telegram bot hosting site, top Telegram bot platforms, rose bot, free music Downloder Telegrm bot , best Telegram bot on GitHub , Bot hosting Providers, Telegrm Bot course , Telegram bot deployment service, bot servers, Ai bot maker, Chat gpt Telegrm bot, Bot Bussiness alternative
+">
+  <meta name="author" content="TeleBotHost Team">
+<meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://telebothost.com/">
+  <link rel="alternate" hreflang="x-default" href="https://telebothost.com/">
+  <!-- Open Graph / Social Meta (Facebook, LinkedIn) -->
+  <meta property="og:title" content="Fast Telegram Bot Hosting | Secure & Scalable | TeleBotHost">
+  <meta property="og:description" content="🚀 TeleBotHost offers the fastest, most secure Telegram bot hosting with 99.9% uptime. Deploy & manage bots instantly with 1-click setup.">
+  <meta property="og:image" content="https://telebothost.com/assets/preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Telegram Bot Hosting Dashboard - TeleBotHost">
+  <meta property="og:url" content="https://telebothost.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TeleBotHost">
+  <meta property="og:locale" content="en_US">
 
-header .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 20px;
-}
+  <!-- Twitter Card Meta -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Fast Telegram Bot Hosting | Secure & Scalable | TeleBotHost">
+  <meta name="twitter:description" content="🚀 TeleBotHost offers the fastest, most secure Telegram bot hosting with 99.9% uptime. Deploy & manage bots instantly with 1-click setup.">
+  <meta name="twitter:image" content="https://telebothost.com/assets/preview.png">
+  <meta name="twitter:image:alt" content="Telegram Bot Hosting Dashboard - TeleBotHost">
 
-header .nav-links a {
-  color: white;
-  text-decoration: none;
-  margin-left: 20px;
-}
+  <!-- Telegram Channel -->
+  <meta name="telegram:channel" content="@TeleBotHaven">
 
-header .search-nav {
-  display: none;
-  gap: 10px;
-  align-items: center;
-}
+  <!-- Favicon & App Icons -->
+  <link rel="icon" href="https://telebothost.com/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://telebothost.com/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://telebothost.com/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://telebothost.com/favicon-16x16.png">
+  <link rel="manifest" href="https://telebothost.com/site.webmanifest">
+  <meta name="msapplication-TileColor" content="#ffffff">
 
-header .search-nav button {
-  background: white;
-  border: none;
-  color: #007bff;
-  font-size: 18px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#searchToggleBtn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-#cornerSearch {
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  display: flex;
-  gap: 5px;
-  background: #fff;
-  padding: 8px 12px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  transform: translateX(120%);
-  transition: transform 0.3s;
-  z-index: 999;
-}
-
-#cornerSearch.show {
-  transform: translateX(0);
-}
-
-#cornerSearch input {
-  padding: 8px 12px;
-  font-size: 16px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 220px;
-}
-
-.content {
-  margin: 20px auto;
-  max-width: 900px;
-  padding: 20px;
-  background: white;
-  border-radius: 10px;
-  position: relative;
-}
-
-.highlight-overlay {
-  position: absolute;
-  background: #007bff;
-  opacity: 0.1;
-  pointer-events: none;
-  z-index: 1;
-  border-radius: 3px;
-  padding: 0 1.5px;
-}
-</style>
-</head>
-<body>
-
-<header id="header">
-  <div class="container nav-container">
-    <a href="index.html" class="logo">
-      TeleBot Host
-    </a>
-    <nav class="nav-links">
-      <a href="/" class="nav-link">Home</a>
-    </nav>
-    <div class="search-nav">
-      <button id="prevMatch"><i class="fa-solid fa-arrow-left"></i></button>
-      <button id="nextMatch"><i class="fa-solid fa-arrow-right"></i></button>
-    </div>
-  </div>
-</header>
-
-<div class="content">
-  <h1>Main Heading</h1>
-  <h2>Sub Heading</h2>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Search for anything.</p>
-  <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-  <a href="#">Click here for testing search</a>
-  <h3>Another Heading</h3>
-  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-</div>
-
-<button id="searchToggleBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
-<div id="cornerSearch">
-  <input type="text" id="searchInput" placeholder="Search keyword or ID">
-</div>
-
-<script>
-$(document).ready(function(){
-  let matches = [];
-  let currentIndex = -1;
-  let $overlays = [];
-
-  $('#searchToggleBtn').click(function(){
-    $('#cornerSearch').toggleClass('show');
-    $('#searchInput').focus();
-    if(!$('#cornerSearch').hasClass('show')){
-      clearHighlights();
-      $('#header .search-nav').hide();
-    }
-  });
-
-  function clearHighlights(){
-    $overlays.forEach(el => $(el).remove());
-    $overlays = [];
-    matches = [];
-    currentIndex = -1;
-  }
-
-  function highlightMatches(keyword){
-    clearHighlights();
-    if(!keyword){
-      $('#header .search-nav').hide();
-      return;
-    }
-
-    const elements = $('.content').find('p, h1, h2, h3, h4, h5, h6, a, span, li');
-    elements.each(function(){
-      const text = $(this).text();
-      const regex = new RegExp(keyword, 'gi');
-      let match;
-      while ((match = regex.exec(text)) !== null) {
-        const range = document.createRange();
-        const node = this.firstChild;
-        if(node){
-          range.setStart(node, match.index);
-          range.setEnd(node, match.index + match[0].length);
-          const rects = range.getClientRects();
-          Array.from(rects).forEach(r=>{
-            const $overlay = $('<div class="highlight-overlay"></div>').appendTo('body');
-            $overlay.css({
-              top: r.top + window.scrollY + 'px',
-              left: r.left + window.scrollX + 'px',
-              width: r.width + 'px',
-              height: r.height + 'px'
-            });
-            $overlays.push($overlay);
-          });
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            font-family: 'Geist', sans-serif;
+            cursor: default;
         }
-      }
-    });
+        :root {
+            --primary: lab(36.9089% 35.0961 -85.6872);
+            --border-color: lab(90.952% 0 -.0000119209);
+            --border-radius: .625rem;
+            --hover-bg: lab(96.52% -.0000298023 .0000119209);
+            --spacing: .25rem;
+        }
+        .bg-primary {
+            background-color: var(--primary);
+        }
+        .text-primary {
+            color: var(--primary);
+        }
+        .border-custom {
+            border-color: var(--border-color);
+        }
+        .rounded-custom {
+            border-radius: var(--border-radius);
+        }
+        .p-custom {
+            padding: calc(var(--spacing) * .5);
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--hover-bg);
+            padding: calc(var(--spacing) * 1) calc(var(--spacing) * 2);
+            border-radius: 3.40282e38px;
+            font-size: 0.875rem;
+            margin-right: calc(var(--spacing) * 2);
+            margin-bottom: calc(var(--spacing) * 2);
+        }
+        .underline {
+            text-decoration-line: underline;
+            text-underline-offset: 4px;
+        }
+        .hover-underline:hover {
+            text-decoration-line: underline;
+            text-underline-offset: 4px;
+        }
+    </style>
+</head>
+<body class="bg-white text-black">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2 font-semibold">
+                <i data-lucide="bot" class="w-5 h-5 text-primary"></i>
+                <span>TeleBot Host</span>
+            </a>
+            
+            <nav class="flex items-center space-x-4">
+                <a href="https://console.telebothost.com/login" class="text-black transition-colors text-sm md:text-base">Login</a>
+                <a href="https://console.telebothost.com/register" class="bg-primary text-white px-4 py-2 rounded-custom transition-colors flex items-center text-sm md:text-base" style="min-width: 115px; height: 40px; justify-content: center;">
+                    <i data-lucide="user-plus" class="w-4 h-4 mr-2"></i>
+                    Sign Up
+                </a>
+            </nav>
+        </div>
+    </header>
 
-    if($overlays.length>0){
-      currentIndex = 0;
-      scrollToMatch(currentIndex);
-      $('#header .search-nav').show();
-    }
-  }
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center py-16">
+        <div class="container mx-auto px-4 flex flex-col items-center text-center">
+            <div class="max-w-4xl">
+                <div class="flex flex-wrap justify-center mb-8">
+                    <div class="badge">
+                        <i data-lucide="zap" class="w-4 h-4 mr-2 text-primary"></i>
+                        <span>No Credit Card Required</span>
+                    </div>
+                    <div class="badge">
+                        <i data-lucide="infinity" class="w-4 h-4 mr-2 text-primary"></i>
+                        <span>Free Forever Tier</span>
+                    </div>
+                    
+                </div>
+                
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    Build Amazing Telegram Bots <span class="text-primary">In Minutes</span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+                    The most powerful platform to create, deploy, and scale your Telegram bots with zero infrastructure setup. 
+                    <span class="font-medium text-primary">Start free today</span> and grow with your needs.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 mb-16 justify-center">
+                    <a href="https://console.telebothost.com/register" class="bg-primary text-white px-8 py-4 rounded-custom font-medium transition-colors flex items-center justify-center text-lg min-h-[56px] w-full sm:w-auto">
+                        <i data-lucide="rocket" class="w-5 h-5 mr-2"></i>
+                        Launch Your First Bot
+                    </a>
+                    <a href="/docs" class="border border-custom text-black px-8 py-4 rounded-custom font-medium transition-colors flex items-center justify-center text-lg min-h-[56px] w-full sm:w-auto">
+                        <i data-lucide="book-open" class="w-5 h-5 mr-2"></i>
+                        Explore Documentation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  function scrollToMatch(index){
-    if($overlays.length>0){
-      $('html, body').animate({scrollTop: $($overlays[index]).offset().top - 70}, 300);
-    }
-  }
+    <!-- Features Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Why Choose TeleBot Host?</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Everything you need to build amazing Telegram bots without infrastructure headaches
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-custom border border-custom hover:bg-gray-50 transition-colors">
+                    <div class="w-12 h-12 bg-primary rounded-custom flex items-center justify-center mb-4">
+                        <i data-lucide="zap" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Lightning Fast</h3>
+                    <p class="text-gray-600">
+                        Our infrastructure ensures your bots respond in milliseconds, providing seamless user experiences.
+                    </p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-custom border border-custom hover:bg-gray-50 transition-colors">
+                    <div class="w-12 h-12 bg-primary rounded-custom flex items-center justify-center mb-4">
+                        <i data-lucide="shield" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Highly Secure</h3>
+                    <p class="text-gray-600">
+                        Enterprise-grade security protects your bots and user data with end-to-end encryption.
+                    </p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-custom border border-custom hover:bg-gray-50 transition-colors">
+                    <div class="w-12 h-12 bg-primary rounded-custom flex items-center justify-center mb-4">
+                        <i data-lucide="activity" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Auto Scaling</h3>
+                    <p class="text-gray-600">
+                        Your bots automatically scale to handle any traffic spike without any configuration needed.
+                    </p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-custom border border-custom hover:bg-gray-50 transition-colors">
+                    <div class="w-12 h-12 bg-primary rounded-custom flex items-center justify-center mb-4">
+                        <i data-lucide="mouse-pointer" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">One-Click Setup</h3>
+                    <p class="text-gray-600">
+                        Deploy your bot with a single click and customize what you need with easy codes.
+                    </p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-custom border border-custom hover:bg-gray-50 transition-colors">
+                    <div class="w-12 h-12 bg-primary rounded-custom flex items-center justify-center mb-4">
+                        <i data-lucide="code" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">TBL Language</h3>
+                    <p class="text-gray-600">
+                        Our custom Telegram Bot Language makes development effortless with JavaScript-like syntax.
+                    </p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-custom border border-custom hover:bg-gray-50 transition-colors">
+                    <div class="w-12 h-12 bg-primary rounded-custom flex items-center justify-center mb-4">
+                        <i data-lucide="help-circle" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">24/7 Support</h3>
+                    <p class="text-gray-600">
+                        Get help from our dedicated team and community through Telegram groups and documentation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  $('#searchInput').on('input', function(){
-    const keyword = $(this).val().trim();
-    highlightMatches(keyword);
-  });
+    <!-- TBL Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">What is TBL?</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Telegram Bot Language - Designed for simplicity and power
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="flex flex-wrap mb-6">
+                        <div class="badge">
+                            <i data-lucide="code" class="w-4 h-4 mr-2 text-primary"></i>
+                            <span>JavaScript Syntax</span>
+                        </div>
+                        <div class="badge">
+                            <i data-lucide="bolt" class="w-4 h-4 mr-2 text-primary"></i>
+                            <span>Easy to Learn</span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4">JavaScript-like Syntax</h3>
+                    <p class="text-gray-600 mb-6">
+                        TBL uses a familiar JavaScript syntax, making it easy for developers to start building Telegram bots without a steep learning curve. If you know JavaScript, you already know TBL!
+                    </p>
+                    
+                    <div class="bg-gray-900 text-gray-200 p-6 rounded-custom font-mono text-sm">
+                        <span class="text-purple-400">bot</span>.<span class="text-blue-400">command</span>(<span class="text-green-400">'start'</span>, <span class="text-yellow-400">async</span> (ctx) => {<br>
+                        &nbsp;&nbsp;<span class="text-blue-400">await</span> ctx.<span class="text-blue-400">reply</span>(<span class="text-green-400">'Welcome to my bot!'</span>);<br>
+                        });
+                    </div>
+                </div>
+                
+                <div class="flex justify-center">
+                    <div class="w-64 h-64 bg-gray-50 rounded-custom border border-custom flex items-center justify-center">
+                        <i data-lucide="file-code" class="w-24 h-24 text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  $('#nextMatch').click(function(){
-    if($overlays.length===0) return;
-    currentIndex = (currentIndex+1)%$overlays.length;
-    scrollToMatch(currentIndex);
-  });
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Trusted by Developers Worldwide</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Join thousands of developers who trust TeleBot Host for their Telegram bots
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-custom border border-custom hover:bg-gray-50 transition-colors">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold mr-4">
+                            A
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Alex Chen</h4>
+                            <p class="text-gray-600">Bot Developer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "TeleBot Host made deploying my customer service bot incredibly easy. The TBL language is intuitive and the hosting is rock solid."
+                    </p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-custom border border-custom hover:bg-gray-50 transition-colors">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold mr-4">
+                            M
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Maria Rodriguez</h4>
+                            <p class="text-gray-600">E-commerce Owner</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "I was able to create a bot for my online store in just a few hours. The documentation is excellent and the free tier is generous."
+                    </p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-custom border border-custom hover:bg-gray-50 transition-colors">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold mr-4">
+                            S
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Samuel Johnson</h4>
+                            <p class="text-gray-600">Tech Lead</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "Our team migrated 5 bots to TeleBot Host and the process was seamless. The auto-scaling handles our traffic spikes perfectly."
+                    </p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-custom border border-custom hover:bg-gray-50 transition-colors">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold mr-4">
+                            J
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Jessica Kim</h4>
+                            <p class="text-gray-600">Startup Founder</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "As a non-technical founder, I was able to build a functional bot for my business using their templates. Amazing platform!"
+                    </p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-custom border border-custom hover:bg-gray-50 transition-colors">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold mr-4">
+                            D
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">David Wilson</h4>
+                            <p class="text-gray-600">Freelancer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "I've built bots for multiple clients using TeleBot Host. The reliability and ease of use make it my go-to platform."
+                    </p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-custom border border-custom hover:bg-gray-50 transition-colors">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold mr-4">
+                            L
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Lisa Thompson</h4>
+                            <p class="text-gray-600">Community Manager</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "Our community bot handles thousands of messages daily without any issues. The performance is outstanding."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  $('#prevMatch').click(function(){
-    if($overlays.length===0) return;
-    currentIndex = (currentIndex-1+$overlays.length)%$overlays.length;
-    scrollToMatch(currentIndex);
-  });
-});
-</script>
+    <!-- FAQ Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-4">Frequently asked questions</h2>
+                        <p class="text-xl text-gray-600">
+                            Can't find the answer you're looking for? Reach out to our 
+                            <a href="#" class="text-primary hover-underline">customer support</a> team.
+                        </p>
+                    </div>
+                    <div>
+                        <dl class="space-y-8">
+                            <div>
+                                <dt class="text-xl font-semibold mb-2">Is TeleBot Host really free?</dt>
+                                <dd class="text-gray-600">
+                                    Yes! We offer a generous free tier that includes 1 active bot, 10,000 requests per month, and basic analytics. You only pay when you need more resources.
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="text-xl font-semibold mb-2">What is TBL and do I need to learn it?</dt>
+                                <dd class="text-gray-600">
+                                    TBL (Telegram Bot Language) uses JavaScript-like syntax, so if you're familiar with JavaScript, you already know TBL. We also provide extensive documentation and templates.
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="text-xl font-semibold mb-2">How long does it take to deploy a bot?</dt>
+                                <dd class="text-gray-600">
+                                    With our one-click deployment, you can have a basic bot running in under 5 minutes. More complex bots might take 15-30 minutes depending on your requirements.
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="text-xl font-semibold mb-2">Can I migrate my existing bot to TeleBot Host?</dt>
+                                <dd class="text-gray-600">
+                                    Absolutely! We provide migration tools and documentation to help you move your existing bots from other platforms with minimal downtime.
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- CTA Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <hgroup class="mb-8">
+                    <h2 class="text-3xl font-bold mb-4">Get started</h2>
+                    <p class="text-xl text-gray-600">
+                        Boost your productivity. Start building your Telegram bot today.
+                    </p>
+                </hgroup>
+                <p class="text-gray-600 mb-8">
+                    Join thousands of developers who are already hosting their Telegram bots with us. Create amazing bot experiences without infrastructure headaches.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="https://console.telebothost.com/register" class="bg-primary text-white px-8 py-4 rounded-custom font-medium transition-colors flex items-center justify-center text-lg min-h-[56px] w-full sm:w-auto">
+                        <i data-lucide="rocket" class="w-5 h-5 mr-2"></i>
+                        Get started
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white text-black py-16 border-t border-custom">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-start mb-12">
+                <div class="mb-8 md:mb-0">
+                    <div class="flex items-center space-x-2 text-xl font-semibold mb-6">
+                        <i data-lucide="bot" class="w-6 h-6 text-primary"></i>
+                        <span>TeleBot Host</span>
+                    </div>
+                    <p class="text-gray-600 mb-6 max-w-md">
+                        The easiest way to deploy and manage your Telegram bots. Free hosting with powerful features for developers of all levels.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-black">
+                            <i data-lucide="github" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="text-black">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="text-black">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="text-black">
+                            <i data-lucide="youtube" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div>
+                        <h3 class="font-semibold mb-4">Product</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li><a href="/features" class="hover-underline">Features</a></li>
+                            <li><a href="/docs" class="hover-underline">Documentation</a></li>
+                            <li><a href="/templates" class="hover-underline">Templates</a></li>
+                            <li><a href="/changelog" class="hover-underline">Changelog</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold mb-4">Company</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li><a href="/about" class="hover-underline">About</a></li>
+                            <li><a href="/blog" class="hover-underline">Blog</a></li>
+                            <li><a href="/careers" class="hover-underline">Careers</a></li>
+                            <li><a href="/contact" class="hover-underline">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold mb-4">Legal</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li><a href="/privacy" class="hover-underline">Privacy Policy</a></li>
+                            <li><a href="/terms" class="hover-underline">Terms of Service</a></li>
+                            <li><a href="/cookies" class="hover-underline">Cookie Policy</a></li>
+                            <li><a href="/security" class="hover-underline">Security</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold mb-4">Developers</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li><a href="/github" class="hover-underline">GitHub</a></li>
+                            <li><a href="/sdk" class="hover-underline">SDK</a></li>
+                            <li><a href="/cli" class="hover-underline">CLI Tool</a></li>
+                            <li><a href="/examples" class="hover-underline">Examples</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-custom">
+                <div class="flex space-x-6 mb-4 md:mb-0">
+                    <!-- Social icons removed as requested -->
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-gray-600 text-sm">
+                        © <span id="current-year"></span> TeleBot Host. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
