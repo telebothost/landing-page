@@ -1433,7 +1433,7 @@ res.render("plain-text")          // Content-Type: text/plain</code></pre>
 <h4 id="render-data-passing">Data Passing and Template Context</h4>
 <p>All template rendering methods have access to multiple data sources:</p>
 <div class="code-container">
-<pre><code class="language-javascript">// Webhook URL: /webhook/showProfile?section=settings&view=compact
+<pre><code class="language-javascript">// Webapp URL: /webapp/showProfile?section=settings&view=compact
 
 res.render("profile-template.html", {
   data: {
@@ -1442,9 +1442,9 @@ res.render("profile-template.html", {
     preferences: userPrefs         // User preferences
   }
 })
-
+//in rendered Command use like <%= profile %>
 // In profile-template.html, you can access:
-// - user, profile, preferences from data object
+// - user, profile, preferences 
 // - params (from URL query string: {section: "settings", view: "compact"})
 // - All TBL variables (msg, Api, State, etc.)</code></pre>
 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1460,7 +1460,7 @@ res.render("profile-template.html", {
   premium: user.premium || false,
   join_date: user.join_date
 }
-
+// user object Only avilable on user based webhook 
 res.status(200)
    .set("Access-Control-Allow-Origin", "*")
    .json({
@@ -1468,171 +1468,10 @@ res.status(200)
      data: userData,
      timestamp: Date.now()
    })
-   .end()</code></pre>
+   </code></pre>
 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
-<h4 id="example-dashboard">Example 2: User Dashboard with res.render()</h4>
-<div class="code-container">
-<pre><code class="language-javascript">// Command: dashboard-html (contains HTML template)
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-  &lt;title&gt;Dashboard - &lt;%= user.first_name %&gt;&lt;/title&gt;
-  &lt;style&gt;
-    body { font-family: Arial; margin: 40px; }
-    .premium { color: gold; }
-    .section { margin: 20px 0; }
-  &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;h1&gt;Welcome &lt;%= user.first_name %&gt; &lt;%= user.last_name %&gt;&lt;/h1&gt;
-  
-  &lt;% if (params.view === "compact") { %&gt;
-    &lt;div class="compact-view"&gt;
-      &lt;p&gt;Quick Overview&lt;/p&gt;
-    &lt;/div&gt;
-  &lt;% } else { %&gt;
-    &lt;div class="full-view"&gt;
-      &lt;div class="section"&gt;
-        &lt;h3&gt;Profile&lt;/h3&gt;
-        &lt;p&gt;Email: &lt;%= user.email %&gt;&lt;/p&gt;
-        &lt;p&gt;Member since: &lt;%= new Date(user.join_date).toLocaleDateString() %&gt;&lt;/p&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  &lt;% } %&gt;
-
-  &lt;% if (data.stats) { %&gt;
-    &lt;div class="section"&gt;
-      &lt;h3&gt;Statistics&lt;/h3&gt;
-      &lt;p&gt;Total orders: &lt;%= data.stats.totalOrders %&gt;&lt;/p&gt;
-      &lt;p&gt;Account balance: $&lt;%= data.stats.balance %&gt;&lt;/p&gt;
-    &lt;/div&gt;
-  &lt;% } %&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-
-// Command: showDashboard (renders the template)
-let userStats = {
-  totalOrders: 15,
-  balance: 245.50
-}
-
-res.render("dashboard-html", {
-  data: {
-    stats: userStats
-  }
-})
-
-// URL: /webhook/showDashboard?view=compact
-// Will render the compact view based on params.view</code></pre>
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
-</div>
-
-<h4 id="example-render-json">Example 3: Dynamic JSON API with res.render()</h4>
-<div class="code-container">
-<pre><code class="language-javascript">// Command: user-api.json (contains JSON template)
-{
-  "status": "success",
-  "user": {
-    "id": &lt;%= user.id %&gt;,
-    "username": "&lt;%= user.first_name %&gt; &lt;%= user.last_name %&gt;",
-    "premium": &lt;%= user.premium %&gt;,
-    "join_date": "&lt;%= user.join_date %&gt;"
-  },
-  "request_params": {
-    "format": "&lt;%= params.format %&gt;",
-    "include_stats": &lt;%= params.include_stats === "true" %&gt;
-  },
-  "&lt;%= params.include_stats === "true" ? "statistics" : "" %&gt;": &lt;% if (params.include_stats === "true") { %&gt;{
-    "total_orders": &lt;%= data.stats.orders %&gt;,
-    "success_rate": &lt;%= data.stats.successRate %&gt;
-  }&lt;% } else { %&gt;null&lt;% } %&gt;
-}
-
-// Command: getUserData (renders the JSON template)
-let userStatistics = {
-  orders: 42,
-  successRate: 95.5
-}
-
-res.render("user-api.json", {
-  data: {
-    stats: userStatistics
-  }
-})
-
-// URL: /webhook/getUserData?format=detailed&include_stats=true
-// Outputs dynamic JSON based on parameters</code></pre>
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
-</div>
-
-<h4 id="example-webhook-flow">Example 4: Complete Webhook Flow</h4>
-<div class="code-container">
-<pre><code class="language-javascript">// Command: start - send webhook URL to user
-let dashboardUrl = Webhook.getUrl("showDashboard")
-Api.sendMessage({
-  text: `Click here to access your dashboard: ${dashboardUrl}`,
-  parse_mode: "HTML"
-})
-
-// Command: showDashboard - render personalized view
-if (!user) {
-  return res.status(401).json({ error: "User not found" })
-}
-
-res.renderEJS(`
-  &lt;h1&gt;Dashboard for &lt;%= user.first_name %&gt;&lt;/h1&gt;
-  &lt;div&gt;
-    &lt;a href="&lt;%= Webhook.getUrl('profile') %&gt;"&gt;Profile&lt;/a&gt; |
-    &lt;a href="&lt;%= Webhook.getUrl('settings') %&gt;"&gt;Settings&lt;/a&gt;
-  &lt;/div&gt;
-  &lt;% if (params.ref === "welcome") { %&gt;
-    &lt;div class="welcome-message"&gt;
-      Welcome to your new dashboard!
-    &lt;/div&gt;
-  &lt;% } %&gt;
-`)</code></pre>
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
-</div>
-
-<h4 id="example-error-handling">Example 5: Error Handling with res.render()</h4>
-<div class="code-container">
-<pre><code class="language-javascript">// Command: error-template.html
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-  &lt;title&gt;Error &lt;%= data.error.code %&gt;&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;h1&gt;Error &lt;%= data.error.code %&gt;&lt;/h1&gt;
-  &lt;p&gt;&lt;%= data.error.message %&gt;&lt;/p&gt;
-  &lt;% if (data.error.details) { %&gt;
-    &lt;div class="details"&gt;
-      &lt;strong&gt;Details:&lt;/strong&gt;
-      &lt;p&gt;&lt;%= data.error.details %&gt;&lt;/p&gt;
-    &lt;/div&gt;
-  &lt;% } %&gt;
-  &lt;a href="&lt;%= Webhook.getUrl('home') %&gt;"&gt;Return to Home&lt;/a&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-
-// Command: protectedAction
-if (!user || !user.hasAccess) {
-  return res.status(403).render("error-template.html", {
-    data: {
-      error: {
-        code: 403,
-        message: "Access Denied",
-        details: "You don't have permission to access this resource"
-      }
-    }
-  })
-}
-
-// Continue with normal processing...</code></pre>
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
-</div>
 
 <div class="alert warning">
   <i class="fas fa-exclamation-triangle"></i>
