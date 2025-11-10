@@ -1138,6 +1138,184 @@ Bot.inspect(data)
   <li>Saving and deleting are <b>asynchronous</b>, but you don’t need <code>await</code> — they just return <code>undefined</code>.</li>
 </ul>
 
+<!-- Global Class -->
+<h2 id="class-global">Global Class</h2>
+<p>
+  The <b>Global</b> class is used to store and manage data at the account level.
+  All data stored here is shared across all bots under the same owner account and can be accessed by any bot.
+</p>
+
+<h3 id="class-global-basic">1. Basic Operations</h3>
+<p>
+  Use these methods to save and read global values that are accessible to all your bots.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-js">
+// Save global data (shared across all bots)
+Global.set("company_name", "TechCorp")
+Global.set("max_bot_instances", 5, "number")
+Global.set("supported_languages", ["en", "es", "fr"], "list")
+
+// Read global data
+let company = Global.get("company_name")           // "TechCorp"
+let maxBots = Global.getProp("max_bot_instances") // 5
+let languages = Global.get("supported_languages") // ["en", "es", "fr"]
+
+Bot.sendMessage("Company: " + company + ", Max Bots: " + maxBots)
+// → Company: TechCorp, Max Bots: 5
+</code></pre>
+</div>
+
+<h3 id="class-global-del">2. Deleting Properties</h3>
+<p>
+  Remove global values when they are no longer needed across all bots.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-js">
+// Delete global property
+Global.del("max_bot_instances")
+
+let maxBots = Global.get("max_bot_instances") // null
+Bot.sendMessage("After delete, max bots = " + maxBots)
+// → After delete, max bots = null
+</code></pre>
+</div>
+
+<h3 id="class-global-bulk">3. Bulk Operations</h3>
+<p>
+  Manage all global data at once. Useful for configuration management and data migration.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-js">
+// Save multiple global values
+Global.set("api_key", "sk-123456789")
+Global.set("webhook_url", "https://api.example.com/webhook")
+Global.set("maintenance_mode", false, "boolean")
+
+// Get all global data
+let allGlobal = Global.getAll()
+Bot.inspect(allGlobal)
+// → { "company_name": "TechCorp", "api_key": "sk-123456789", "webhook_url": "https://...", "maintenance_mode": false }
+
+// Delete all global properties
+Global.delAll()
+
+let allEmpty = Global.getAll()
+Bot.inspect(allEmpty)
+// → {}
+</code></pre>
+</div>
+
+<h3 id="global-check">4. Checking & Counting</h3>
+<p>
+  Check if global data exists, count stored keys, or list all global property names.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-js">
+// Check if global property exists
+let hasCompany = Global.has("company_name")   // true or false
+
+// Count total global properties
+let totalGlobal = Global.count()              // e.g. 3
+
+// Get all global property names
+let globalNames = Global.getNames()           // ["company_name", "api_key", "webhook_url"]
+
+Bot.inspect({ hasCompany, totalGlobal, globalNames })
+// → { "hasCompany": true, "totalGlobal": 3, "globalNames": ["company_name", "api_key", "webhook_url"] }
+</code></pre>
+</div>
+
+<h3 id="global-storage">5. Storage Monitoring</h3>
+<p>
+  Monitor your total storage usage across all data types: Bot properties + User properties + Global properties.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-js">
+// Get detailed storage information (includes bot + user + global data)
+let storageInfo = Global.getStorageInfo()
+Bot.inspect(storageInfo)
+// → { "size": 1572864, "prop_count": 42, "last_calc": "2024-01-15T10:30:00.000Z" }
+
+// Get storage usage percentage (0-100%)
+let usagePercent = Global.getStorageUsage()
+Bot.sendMessage("Storage usage: " + usagePercent + "%")
+// → Storage usage: 7.5%
+
+// Check if storage is near limit (90% threshold)
+if (Global.isStorageNearLimit()) {
+  Bot.sendMessage("⚠️ Storage almost full! Please clean up some data.")
+}
+
+// Get available storage in MB
+let availableMB = Global.getAvailableStorage()
+Bot.sendMessage("Available storage: " + availableMB + " MB")
+// → Available storage: 18.5 MB
+</code></pre>
+</div>
+
+<h3 id="global-utility">6. Utility Methods</h3>
+<p>
+  Additional methods for validation and debugging of global storage.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-js">
+// Check if owner configuration is valid
+if (Global.isOwnerValid()) {
+  Bot.sendMessage("✅ Global storage is properly configured")
+} else {
+  Bot.sendMessage("❌ Owner mail configuration missing")
+}
+
+// Get owner email (for debugging)
+let ownerMail = Global.getOwnerMail()
+Bot.sendMessage("Owner account: " + ownerMail)
+// → Owner account: owner@example.com
+</code></pre>
+</div>
+
+<h3 id="global-practical">7. Practical Examples</h3>
+<p>
+  Common use cases for global storage across multiple bots.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-js">
+// Example 1: Shared configuration for all bots
+Global.set("theme_config", {
+  primary_color: "#3B82F6",
+  font_family: "Inter",
+  dark_mode: true
+}, "json")
+
+// Example 2: Feature flags across bot network
+Global.set("beta_features", {
+  new_chat_ui: true,
+  voice_messages: false,
+  ai_analytics: true
+}, "json")
+
+// Example 3: Rate limiting across all bots
+Global.set("total_requests_today", 0, "number")
+
+// Increment shared counter
+let currentRequests = Global.get("total_requests_today")
+Global.set("total_requests_today", currentRequests + 1, "number")
+
+// Example 4: Maintenance mode for all bots
+if (Global.get("maintenance_mode")) {
+  Bot.sendMessage("🔧 System under maintenance. Please try again later.")
+  return
+}
+</code></pre>
+</div>
+
 <!-- 🌐 Webhook Class Documentation -->
 <h2 id="class-webhook">Webhook</h2>
 <p>
