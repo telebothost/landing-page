@@ -688,6 +688,7 @@ await data.reply("Replied Message")   // Reply to message
   <li>sendVoice</li>
   <li>inspect</li>
   <li>read</li>
+  <li>readCommand</li>
   <li>set</li>
   <li>setProp</li>
   <li>setProperty</li>
@@ -742,11 +743,10 @@ Bot.runCommand("/start", { key: 111 })
   </div>
 </div>
 
-<h3 id="bot-read">2. Reading Command Code</h3>
+<h3 id="bot-read">2. Reading Command and its Code</h3>
 <p>
-  The <code>Bot.read()</code> method lets you read the <b>raw code</b> of another command as a string.
-  It does <b>not</b> return any metadata like <code>answer</code>, <code>keyboard</code>, or <code>need_reply</code>.
-  Useful for dynamically inspecting or reusing command logic.
+  The <code>Bot.read()</code> method returns only the <b>raw source code</b> of a command as a plain string.<br>
+  It <b>does not</b> include metadata such as <code>answer</code>, <code>keyboard</code>, or <code>need_reply</code>.
 </p>
 
 <div class="code-container">
@@ -755,6 +755,38 @@ let code = Bot.read("/start")
 
 // Display or use the command code
 Bot.sendMessage(code)
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<hr>
+
+<h3 id="bot-read-command">3. Reading Full Command Object</h3>
+<p>
+  The <code>Bot.readCommand()</code> method returns a full command object, including both
+  the code and all metadata fields like <code>aliases</code>, <code>keyboard</code>,
+  <code>need_reply</code>, and more.
+</p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">// Read full command structure
+let cmd = Bot.readCommand("/start")
+Bot.sendMessage(JSON.stringify(cmd, null, 2))
+</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p>Example response:</p>
+
+<div class="code-container">
+  <pre><code class="language-json">{
+  "code": "const {random} = require(\"/send\");\n\nconst x = random(1, 100);\nBot.sendMessage(\"Random: \" + x);",
+  "answer": null,
+  "keyboard": null,
+  "aliases": [],
+  "allow_only_group": false,
+  "need_reply": false
+}
 </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
