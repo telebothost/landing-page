@@ -535,6 +535,11 @@ email address, plan details, and API keys.
 
 <h3 id="error">error</h3>
 <p>It's a object that gives information about error got by ! command</p>
+
+<h3 id="require">require</h3>
+<p>import functions from another command easily. <b><a href="#require-reuse">Learn More Here</a></b></p>
+
+
 <!-- Global Classes -->
 <h2 id="classes">Global Classes</h2>
 <p>
@@ -2353,81 +2358,57 @@ const result = TBL.transfer({
   <li>Custom properties in <code>bot_props</code> are automatically type-detected (string, number, boolean, etc.).</li>
   <li>Avoid calling clone/transfer repeatedly in loops or performance-critical sections due to the blocking nature.</li>
 </ul>
-<!-- Known Error Behaviors Page -->
-<h2 id="current-error">Current Error Behaviors</h2>
-<p>
-This page describes the current known issues with how errors work in TBL.  
-These are temporary behaviors that will be fixed or improved in future updates.
-</p>
 
-<h3 id="async-error">1. Bot.run() and Bot.runCommand() Errors</h3>
-<p>
-Currently, errors inside <code>Bot.run()</code> or <code>Bot.runCommand()</code> only throw when the function is <b>awaited</b>.  
-If you call them without <code>await</code>, the error will not be thrown — it will silently fail.
-</p>
-
+<h2 id="require-reuse">Module System with Require</h2>
+<p>The require function allows you to import and reuse code from other commands as modules. This helps you organize code, avoid duplication, and build complex features by combining smaller modules.</p>
+<h5>on command <b>/greet_module</b></h5>
 <div class="code-container">
-  <pre><code class="language-javascript">// Only throws when awaited
-await Bot.run("/invalid_command")
+  <pre><code class="language-javascript">// Create a command that exports functions
+function greet(name) {
+  return "Hello " + name
+}
 
-// This will not throw, error ignored
-Bot.run("/invalid_command")</code></pre>
+
+function calculate(a, b) {
+  return a + b
+}
+
+// Export functions to make them available to other commands
+module.exports = { greet, calculate }</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<h5>Now in any other Commands</h5>
+<div class="code-container">
+  <pre><code class="language-javascript">// Import and use the module in another command
+const utils = require("/greet_module")
+
+// Use the imported functions
+const message = utils.greet("John")
+const result = utils.calculate(10, 5)
+
+Bot.sendMessage(message + " - Calculation: " + result)</code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
-<p>
-This is a known issue and will be fixed so that <code>Bot.run()</code> properly reports errors even when not awaited.
-</p>
-
-<h3 id="telegram-api-error">2. Telegram API Errors Are Silent</h3>
-<p>
-At the moment, Telegram API errors (such as invalid parameters, missing chat IDs, or access errors)  
-are <b>silent</b> — they do not throw or stop script execution.  
-These errors only appear in the website’s Error Tab logs.
-</p>
-
 <div class="code-container">
-  <pre><code class="language-javascript">// Example: text can't be empty 
-Bot.sendMessage("")
+  <pre><code class="language-javascript">// Import specific functions only
+const { greet, calculate } = require("/greet_module")
 
-// This error will only appear in Error Tab logs</code></pre>
+// Use directly without utils prefix
+Bot.sendMessage(greet("Alice"))
+Bot.sendMessage("Sum: " + calculate(7, 3))</code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
+<p><strong>Key Points:</strong><br>
+• Use <code>module.exports</code> to export from a module<br>
+• Use <code>require("/command_name")</code> to import modules<br>
+• Share functions, variables, and objects between commands</p>
+<h4 id="require-notes">Note For require</h4>
 <p>
-Future updates will make these errors more visible and optionally throwable for better debugging.
+  • only work between Commands, doesn't support external libraries like Native Node.js <br>
 </p>
 
-<h3 id="http-error">3. HTTP Errors Are Silent and Unlogged</h3>
-<p>
-HTTP request errors (network issues, bad URLs, or invalid responses) currently behave silently.  
-They are <b>not logged</b> in the dashboard and do not throw exceptions.  
-The only indication is through the <code>res.error</code> field returned in the response.
-</p>
-
-<div class="code-container">
-  <pre><code class="language-javascript">let res = await HTTP.get("https://invalid.url")
-
-if (res.error) {
-  Bot.sendMessage("HTTP error: " + res.error)
-}</code></pre>
-  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-</div>
-
-<p>
-In the future, these errors will be logged and optionally displayed in the Error Tab for better tracking.
-</p>
-
-<h3 id="fix-plan">Planned Fixes</h3>
-<ul>
-  <li><b>Bot.run() / Bot.runCommand():</b> Will throw properly even without <code>await</code>.</li>
-  <li><b>Telegram API Errors:</b> Will include a setting to control whether they throw or stay silent.</li>
-  <li><b>HTTP Errors:</b> Will be logged in the dashboard and include better error info in the response.</li>
-</ul>
-
-<p>
-These changes are planned for the next update to make error handling more predictable and developer-friendly.
-</p>
 
 <!-- ⚙️ TBL Free Plan Limits -->
 <h2 id="tbl-free-plan">TBL Free Plan Limits</h2>
@@ -2454,13 +2435,12 @@ These changes are planned for the next update to make error handling more predic
 
 <h3>Persistent Storage (Properties)</h3>
 <ul>
-  <li><strong>Per bot:</strong> 2 MB</li>
   <li><strong>Per account:</strong> 20 MB</li>
 </ul>
 
 <h3> Support</h3>
 <ul>
-  <li><strong>Support contact:</strong> Available for all free users</li>
+  <li><strong>Support contact:</strong> Available for all free users, through our <b><a href="https://t.me/update_chat/">Support Group</a></b></li>
 </ul>
 
 
