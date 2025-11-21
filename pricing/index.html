@@ -44,7 +44,6 @@
     border-radius: 18px;
     padding: 30px 25px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.07);
-    transition: none;
     position: relative;
   }
 
@@ -55,10 +54,17 @@
   }
 
   .price {
-    font-size: 48px;
+    font-size: 42px;
     font-weight: 700;
     margin: 12px 0 25px;
     color: #4e5cf3;
+  }
+
+  .price span {
+    font-size: 18px;
+    color: #666;
+    font-weight: 500;
+    margin-left: 3px;
   }
 
   .badge {
@@ -94,7 +100,6 @@
     font-weight: bold;
   }
 
-  /* button */
   .btn {
     margin-top: 28px;
     padding: 14px 0;
@@ -106,7 +111,6 @@
     cursor: pointer;
     background: #4e5cf3;
     color: white;
-    transition: none;
     text-decoration: none;
     display: inline-block;
     text-align: center;
@@ -134,7 +138,7 @@
   <!-- Free Plan -->
   <div class="card">
     <h2>Free</h2>
-    <div class="price">$0</div>
+    <div class="price">$0<span>/month</span></div>
     <ul class="features">
       <li>Execution timeout: 15s</li>
       <li>Output buffer: 512 KB</li>
@@ -144,23 +148,22 @@
       <li>Ads: Enabled</li>
       <li>Support contact available</li>
     </ul>
-    <a class="btn" href="https://TeleBotHost.com" target="_blank">
-      Start Free
+    <a class="btn" href="https://t.me/onDNDbro" target="_blank">
+      Start Free • Contact @onDNDbro
     </a>
   </div>
 
   <!-- Freemium -->
   <div class="card">
     <h2>Freemium</h2>
-    <div class="price">$1</div>
+    <div class="price">$1<span>/month</span></div>
     <ul class="features">
       <li>Execution timeout: 15s</li>
       <li>Output buffer: 512 KB</li>
       <li>Parallel processes: 10</li>
       <li>File system: Disabled</li>
       <li>Storage: 20 MB</li>
-      <li>Ads: Disabled</li>
-      <li>Better experience</li>
+      <li>No Ads</li>
     </ul>
     <a class="btn" href="https://t.me/onDNDbro" target="_blank">
       Upgrade for $1 • Contact Now
@@ -171,7 +174,7 @@
   <div class="card">
     <div class="badge">POPULAR</div>
     <h2>Premium</h2>
-    <div class="price">$3</div>
+    <div class="price">$3<span>/month</span></div>
     <ul class="features">
       <li>Execution timeout: 30s</li>
       <li>Output buffer: 5 MB</li>
@@ -183,7 +186,7 @@
       <li>Ads: Disabled</li>
     </ul>
     <a class="btn" href="https://t.me/onDNDbro" target="_blank">
-      Go Premium
+      Go Premium • DM @onDNDbro
     </a>
   </div>
 
@@ -191,7 +194,7 @@
   <div class="card">
     <div class="badge" style="background:#e0a400;">ELITE</div>
     <h2>Elite</h2>
-    <div class="price">$5</div>
+    <div class="price">$5<span>/month</span></div>
     <ul class="features">
       <li>Execution timeout: 60s</li>
       <li>Output buffer: 10 MB</li>
@@ -203,14 +206,14 @@
       <li>Ads: Disabled</li>
     </ul>
     <a class="btn" href="https://t.me/onDNDbro" target="_blank">
-      Unlock Elite
+      Unlock Elite • Contact @onDNDbro
     </a>
   </div>
 
 </div>
 
 <p class="note">
-  * File system is on development (will be available soon)
+  * File system is OK for development (will be available soon)
 </p>
 
 </body>
