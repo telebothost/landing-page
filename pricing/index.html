@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TBL Pricing</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: "Inter", Arial, sans-serif;
+    background: linear-gradient(to bottom right, #eef1f6, #f7f9fc);
+    color: #333;
+  }
+
+  .pricing-header {
+    text-align: center;
+    margin: 60px 0 40px;
+  }
+
+  .pricing-header h1 {
+    font-size: 45px;
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: #222;
+  }
+
+  .pricing-header p {
+    font-size: 18px;
+    opacity: 0.75;
+  }
+
+  .pricing-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 25px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 35px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 18px;
+    padding: 30px 25px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.07);
+    transition: none;
+    position: relative;
+  }
+
+  .card h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .price {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 12px 0 25px;
+    color: #4e5cf3;
+  }
+
+  .badge {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    background: #4e5cf3;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  }
+
+  .features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .features li {
+    margin: 12px 0;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+  }
+
+  .features li::before {
+    content: "✔";
+    color: #4e5cf3;
+    margin-right: 10px;
+    font-weight: bold;
+  }
+
+  /* button */
+  .btn {
+    margin-top: 28px;
+    padding: 14px 0;
+    border: none;
+    width: 100%;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #4e5cf3;
+    color: white;
+    transition: none;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+  }
+
+  .note {
+    text-align: center;
+    margin: 40px 0 60px;
+    font-size: 15px;
+    opacity: 0.75;
+  }
+</style>
+
+</head>
+
+<body>
+
+<div class="pricing-header">
+  <h1>TBL Pricing Plans</h1>
+  <p>Turbocharge your bot development with the perfect plan</p>
+</div>
+
+<div class="pricing-container">
+
+  <!-- Free Plan -->
+  <div class="card">
+    <h2>Free</h2>
+    <div class="price">$0</div>
+    <ul class="features">
+      <li>Execution timeout: 15s</li>
+      <li>Output buffer: 512 KB</li>
+      <li>Parallel processes: 10</li>
+      <li>File system: Disabled</li>
+      <li>Storage: 20 MB</li>
+      <li>Ads: Enabled</li>
+      <li>Support contact available</li>
+    </ul>
+    <a class="btn" href="https://TeleBotHost.com" target="_blank">
+      Start Free
+    </a>
+  </div>
+
+  <!-- Freemium -->
+  <div class="card">
+    <h2>Freemium</h2>
+    <div class="price">$1</div>
+    <ul class="features">
+      <li>Execution timeout: 15s</li>
+      <li>Output buffer: 512 KB</li>
+      <li>Parallel processes: 10</li>
+      <li>File system: Disabled</li>
+      <li>Storage: 20 MB</li>
+      <li>Ads: Disabled</li>
+      <li>Better experience</li>
+    </ul>
+    <a class="btn" href="https://t.me/onDNDbro" target="_blank">
+      Upgrade for $1 • Contact Now
+    </a>
+  </div>
+
+  <!-- Premium -->
+  <div class="card">
+    <div class="badge">POPULAR</div>
+    <h2>Premium</h2>
+    <div class="price">$3</div>
+    <ul class="features">
+      <li>Execution timeout: 30s</li>
+      <li>Output buffer: 5 MB</li>
+      <li>Parallel processes: 20</li>
+      <li>File system: Enabled</li>
+      <li>Storage: 50 MB</li>
+      <li>Priority support</li>
+      <li>Premium bots on community bot store</li>
+      <li>Ads: Disabled</li>
+    </ul>
+    <a class="btn" href="https://t.me/onDNDbro" target="_blank">
+      Go Premium
+    </a>
+  </div>
+
+  <!-- Elite -->
+  <div class="card">
+    <div class="badge" style="background:#e0a400;">ELITE</div>
+    <h2>Elite</h2>
+    <div class="price">$5</div>
+    <ul class="features">
+      <li>Execution timeout: 60s</li>
+      <li>Output buffer: 10 MB</li>
+      <li>Parallel processes: 40</li>
+      <li>File system: Enabled</li>
+      <li>Storage: 100 MB</li>
+      <li>Premium+ support</li>
+      <li>Premium bots on community bot store</li>
+      <li>Ads: Disabled</li>
+    </ul>
+    <a class="btn" href="https://t.me/onDNDbro" target="_blank">
+      Unlock Elite
+    </a>
+  </div>
+
+</div>
+
+<p class="note">
+  * File system is on development (will be available soon)
+</p>
+
+</body>
+</html>
