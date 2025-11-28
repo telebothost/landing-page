@@ -2159,6 +2159,28 @@ const ua = modules.uaParser.parse("Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
 </code></pre>
 </div>
 
+<h3 id="module-ethers">21. ethers</h3>
+<p>
+A powerful Ethereum library for interacting with EVM chains.  
+Use it to send transactions, read contract data, sign messages, and more.
+</p>
+<p>Docs: <a href="https://docs.ethers.org/v6/getting-started/" target="_blank">ethers v6</a></p>
+<div class="code-container">
+<pre><code class="language-js">
+// Import ethers
+const ethers = modules.ethers;
+
+// Create a provider (HTTPS only — WebSocket not supported)
+const provider = new ethers.JsonRpcProvider("https://rpc.example.com");
+
+// Read blockchain data
+const block = await provider.getBlockNumber();
+
+// Example:
+// block → 18902345
+</code></pre>
+</div>
+
 <h4 id="crypto-formdata-update">Crypto & FormData Module Update</h4>
 <p>
   You no longer need to use <code>modules.crypto.xxx</code>; you can directly access methods with <code>crypto.xxx</code>.<br>
