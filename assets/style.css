@@ -199,11 +199,11 @@ body::-webkit-scrollbar {
         
         .hero-text {
             flex: 1;
-            max-width: 600px;
+            max-width: 500px;
         }
         
         .hero-heading {
-            font-size: 3.5rem;
+            font-size: 3rem;
             margin-bottom: 20px;
             color: var(--dark);
         }
@@ -425,6 +425,7 @@ body::-webkit-scrollbar {
 }
 
 .footer-links a {
+ font-family: "Roboto Mono", monospace;
   margin: 0 6px;
   font-size: 14px;
   color: #0088cc; /* Telegram blue */
