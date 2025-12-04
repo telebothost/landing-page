@@ -708,8 +708,53 @@ await data.reply("Replied Message")   // Reply to message
   <li>stopLiveLocation({...options})</li>
   <li>stopPoll({...options})</li>
 </ul>
+<h4 id="api-dynamic">4. Dynamic Methods in <code>Api.xxx</code></h4>
 
+<p>
+  Sometimes a specific Telegram Bot API method may not exist inside the built-in
+  <code>TBL Api</code> class. In such cases, you don’t have to wait for an update—TBL
+  allows you to call any official Telegram method dynamically using:
+</p>
 
+<div class="code-container">
+  <pre><code class="language-javascript">
+Api.call("methodName", { /* parameters */ })
+  </code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p>
+  This is extremely useful when Telegram introduces a new API feature. As long as
+  Telegram supports the method, you can use it immediately through
+  <code>Api.call()</code>.
+</p>
+
+<h5>Example: Calling <code>getChat</code> Dynamically</h5>
+<p>
+  Suppose <code>getChat</code> is not available in TBL's built-in methods. You can still
+  execute it like this:
+</p>
+
+<div class="code-container">
+  <pre><code class="language-javascript">
+Api.call("getChat", {
+  chat_id: 4444443444
+})
+  </code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p>
+  <strong>How it works:</strong><br>
+  • <code>"getChat"</code> is the official Telegram method name<br>
+  • The second argument is an object with parameters<br>
+  • TBL automatically sends this request to Telegram and returns the response<br>
+</p>
+
+<p>
+  This ensures your bot can instantly use any Telegram method—even those not
+  built into TBL yet.
+</p>
 <!-- Bot Class -->
 <h2 id="class-bot">Bot Class</h2>
 <p>
