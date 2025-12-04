@@ -10,141 +10,148 @@
 (function(){
 "use strict";
 
-const _cfg = {
-  _ads: ["https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"],
-  _retry: 3,
-  _delay: 1000,
-  _overlayId: "_adblock_overlay",
-  _msg: "Ad Blocker detected. Please disable it to continue.",
-  _keepSelectors: ["header","nav","#header",".site-header","footer",".site-footer"],
-  _blur:true,
-  _autoStart:true,
-  _checkInterval:5000,
-  _minPageLoadDelay:0
+const _c={
+  _a:["https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"],
+  _r:2,
+  _d:2000,
+  _o:"_adblock_overlay",
+  _m:"Please disable Ad Blocker to continue.",
+  _k:["header","nav","#header",".site-header","footer",".site-footer"],
+  _b:true,
+  _s:true,
+  _i:10000,
+  _l:2000
 };
 
-let _state = {_paused:false,_running:false,_reports:0,_handlers:{}};
+let _s={_p:false,_u:false,_t:0,_h:{}};
 
-// --- Utilities ---
-function _qAll(s){ try{return Array.from(document.querySelectorAll(s))}catch(e){return []} }
-function _maxZ(){ return Math.max(..._qAll("body *").map(e=>parseInt(getComputedStyle(e).zIndex)||0),0)+2; }
+function _q(s){try{return Array.from(document.querySelectorAll(s))}catch(e){return []}}
+function _z(){return Math.max(..._q("body *").map(e=>parseInt(getComputedStyle(e).zIndex)||0),0)+2;}
 
-// --- Keep header/nav/footer functional ---
-function _keepShell(){ 
-  const shell = document.createElement("div"); 
-  shell.id="_adkeep_shell"; 
-  shell.style.cssText = `position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:${_maxZ()-1};`;
-  const frag = document.createDocumentFragment(); 
-  for(const s of _cfg._keepSelectors) _qAll(s).forEach(el=>{
-    const clone = el.cloneNode(true); 
-    clone.style.pointerEvents="auto"; 
-    frag.appendChild(clone);
+function _k(){ 
+  const d=document.createElement("div"); 
+  d.id="_adkeep_shell"; 
+  d.style.cssText=`position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:${_z()-1};`;
+  const f=document.createDocumentFragment(); 
+  for(const s of _c._k) _q(s).forEach(e=>{
+    const c=e.cloneNode(true); 
+    c.style.pointerEvents="auto"; 
+    f.appendChild(c);
   }); 
-  shell.appendChild(frag); 
-  return shell; 
+  d.appendChild(f); 
+  return d; 
 }
 
-// --- Overlay ---
-function _overlay(){
-  if(document.getElementById(_cfg._overlayId)) return;
-  const overlay = document.createElement("div"); 
-  overlay.id=_cfg._overlayId; 
-  overlay.style.cssText = `
+function _o(){
+  if(document.getElementById(_c._o)) return;
+  const d=document.createElement("div"); 
+  d.id=_c._o; 
+  d.style.cssText=`
     position:fixed;inset:0;
     display:flex;flex-direction:column;justify-content:center;align-items:center;
     padding:20px;box-sizing:border-box;
-    background:${_cfg._blur?'rgba(255,255,255,0.95)':'#fff'};
+    background:${_c._b?'rgba(255,255,255,0.95)':'#fff'};
     color:#111;font-family:Arial,sans-serif;text-align:center;
-    z-index:${_maxZ()};pointer-events:auto;
+    z-index:${_z()};pointer-events:auto;
   `;
-  const message = document.createElement("div");
-  message.style.maxWidth="760px";
-  message.innerHTML = `<h1 style="margin:0 0 10px 0;font-size:22px">${_cfg._msg}</h1>`;
-  const retryBtn = document.createElement("button");
-  retryBtn.innerText = "Retry";
-  retryBtn.style.cssText = "margin-top:15px;padding:10px 20px;font-size:16px;cursor:pointer;border:none;border-radius:5px;background:#007BFF;color:#fff;";
-  retryBtn.addEventListener("click", _forceRecover);
-  message.appendChild(retryBtn);
+  const m=document.createElement("div");
+  m.style.maxWidth="760px";
+  m.innerHTML=`<h1 style="margin:0 0 10px 0;font-size:22px">${_c._m}</h1>`;
+  const b=document.createElement("button");
+  b.innerText="Retry";
+  b.style.cssText="margin-top:15px;padding:10px 20px;font-size:16px;cursor:pointer;border:none;border-radius:5px;background:#007BFF;color:#fff;";
+  b.addEventListener("click",_f);
+  m.appendChild(b);
   try{
-    document.body.appendChild(_keepShell());
-    overlay.appendChild(message);
-    document.body.appendChild(overlay);
+    document.body.appendChild(_k());
+    d.appendChild(m);
+    document.body.appendChild(d);
   }catch(e){
-    document.documentElement.appendChild(overlay);
+    document.documentElement.appendChild(d);
   }
-  _emit("blocked");
 }
 
-// --- Remove Overlay ---
-function _removeOverlay(){ 
-  const o=document.getElementById(_cfg._overlayId); 
+function _r(){ 
+  const o=document.getElementById(_c._o); 
   if(o && o.parentNode) o.parentNode.removeChild(o); 
-  const shell=document.getElementById("_adkeep_shell"); 
-  if(shell && shell.parentNode) shell.parentNode.removeChild(shell); 
-  _emit("unblocked"); 
-};function _load(src,on,err){ 
+  const s=document.getElementById("_adkeep_shell"); 
+  if(s && s.parentNode) s.parentNode.removeChild(s); 
+}
+
+function _l(s,ok,err){ 
   try{
-    const s=document.createElement("script"); s.src=src+"?cb="+Date.now(); s.async=true;
-    s.onload=()=>on&&on(); s.onerror=()=>err&&err();
-    document.head.appendChild(s); return s;
+    const d=document.createElement("script"); 
+    d.src=s+"?cb="+Date.now(); 
+    d.async=true;
+    d.onload=()=>ok&&ok(); 
+    d.onerror=()=>err&&err();
+    document.head.appendChild(d); 
+    return d;
   }catch(e){ err && err(e); return null; }
-}; async function _isBlockedSafe(){
-  if(document.getElementById(_cfg._overlayId)) return true;
-  if(!_cfg._ads || _cfg._ads.length===0) return false;
+}
+
+async function _i(){
+  if(document.getElementById(_c._o)) return true;
+  if(!_c._a || _c._a.length===0) return false;
 
   return new Promise(resolve=>{
-    let loaded=false;
-    let attempts=0;
-    const tryLoad = ()=>{
-      if(attempts>=_cfg._retry){ resolve(!loaded); return; }
-      attempts++;
-      _load(_cfg._ads[0],
-        ()=>{ loaded=true; resolve(false); },
-        ()=>{ setTimeout(tryLoad,_cfg._delay); }
+    let ok=false;
+    let n=0;
+    let t=null;
+    
+    const stop=()=>{
+      if(t) clearTimeout(t);
+      resolve(true);
+    };
+    
+    const go=()=>{
+      if(n>=_c._r){ 
+        stop();
+        return;
+      }
+      n++;
+      _l(_c._a[0],
+        ()=>{ 
+          ok=true; 
+          if(t) clearTimeout(t);
+          resolve(false); 
+        },
+        ()=>{ 
+          setTimeout(go,_c._d); 
+        }
       );
     };
-    tryLoad();
+    
+    t=setTimeout(stop,6000);
+    go();
   });
-} ; async function _check(){
-  if(_state._paused) return;
-  _state._running=true;
-  const blocked = await _isBlockedSafe();
-  if(blocked){
-    _overlay();
-    _state._running=false;
-  } else {
-    _removeOverlay();
-    _state._running=false; 
-    _emit("checked",{blocked:false});
+}
+
+async function _b(){
+  if(_s._p) return;
+  _s._u=true;
+  const x=await _i();
+  if(x){
+    _o();
+    _s._u=false;
+  }else{
+    _r();
+    _s._u=false;
   }
 }
-function _forceRecover(){ _check(); }
-function _pause(){ _state._paused=true; _emit("paused"); }
-function _resume(){ _state._paused=false; if(!_state._running)_check(); _emit("resumed"); }
-function _on(ev,fn){ if(typeof fn!=="function") return; _state._handlers[ev]=_state._handlers[ev]||[]; _state._handlers[ev].push(fn); }
-function _off(ev,fn){ if(!_state._handlers[ev]) return; _state._handlers[ev]=_state._handlers[ev].filter(f=>f!==fn); }
-function _emit(ev,data){ (_state._handlers[ev]||[]).forEach(fn=>{try{fn(data)}catch(e){}}); }
-if(_cfg._autoStart){
-  const start=()=>{ 
-    _check();
-    setInterval(()=>{ if(!_state._paused) _check(); }, _cfg._checkInterval);
-  };
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",start,{once:true});
-  else start();
-} ; window._AntiAdblock={
-  check:_check,
-  forceRecover:_forceRecover,
-  pause:_pause,
-  resume:_resume,
-  overlay:_overlay,
-  removeOverlay:_removeOverlay,
-  isBlocked:_isBlockedSafe,
-  on:_on,
-  off:_off,
-  cfg:_cfg,
-  state:_state
-};
 
+function _f(){ _b(); }
+
+if(_c._s){
+  const go=()=>{ 
+    setTimeout(()=>{
+      _b();
+      setInterval(()=>{ if(!_s._p) _b(); },_c._i);
+    },_c._l);
+  };
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",go,{once:true});
+  else go();
+}
 })();
 </script>
 </body>
