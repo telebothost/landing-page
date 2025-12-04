@@ -2743,151 +2743,170 @@ Bot.sendMessage("Sum: " + calculate(7, 3))</code></pre>
 </footer>
 
 <script type="text/javascript" charset="utf-8">
-(function(){
-"use strict";
-
-const _c={
-  _a:["https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"],
-  _r:2,
-  _d:2000,
-  _o:"_adblock_overlay",
-  _m:"Please disable Ad Blocker to continue.",
-  _k:["header","nav","#header",".site-header","footer",".site-footer"],
-  _b:true,
-  _s:true,
-  _i:10000,
-  _l:2000
-};
-
-let _s={_p:false,_u:false,_t:0,_h:{}};
-
-function _q(s){try{return Array.from(document.querySelectorAll(s))}catch(e){return []}}
-function _z(){return Math.max(..._q("body *").map(e=>parseInt(getComputedStyle(e).zIndex)||0),0)+2;}
-
-function _k(){ 
-  const d=document.createElement("div"); 
-  d.id="_adkeep_shell"; 
-  d.style.cssText=`position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:${_z()-1};`;
-  const f=document.createDocumentFragment(); 
-  for(const s of _c._k) _q(s).forEach(e=>{
-    const c=e.cloneNode(true); 
-    c.style.pointerEvents="auto"; 
-    f.appendChild(c);
-  }); 
-  d.appendChild(f); 
-  return d; 
-}
-
-function _o(){
-  if(document.getElementById(_c._o)) return;
-  const d=document.createElement("div"); 
-  d.id=_c._o; 
-  d.style.cssText=`
+(function() {
+  "use strict";
+  
+  const _c = {
+    _a: ["https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"],
+    _r: 2,
+    _d: 2000,
+    _o: "_adblock_overlay",
+    _m: "Please disable Ad Blocker to continue.",
+    _b: true,
+    _s: true,
+    _i: 10000,
+    _l: 2000
+  };
+  
+  let _s = { _p: false, _u: false, _t: 0 };
+  
+  function _q(s) { try { return document.querySelector(s) } catch (e) { return null } }
+  
+  function _z() { return Math.max(...Array.from(document.querySelectorAll("body *"), e => parseInt(getComputedStyle(e).zIndex) || 0), 0) + 10; }
+  
+  function _o() {
+    if (_q("#" + _c._o)) return;
+    
+    const d = document.createElement("div");
+    d.id = _c._o;
+    d.style.cssText = `
     position:fixed;inset:0;
     display:flex;flex-direction:column;justify-content:center;align-items:center;
     padding:20px;box-sizing:border-box;
-    background:${_c._b?'rgba(255,255,255,0.95)':'#fff'};
-    color:#111;font-family:Arial,sans-serif;text-align:center;
+    background:${_c._b?'rgba(0,0,0,0.95)':'#000'};
+    color:#fff;font-family:Arial,sans-serif;text-align:center;
     z-index:${_z()};pointer-events:auto;
+    overflow:hidden;
   `;
-  const m=document.createElement("div");
-  m.style.maxWidth="760px";
-  m.innerHTML=`<h1 style="margin:0 0 10px 0;font-size:22px">${_c._m}</h1>`;
-  const b=document.createElement("button");
-  b.innerText="Retry";
-  b.style.cssText="margin-top:15px;padding:10px 20px;font-size:16px;cursor:pointer;border:none;border-radius:5px;background:#007BFF;color:#fff;";
-  b.addEventListener("click",_f);
-  m.appendChild(b);
-  try{
-    document.body.appendChild(_k());
+    
+    const c = document.createElement("div");
+    c.style.cssText = `
+    position:absolute;inset:0;
+    background:#000;
+    z-index:-1;
+  `;
+    d.appendChild(c);
+    
+    const m = document.createElement("div");
+    m.style.cssText = "max-width:760px;position:relative;z-index:1;";
+    m.innerHTML = `<h1 style="margin:0 0 20px 0;font-size:26px;color:#fff">${_c._m}</h1>`;
+    
+    const b = document.createElement("button");
+    b.innerText = "Retry";
+    b.style.cssText = "margin-top:20px;padding:12px 30px;font-size:18px;cursor:pointer;border:none;border-radius:8px;background:#ff4444;color:#fff;font-weight:bold;";
+    b.addEventListener("click", _f);
+    m.appendChild(b);
+    
     d.appendChild(m);
+    
+    const s = document.createElement("style");
+    s.textContent = `
+    body{overflow:hidden !important;margin:0 !important;height:100vh !important;position:relative !important;}
+    html{overflow:hidden !important;height:100vh !important;}
+  `;
+    document.head.appendChild(s);
+    
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+    document.body.style.height = "100%";
+    document.body.style.top = "0";
+    document.body.style.left = "0";
+    
     document.body.appendChild(d);
-  }catch(e){
-    document.documentElement.appendChild(d);
   }
-}
-
-function _r(){ 
-  const o=document.getElementById(_c._o); 
-  if(o && o.parentNode) o.parentNode.removeChild(o); 
-  const s=document.getElementById("_adkeep_shell"); 
-  if(s && s.parentNode) s.parentNode.removeChild(s); 
-}
-
-function _l(s,ok,err){ 
-  try{
-    const d=document.createElement("script"); 
-    d.src=s+"?cb="+Date.now(); 
-    d.async=true;
-    d.onload=()=>ok&&ok(); 
-    d.onerror=()=>err&&err();
-    document.head.appendChild(d); 
-    return d;
-  }catch(e){ err && err(e); return null; }
-}
-
-async function _i(){
-  if(document.getElementById(_c._o)) return true;
-  if(!_c._a || _c._a.length===0) return false;
-
-  return new Promise(resolve=>{
-    let ok=false;
-    let n=0;
-    let t=null;
+  
+  function _r() {
+    const o = _q("#" + _c._o);
+    if (o && o.parentNode) o.parentNode.removeChild(o);
     
-    const stop=()=>{
-      if(t) clearTimeout(t);
-      resolve(true);
-    };
+    const s = _q("style");
+    if (s && s.textContent.includes("overflow:hidden")) document.head.removeChild(s);
     
-    const go=()=>{
-      if(n>=_c._r){ 
-        stop();
-        return;
-      }
-      n++;
-      _l(_c._a[0],
-        ()=>{ 
-          ok=true; 
-          if(t) clearTimeout(t);
-          resolve(false); 
-        },
-        ()=>{ 
-          setTimeout(go,_c._d); 
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
+    document.body.style.position = "";
+    document.body.style.width = "";
+    document.body.style.height = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+  }
+  
+  function _l(s, ok, err) {
+    try {
+      const d = document.createElement("script");
+      d.src = s + "?cb=" + Date.now();
+      d.async = true;
+      d.onload = () => ok && ok();
+      d.onerror = () => err && err();
+      document.head.appendChild(d);
+      return d;
+    } catch (e) { err && err(e); return null; }
+  }
+  
+  async function _i() {
+    if (_q("#" + _c._o)) return true;
+    if (!_c._a || _c._a.length === 0) return false;
+    
+    return new Promise(resolve => {
+      let ok = false;
+      let n = 0;
+      let t = null;
+      
+      const stop = () => {
+        if (t) clearTimeout(t);
+        resolve(true);
+      };
+      
+      const go = () => {
+        if (n >= _c._r) {
+          stop();
+          return;
         }
-      );
-    };
-    
-    t=setTimeout(stop,6000);
-    go();
-  });
-}
-
-async function _b(){
-  if(_s._p) return;
-  _s._u=true;
-  const x=await _i();
-  if(x){
-    _o();
-    _s._u=false;
-  }else{
-    _r();
-    _s._u=false;
+        n++;
+        _l(_c._a[0],
+          () => {
+            ok = true;
+            if (t) clearTimeout(t);
+            resolve(false);
+          },
+          () => {
+            setTimeout(go, _c._d);
+          }
+        );
+      };
+      
+      t = setTimeout(stop, 8000);
+      go();
+    });
   }
-}
-
-function _f(){ _b(); }
-
-if(_c._s){
-  const go=()=>{ 
-    setTimeout(()=>{
-      _b();
-      setInterval(()=>{ if(!_s._p) _b(); },_c._i);
-    },_c._l);
-  };
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",go,{once:true});
-  else go();
-}
+  
+  async function _b() {
+    if (_s._p) return;
+    _s._u = true;
+    const x = await _i();
+    if (x) {
+      _o();
+      _s._u = false;
+    } else {
+      _r();
+      _s._u = false;
+    }
+  }
+  
+  function _f() { _b(); }
+  
+  if (_c._s) {
+    const go = () => {
+      setTimeout(() => {
+        _b();
+        setInterval(() => { if (!_s._p) _b(); }, _c._i);
+      }, _c._l);
+    };
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", go, { once: true });
+    else go();
+  }
 })();
 </script>
 
