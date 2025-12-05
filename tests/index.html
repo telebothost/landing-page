@@ -136,6 +136,10 @@
     document.body.style.left = "";
   }
   
+  function _w(ms) {
+    return new Promise(r => setTimeout(r, ms));
+  }
+  
   async function _i() {
     if (_q("#" + _c._o)) return true;
     if (!_c._a || _c._a.length === 0) return false;
@@ -144,14 +148,10 @@
     while (n < _c._r) {
       n++;
       try {
-        const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), _c._d);
         const res = await fetch(_c._a[0] + "?cb=" + Date.now(), {
-          method: "PATCH",
-          cache: "no-store",
-          signal: controller.signal
+          method: "GET",
+          cache: "no-store"
         });
-        clearTimeout(timer);
         if (res && res.ok) {
           const ct = (res.headers.get("content-type") || "").toLowerCase();
           if (ct.startsWith("text/javascript")) {
@@ -159,6 +159,9 @@
           }
         }
       } catch (e) {}
+      if (n < _c._r) {
+        await _w(_c._d);
+      }
     }
     return true;
   }
