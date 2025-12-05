@@ -166,11 +166,39 @@
     return true;
   }
   
+  // NEW: Check if adsbygoogle object exists
+  function _checkAdObject() {
+    // Check if window.adsbygoogle exists and is properly initialized
+    if (!window.adsbygoogle) {
+      return true; // Object doesn't exist (blocked by DDG or similar)
+    }
+    
+    // Additional check: try to access a property
+    try {
+      if (typeof window.adsbygoogle !== 'object') {
+        return true; // Not an object
+      }
+      
+      // Try to call push on it (should exist if properly loaded)
+      if (typeof window.adsbygoogle.push !== 'function') {
+        return true; // Missing expected method
+      }
+      
+      return false; // Object appears to be valid
+    } catch (e) {
+      return true; // Error accessing object
+    }
+  }
+  
   async function _b() {
     if (_s._p || _s._u) return;
     _s._u = true;
-    const x = await _i();
-    if (x) {
+    
+    // Check both: script loading AND object existence
+    const scriptBlocked = await _i();
+    const objectMissing = _checkAdObject();
+    
+    if (scriptBlocked || objectMissing) {
       _o();
       _s._u = false;
     } else {
@@ -199,6 +227,10 @@
     }
   }
 })();
+
+</script>
+<script type="text/javascript" charset="utf-8">
+  console.log(window.adsbygoogle);
 </script>
 </body>
 </html>
