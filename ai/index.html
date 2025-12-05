@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI Chatbot</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<style>
+body {
+  margin: 0; padding: 0;
+  font-family: "Inter", sans-serif;
+  background: #eef1f5;
+  display: flex; justify-content: center;
+  height: 100vh;
+}
+.chat-container {
+  width: 100%; max-width: 650px;
+  background: #ffffff;
+  display: flex; flex-direction: column;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+  overflow: hidden;
+}
+.header {
+  padding: 18px;
+  font-size: 20px;
+  font-weight: 600;
+  background: #1f2937;
+  color: white;
+  text-align: center;
+  letter-spacing: .5px;
+}
+.messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+.msg {
+  margin-bottom: 18px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  max-width: 85%;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  font-size: 15px;
+  animation: fadeIn .3s;
+}
+.user {
+  background: #2563eb;
+  color: white;
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
+}
+.bot {
+  background: #f3f4f6;
+  color: #111827;
+  margin-right: auto;
+  border-bottom-left-radius: 4px;
+  border: 1px solid #e5e7eb;
+}
+.bot code {
+  background: #1e1e1e;
+  color: #f8f8f8;
+  padding: 3px 6px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+pre code {
+  display: block;
+  padding: 12px;
+  border-radius: 10px;
+  background: #1e1e1e !important;
+  overflow-x: auto;
+}
+.typing {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-right: auto;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  color: #555;
+  padding: 12px 16px;
+  border-radius: 14px;
+  margin-bottom: 15px;
+  opacity: .7;
+}
+.dot {
+  width: 7px; height: 7px;
+  background: #555;
+  border-radius: 50%;
+  animation: blink 1s infinite;
+}
+.dot:nth-child(2) { animation-delay: .2s }
+.dot:nth-child(3) { animation-delay: .4s }
+
+@keyframes blink { 0% {opacity:.3} 100% {opacity:1} }
+@keyframes fadeIn { from{opacity:0; transform:translateY(5px);} to{opacity:1; transform:translateY(0);} }
+
+.input-box {
+  display: flex;
+  padding: 14px;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+}
+input {
+  flex: 1;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+}
+button {
+  margin-left: 10px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 10px;
+  background: #1f2937;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+<div class="chat-container">
+  <div class="header">🤖 AI Chatbot</div>
+
+  <div id="messages" class="messages"></div>
+
+  <div class="input-box">
+    <input id="input" placeholder="Type a message..." />
+    <button id="send">Send</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<script>
+const input = document.getElementById("input");
+const sendBtn = document.getElementById("send");
+const messages = document.getElementById("messages");
+const decoder = new TextDecoder();
+
+function addMessage(text, isUser) {
+  const div = document.createElement("div");
+  div.className = "msg " + (isUser ? "user" : "bot");
+  div.innerHTML = isUser ? text : text;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+  return div;
+}
+
+function showTyping() {
+  const box = document.createElement("div");
+  box.className = "typing";
+  box.innerHTML = `<div class="dot"></div><div class="dot"></div><div class="dot"></div>`;
+  messages.appendChild(box);
+  messages.scrollTop = messages.scrollHeight;
+  return box;
+}
+
+async function sendMessage() {
+  const text = input.value.trim();
+  if (!text) return;
+
+  input.value = "";
+  addMessage(text, true);
+
+  const typing = showTyping();
+
+  const url = "https://text.pollinations.ai/openai/v1/chat/completions";
+
+  const body = {
+    model: "openai",
+    stream: true,
+    messages: [{ role: "user", content: text }]
+  };
+
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+
+    const reader = res.body.getReader();
+    let full = "";
+    let buffer = "";
+
+    const botMsg = addMessage("", false);
+    typing.remove();
+
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const parts = buffer.split("\n");
+      buffer = parts.pop();
+
+      for (let line of parts) {
+        if (!line.startsWith("data:")) continue;
+        const jsonStr = line.replace("data:", "").trim();
+        if (jsonStr === "[DONE]") continue;
+
+        let data;
+        try { data = JSON.parse(jsonStr); } catch { continue; }
+
+        const content = data?.choices?.[0]?.delta?.content;
+        if (content) {
+          full += content;
+          botMsg.innerHTML = marked.parse(full);
+          hljs.highlightAll();
+          messages.scrollTop = messages.scrollHeight;
+        }
+      }
+    }
+  } catch (e) {
+    typing.remove();
+    addMessage("⚠️ " + e.message, false);
+  }
+}
+
+sendBtn.onclick = sendMessage;
+input.addEventListener("keydown", e => { if (e.key === "Enter") sendMessage(); });
+</script>
+</body>
+</html>
