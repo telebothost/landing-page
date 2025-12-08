@@ -2,38 +2,69 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, interactive-widget=resizes-content" />
   <title>TeleBot Host - Security</title>
 
-  <meta name="keywords" content="Telegram bot security, secure Telegram bot hosting, encrypted Telegram bot hosting, TeleBotHost security, safe Telegram bot hosting, DDoS protection bots">
+  <meta name="description" content="Learn how TeleBot Host protects your Telegram bots with infrastructure security, token protection, sandboxed execution, DDoS mitigation, and user data safeguards.">
+  <meta name="keywords" content="Telegram bot security, secure Telegram bot hosting, encrypted Telegram bot hosting, TeleBot Host security, safe Telegram bot hosting, DDoS protection bots">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/style.css" type="text/css" />
 
   <style>
-    section { padding:100px 20px 50px; max-width:900px; margin:auto; }
-    h2 { font-size:1.8rem; color:#0088cc; text-align:center; margin-bottom:10px; }
-    p.subtitle { text-align:center; margin-bottom:40px; color:#666; }
-
-    .sec-block { margin-bottom:40px; }
-    .sec-block h3 { font-size:1.3rem; color:#0088cc; margin-bottom:10px; border-left:4px solid #0088cc; padding-left:10px; }
-    .sec-block ul { list-style:none; padding-left:0; }
+    section.security-page {
+      padding: 100px 20px 60px;
+      max-width: 900px;
+      margin: auto;
+    }
+    .security-page h1 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 5px;
+      color: #111;
+    }
+    .security-page .last-updated {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 25px;
+    }
+    .security-page p.subtitle {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #555;
+    }
+    .sec-block {
+      margin-bottom: 40px;
+    }
+    .sec-block h3 {
+      font-size: 1.3rem;
+      color: #0088cc;
+      margin-bottom: 10px;
+      border-left: 4px solid #0088cc;
+      padding-left: 10px;
+    }
+    .sec-block ul {
+      list-style: none;
+      padding-left: 0;
+    }
     .sec-block ul li {
-      margin-bottom:8px;
-      color:#444;
-      padding-left:20px;
-      position:relative;
+      margin-bottom: 8px;
+      color: #444;
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.5;
     }
     .sec-block ul li:before {
-      content:'';
-      position:absolute;
-      left:0;
-      top:8px;
-      width:6px;
-      height:6px;
-      background:#0088cc;
-      border-radius:50%;
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      background: #0088cc;
+      border-radius: 50%;
     }
   </style>
 </head>
@@ -53,47 +84,68 @@
   </div>
 </header>
 
-<section>
-  <h2>Security</h2>
-  <p class="subtitle">Learn how we protect your bots, data, and platform access.</p>
+<section class="security-page">
+  <h1>Security at TeleBot Host</h1>
+  <p class="last-updated">Last Updated: December 8, 2025</p>
+  <p class="subtitle">We take the security of your bots, data, and access seriously. This page explains the core measures we use to help keep your projects safe.</p>
 
   <div class="sec-block">
     <h3>Infrastructure Security</h3>
     <ul>
-      <li>Encrypted data transmission across all services</li>
-      <li>DDoS protection & rate-limiting firewall</li>
-      <li>Multi-region fail-safe cloud hosting</li>
-      <li>Regular security patches and server hardening</li>
+      <li>Encrypted data transmission (HTTPS/TLS) across our dashboard and APIs wherever applicable.</li>
+      <li>DDoS mitigation and rate limiting to reduce the impact of abusive or automated traffic.</li>
+      <li>Resilient cloud hosting with redundancy and regular monitoring of system health.</li>
+      <li>Ongoing security updates, patching, and server hardening practices.</li>
     </ul>
   </div>
 
   <div class="sec-block">
     <h3>Bot & API Protection</h3>
     <ul>
-      <li>Token-level isolation to prevent unauthorized access</li>
-      <li>Built-in API flood control to prevent Telegram bans</li>
-      <li>Automatic 200ms update delay to avoid spam/flooding</li>
-      <li>Sandboxed bot execution environment</li>
+      <li>Per-bot token isolation to limit the impact of compromised credentials.</li>
+      <li>Built-in API flood control designed to reduce Telegram flood risk and abuse.</li>
+      <li>Automatic update delay mechanisms (such as small delays between updates) to help prevent spam-like behavior.</li>
+      <li>Sandboxed execution environment for TBL code to separate bot logic from core platform systems.</li>
     </ul>
   </div>
 
   <div class="sec-block">
     <h3>User Data Safety</h3>
     <ul>
-      <li>No logging of bot messages or user conversations</li>
-      <li>Hashed user authentication sessions</li>
-      <li>Secure encrypted storage for bot tokens</li>
-      <li>Zero data-sharing policy — your data stays yours</li>
+      <li>We do not store full bot conversations for analytics or marketing purposes.</li>
+      <li>Authentication sessions are handled with secure, hashed tokens.</li>
+      <li>Bot tokens are stored using industry-standard encryption and access controls.</li>
+      <li>We do not sell your personal data; limited sharing only occurs as described in our Privacy Policy.</li>
     </ul>
   </div>
 
   <div class="sec-block">
     <h3>Internal Safety Controls</h3>
     <ul>
-      <li>Automated threat detection and blocking</li>
-      <li>Real-time activity monitoring</li>
-      <li>Bot behavior analysis to prevent abuse</li>
-      <li>Strict access control for sensitive operations</li>
+      <li>Automated detection of suspicious patterns, potential abuse, or high-risk behavior.</li>
+      <li>Real-time monitoring of platform performance and critical security events.</li>
+      <li>Abuse and spam protection aligned with our Acceptable Use Policy.</li>
+      <li>Strict access control and least-privilege principles for internal tools and sensitive operations.</li>
+    </ul>
+  </div>
+
+  <div class="sec-block">
+    <h3>Your Responsibility</h3>
+    <ul>
+      <li>Keep your bot tokens, API keys, and account credentials secret and never share them publicly.</li>
+      <li>Revoke and rotate tokens immediately if you suspect a leak or compromise.</li>
+      <li>Follow our <a href="/aup">Acceptable Use Policy</a> to avoid abuse and security risks.</li>
+      <li>Regularly review your bot’s behavior, logs, and permissions.</li>
+    </ul>
+  </div>
+
+  <div class="sec-block">
+    <h3>Report a Security Issue</h3>
+    <ul>
+      <li>If you believe you’ve found a security vulnerability, misconfiguration, or abuse on TeleBot Host, please contact us.</li>
+      <li>Email (Security / Abuse): <a href="mailto:abuse@telebothost.com">abuse@telebothost.com</a></li>
+      <li>Email (Support): <a href="mailto:support@telebothost.com">support@telebothost.com</a></li>
+      <li>Telegram Support: <a href="https://t.me/update_chat" target="_blank">@update_chat</a></li>
     </ul>
   </div>
 </section>
