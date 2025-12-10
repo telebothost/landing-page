@@ -1055,6 +1055,49 @@ Bot.getPropNames()
 </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
+<h3 id="api-vs-bot">Api vs Bot — What’s the Difference?</h3>
+<p>
+  Both <code>Api</code> and <code>Bot</code> can send messages, but they serve different purposes.
+</p>
+
+<h4>Api</h4>
+<ul>
+  <li>Provides access to <b>all Telegram API methods</b></li>
+  <li>Methods are <b>case-insensitive</b></li>
+  <li>Supports <code>Api.call()</code> for any Telegram method (even new ones)</li>
+  <li>Best for full, raw Telegram API control</li>
+</ul>
+
+<div class="code-container">
+  <pre><code class="language-javascript">
+Api.sendMessage({ chat_id: user.telegramid, text: "Hello from Api!" })
+Api.call("getChat", { chat_id: 123456 })
+  </code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4>Bot</h4>
+<ul>
+  <li>High-level helper designed for TBL commands</li>
+
+  <li>Only includes commonly used helper methods (sendMessage, sendPhoto, runCommand, properties, etc.)</li>
+  <li>Methods are <b>case-sensitive</b></li>
+  <li>Supports both string and object formats</li>
+  <li>Includes tools like <code>Bot.inspect()</code> and bot properties</li>
+</ul>
+
+<div class="code-container">
+  <pre><code class="language-javascript">
+Bot.sendMessage("Hello from Bot!")       // auto chat_id
+Bot.sendPhoto({ photo: "pic.jpg" })      // simple helper
+Bot.inspect("Debug:", user, chat)        // multi-argument inspect
+  </code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p><b>Summary:</b>  
+<code>Api</code> gives full access to every Telegram method.  
+<code>Bot</code> provides simplified helpers for common tasks inside commands.</p>
 <!-- HTTP Class -->
 <h2 id="class-http">HTTP Class</h2>
 <!-- docad -->
@@ -1068,7 +1111,6 @@ Bot.getPropNames()
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <p>
-
 The <b>HTTP</b> class allows your bot to make external API requests (GET, POST, etc.) and handle responses flexibly.  
 It supports direct calls with <code>await</code>, chaining commands for success/error handling.
 </p>
