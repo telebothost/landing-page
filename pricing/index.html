@@ -1,220 +1,342 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TBL Pricing</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, interactive-widget=resizes-content" />
+  <title>TeleBot Host - Pricing</title>
 
-<style>
-  body {
-    margin: 0;
-    font-family: "Inter", Arial, sans-serif;
-    background: linear-gradient(to bottom right, #eef1f6, #f7f9fc);
-    color: #333;
-  }
+  <meta name="description" content="Transparent pricing for TeleBot Host. Choose from Free, Freemium, Premium, and Elite plans to power your Telegram bots with the right resources.">
+  <meta name="keywords" content="TeleBot Host pricing, Telegram bot hosting pricing, cheap Telegram bot hosting, TBL pricing plans">
 
-  .pricing-header {
-    text-align: center;
-    margin: 60px 0 40px;
-  }
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/style.css" type="text/css" />
 
-  .pricing-header h1 {
-    font-size: 45px;
-    margin-bottom: 10px;
-    font-weight: 700;
-    color: #222;
-  }
+  <style>
+    section.pricing-page {
+      padding: 100px 20px 60px;
+      max-width: 1000px;
+      margin: auto;
+    }
 
-  .pricing-header p {
-    font-size: 18px;
-    opacity: 0.75;
-  }
+    .pricing-page h1 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 5px;
+      color: #111;
+    }
 
-  .pricing-container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 25px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-    gap: 35px;
-  }
+    .pricing-page .subtitle {
+      text-align: center;
+      margin-bottom: 35px;
+      color: #555;
+    }
 
-  .card {
-    background: white;
-    border-radius: 18px;
-    padding: 30px 25px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.07);
-    position: relative;
-  }
+    .billing-note {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 25px;
+    }
 
-  .card h2 {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
 
-  .price {
-    font-size: 42px;
-    font-weight: 700;
-    margin: 12px 0 25px;
-    color: #4e5cf3;
-  }
+    .plan-card {
+      border: 1px solid #e3e6ea;
+      border-radius: 10px;
+      padding: 18px 18px 20px;
+      background: #fff;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+    }
 
-  .price span {
-    font-size: 18px;
-    color: #666;
-    font-weight: 500;
-    margin-left: 3px;
-  }
+    .plan-card:hover {
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+      transform: translateY(-2px);
+      border-color: #d4dde6;
+    }
 
-  .badge {
-    position: absolute;
-    top: -12px;
-    right: -12px;
-    background: #4e5cf3;
-    color: white;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 600;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-  }
+    .plan-card.popular {
+      border-color: #0088cc;
+    }
 
-  .features {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+    .plan-card.elite {
+      border-color: #e0a400;
+    }
 
-  .features li {
-    margin: 12px 0;
-    font-size: 15px;
-    display: flex;
-    align-items: center;
-  }
+    .plan-badge {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 0.8rem;
+      padding: 4px 9px;
+      border-radius: 20px;
+      background: #0088cc;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
 
-  .features li::before {
-    content: "✔";
-    color: #4e5cf3;
-    margin-right: 10px;
-    font-weight: bold;
-  }
+    .plan-badge.elite {
+      background: #e0a400;
+      color: #222;
+    }
 
-  .btn {
-    margin-top: 28px;
-    padding: 14px 0;
-    border: none;
-    width: 100%;
-    border-radius: 12px;
-    font-size: 17px;
-    font-weight: 600;
-    cursor: pointer;
-    background: #4e5cf3;
-    color: white;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
-  }
+    .plan-name {
+      font-size: 1.1rem;
+      margin: 0 0 4px;
+      color: #111;
+    }
 
-  .note {
-    text-align: center;
-    margin: 40px 0 60px;
-    font-size: 15px;
-    opacity: 0.75;
-  }
-</style>
+    .plan-tagline {
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 10px;
+    }
 
+    .plan-price {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #0088cc;
+      margin-bottom: 4px;
+    }
+
+    .plan-price span {
+      font-size: 0.9rem;
+      color: #555;
+      font-weight: 400;
+      margin-left: 2px;
+    }
+
+    .plan-label {
+      font-size: 0.8rem;
+      color: #999;
+      margin-bottom: 12px;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0 0 15px;
+      flex: 1;
+    }
+
+    .feature-list li {
+      margin-bottom: 7px;
+      color: #444;
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.5;
+      font-size: 0.9rem;
+    }
+
+    .feature-list li:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      background: #0088cc;
+      border-radius: 50%;
+    }
+
+    .plan-cta {
+      display: inline-block;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid #0088cc;
+      color: #0088cc;
+      text-decoration: none;
+      transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+      margin-top: 5px;
+    }
+
+    .plan-cta.primary,
+    .plan-card.popular .plan-cta {
+      background: #0088cc;
+      color: #fff;
+    }
+
+    .plan-cta:hover {
+      background: #0077b3;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(0, 136, 204, 0.25);
+    }
+
+    .plan-cta.outline {
+      background: #fff;
+      color: #0088cc;
+    }
+
+    .plan-cta.outline:hover {
+      background: #f2f8fc;
+    }
+
+    .footnote {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      section.pricing-page {
+        padding-top: 90px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="pricing-header">
+<header id="header">
+  <div class="container nav-container">
+    <a href="/" class="logo">
+      <img src="/assets/img/logo.png" alt="TeleBot Host Logo">
+      TeleBot Host
+    </a>
+
+    <nav class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+    </nav>
+  </div>
+</header>
+
+<section class="pricing-page">
   <h1>TBL Pricing Plans</h1>
-  <p>Turbocharge your bot development with the perfect plan</p>
-</div>
+  <p class="subtitle">
+    Simple, transparent plans for every Telegram bot — from experiments to high-traffic projects.
+  </p>
+  <p class="billing-note">
+    All prices are monthly, per account. You can upgrade anytime.
+  </p>
 
-<div class="pricing-container">
+  <div class="plan-grid">
 
-  <!-- Free Plan -->
-  <div class="card">
-    <h2>Free</h2>
-    <div class="price">$0<span>/month</span></div>
-    <ul class="features">
-      <li>Execution timeout: 15s</li>
-      <li>Output buffer: 512 KB</li>
-      <li>Parallel processes: 10</li>
-      <li>File system: Disabled</li>
-      <li>Storage: 20 MB</li>
-      <li>Ads: Enabled</li>
-      <li>Support contact available</li>
-    </ul>
-    <a class="btn" href="https://t.me/onDNDbro" target="_blank">
-      Start Free • Contact @onDNDbro
-    </a>
+    <!-- Free -->
+    <div class="plan-card">
+      <h2 class="plan-name">Free</h2>
+      <p class="plan-tagline">Perfect for small hobby bots.</p>
+      <p class="plan-price">$0<span>/month</span></p>
+      <p class="plan-label">Everything you need to get started.</p>
+
+      <ul class="feature-list">
+        <li>Unlimited Bots : Yes</li>
+        <li>Execution timeout: 15s</li>
+        <li>Output buffer: 512 KB</li>
+        <li>Parallel processes: 10</li>
+        <li>File system: Disabled</li>
+        <li>Storage: 20 MB</li>
+        <li>Ads: Enabled</li>
+        <li>Support contact available</li>
+      </ul>
+
+      <a class="plan-cta outline" href="//telebothost.com" target="_blank">
+        Start Free
+      </a>
+    </div>
+
+    <!-- Freemium -->
+    <div class="plan-card">
+      <h2 class="plan-name">Freemium</h2>
+      <p class="plan-tagline">Remove ads, keep the same limits.</p>
+      <p class="plan-price">$1<span>/month</span></p>
+      <p class="plan-label">Best for small bots without ads.</p>
+
+      <ul class="feature-list">
+       <li>Unlimited Bots : Yes</li>
+        <li>Execution timeout: 15s</li>
+        <li>Output buffer: 512 KB</li>
+        <li>Parallel processes: 10</li>
+        <li>File system: Disabled</li>
+        <li>Storage: 20 MB</li>
+        <li>No Ads</li>
+      </ul>
+
+      <a class="plan-cta outline" href="https://t.me/onDNDbro" target="_blank">
+        Upgrade for $1
+      </a>
+    </div>
+
+    <!-- Premium -->
+    <div class="plan-card popular">
+      <span class="plan-badge">Popular</span>
+      <h2 class="plan-name">Premium</h2>
+      <p class="plan-tagline">More power and resources for serious bots.</p>
+      <p class="plan-price">$3<span>/month</span></p>
+      <p class="plan-label">Recommended for production workloads.</p>
+
+      <ul class="feature-list">
+        <li>Unlimited Bots : Yes</li>
+        <li>Execution timeout: 30s</li>
+        <li>Output buffer: 5 MB</li>
+        <li>Parallel processes: 20</li>
+        <li>File system: Enabled</li>
+        <li>Storage: 50 MB</li>
+        <li>Priority support</li>
+        <li>Premium bots on community bot store</li>
+        <li>Ads: Disabled</li>
+      </ul>
+
+      <a class="plan-cta primary" href="https://t.me/onDNDbro" target="_blank">
+        Go Premium
+      </a>
+    </div>
+
+    <!-- Elite -->
+    <div class="plan-card elite">
+      <span class="plan-badge elite">Elite</span>
+      <h2 class="plan-name">Elite</h2>
+      <p class="plan-tagline">For high-traffic and demanding bots.</p>
+      <p class="plan-price">$5<span>/month</span></p>
+      <p class="plan-label">Maximum limits and priority handling.</p>
+
+      <ul class="feature-list">
+          <li>Unlimited Bots : Yes</li>
+        <li>Execution timeout: 60s</li>
+        <li>Output buffer: 10 MB</li>
+        <li>Parallel processes: 40</li>
+        <li>File system: Enabled</li>
+        <li>Storage: 100 MB</li>
+        <li>Premium+ support</li>
+        <li>Premium bots on community bot store</li>
+        <li>Ads: Disabled</li>
+      </ul>
+
+      <a class="plan-cta primary" href="https://t.me/onDNDbro" target="_blank">
+        Unlock Elite
+      </a>
+    </div>
+
   </div>
 
-  <!-- Freemium -->
-  <div class="card">
-    <h2>Freemium</h2>
-    <div class="price">$1<span>/month</span></div>
-    <ul class="features">
-      <li>Execution timeout: 15s</li>
-      <li>Output buffer: 512 KB</li>
-      <li>Parallel processes: 10</li>
-      <li>File system: Disabled</li>
-      <li>Storage: 20 MB</li>
-      <li>No Ads</li>
-    </ul>
-    <a class="btn" href="https://t.me/onDNDbro" target="_blank">
-      Upgrade for $1 • Contact Now
-    </a>
+  <p class="footnote">
+    * File system is OK for development and will be available soon where noted.  
+    For custom or larger deployments, please contact support.
+  </p>
+</section>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="/cookies">Cookies</a>
+    <a href="/resources">Resources</a>
   </div>
+</footer>
 
-  <!-- Premium -->
-  <div class="card">
-    <div class="badge">POPULAR</div>
-    <h2>Premium</h2>
-    <div class="price">$3<span>/month</span></div>
-    <ul class="features">
-      <li>Execution timeout: 30s</li>
-      <li>Output buffer: 5 MB</li>
-      <li>Parallel processes: 20</li>
-      <li>File system: Enabled</li>
-      <li>Storage: 50 MB</li>
-      <li>Priority support</li>
-      <li>Premium bots on community bot store</li>
-      <li>Ads: Disabled</li>
-    </ul>
-    <a class="btn" href="https://t.me/onDNDbro" target="_blank">
-      Go Premium • DM @onDNDbro
-    </a>
-  </div>
-
-  <!-- Elite -->
-  <div class="card">
-    <div class="badge" style="background:#e0a400;">ELITE</div>
-    <h2>Elite</h2>
-    <div class="price">$5<span>/month</span></div>
-    <ul class="features">
-      <li>Execution timeout: 60s</li>
-      <li>Output buffer: 10 MB</li>
-      <li>Parallel processes: 40</li>
-      <li>File system: Enabled</li>
-      <li>Storage: 100 MB</li>
-      <li>Premium+ support</li>
-      <li>Premium bots on community bot store</li>
-      <li>Ads: Disabled</li>
-    </ul>
-    <a class="btn" href="https://t.me/onDNDbro" target="_blank">
-      Unlock Elite • Contact @onDNDbro
-    </a>
-  </div>
-
-</div>
-
-<p class="note">
-  * File system is OK for development (will be available soon)
-</p>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/assets/res.js"></script>
 </body>
 </html>
