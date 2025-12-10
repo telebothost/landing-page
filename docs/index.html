@@ -834,14 +834,7 @@ Bot.runCommand("/start", { key: 111 })
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
 
-<div class="alert warning">
-  <i class="fas fa-exclamation-triangle"></i>
-  <div>
-    Currently, <b>Bot.run()</b> and <b>Bot.runCommand()</b> errors only throw when awaited.<br>
-    Example: <code>await Bot.run("/cmd")</code> will throw, but <code>Bot.run("/cmd")</code> will silently fail.<br>
-    This issue will be fixed in future versions.
-  </div>
-</div>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -902,39 +895,72 @@ Bot.sendMessage(JSON.stringify(cmd, null, 2))
 <h3 id="bot-send">3. Sending Messages</h3>
 <p>
   These methods send messages or media to the current chat.
-  They return the <code>Telegram API response</code>.
-  Using <code>await</code> is optional – you can wait for the result or just send without waiting.
+  They return the <code>Telegram API response</code> (if awaited).
+  Using <code>await</code> is optional – you can wait for the result or send without waiting.
 </p>
-<p>With await it's support <a href="#api-chained">Api Chained method</a> too </p>
+<p>With <code>await</code> it also supports <a href="#api-chained">Api Chained methods</a>.</p>
 
 <div class="code-container">
-  <pre><code class="language-javascript">// Send plain text
-Bot.sendMessage("Hello user!") 
+  <pre><code class="language-javascript">// === Send Text ===
 
-// Send with HTML formatting
-let res = await Bot.sendMessage("Hello <b>friend</b>", { parse_mode: "html" })
-Bot.inspect(res) // See the Telegram response
+// Simple text
+Bot.sendMessage("Hello user!")
 
-// Send with a keyboard
+// Text (object format)
+Bot.sendMessage({ text: "Hello user!" })
+
+// With HTML formatting
+let res = await Bot.sendMessage("Hello <b>friend</b>", { parse_mode: "HTML" })
+Bot.inspect(res)
+
+
+// === Send Keyboard ===
+
+// String format
 Bot.sendKeyboard("Choose an option:", "Yes,No")
 
-// Send files
-Bot.sendDocument("file.pdf", { caption: "Here is your file" })
-Bot.sendPhoto("photo.jpg", { caption: "Nice view!" })
-Bot.sendAudio("music.mp3", { performer: "Artist", title: "Track" })
-Bot.sendVideo("video.mp4", { caption: "Watch this" })
-Bot.sendVoice("voice.ogg")
+// Object format
+Bot.sendKeyboard({ text: "Choose an option:", keyboard: "Yes,No" })
 
-// Debugging an object
+
+// === Send Media (supports string & object) ===
+
+// Photo
+Bot.sendPhoto("photo.jpg")
+Bot.sendPhoto({ photo: "photo.jpg", caption: "Nice view!" })
+
+// Document
+Bot.sendDocument("file.pdf", "Here is your pdf")
+Bot.sendDocument({ document: "file.pdf", caption: "Here is your file" })
+
+// Audio
+Bot.sendAudio("music.mp3")
+Bot.sendAudio({
+  audio: "music.mp3",
+  caption: "Here is your music"
+})
+
+// Video
+Bot.sendVideo("video.mp4")
+Bot.sendVideo({ video: "video.mp4", caption: "Watch this" })
+
+// Voice
+Bot.sendVoice("voice.ogg")
+Bot.sendVoice({ voice: "voice.ogg", caption: "Voice note" })
+
+
+// === Debugging ===
 Bot.inspect({ user: "Alice", id: 123 })
 
-//chain example 
-let data =await Bot.sendMessage("pinned message")
-data.pin()//pin the previous message 
+//Or multiple data inspect
+Bot.inspect("User data:", user, { id: 123 }, someArray)
+
+// === API Chaining Example ===
+let data = await Bot.sendMessage("Pinned message")
+data.pin() // pin the previous message
 </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
-
 <h3 id="bot-props">4. Properties</h3>
 <p>
   Bot properties are simple key-value storage.
@@ -2722,6 +2748,7 @@ Bot.sendMessage("Sum: " + calculate(7, 3))</code></pre>
   <li><strong>Support contact:</strong> Available for all free users, through our <b><a href="https://t.me/update_chat/">Support Group</a></b></li>
 </ul>
 
+<p>For Getting premium plans see our <a href="/pricing">Pricing Page</a> </p>
 <ins class="adsbygoogle"
      style="display:block"
      data-ad-format="autorelaxed"

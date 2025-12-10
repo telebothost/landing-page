@@ -3,60 +3,141 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, interactive-widget=resizes-content" />
-  <title>TeleBot Host - Security</title>
+  <title>TeleBot Host - Pricing</title>
 
-  <meta name="description" content="Learn how TeleBot Host protects your Telegram bots with infrastructure security, token protection, sandboxed execution, DDoS mitigation, and user data safeguards.">
-  <meta name="keywords" content="Telegram bot security, secure Telegram bot hosting, encrypted Telegram bot hosting, TeleBot Host security, safe Telegram bot hosting, DDoS protection bots">
+  <meta name="description" content="Transparent pricing for TeleBot Host. Choose from Free, Freemium, Premium, and Elite plans to power your Telegram bots with the right resources.">
+  <meta name="keywords" content="TeleBot Host pricing, Telegram bot hosting pricing, cheap Telegram bot hosting, TBL pricing plans">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/style.css" type="text/css" />
 
   <style>
-    section.security-page {
+    section.pricing-page {
       padding: 100px 20px 60px;
-      max-width: 900px;
+      max-width: 1000px;
       margin: auto;
     }
-    .security-page h1 {
+
+    .pricing-page h1 {
       font-size: 2rem;
       text-align: center;
       margin-bottom: 5px;
       color: #111;
     }
-    .security-page .last-updated {
+
+    .pricing-page .subtitle {
+      text-align: center;
+      margin-bottom: 35px;
+      color: #555;
+    }
+
+    .billing-note {
       text-align: center;
       font-size: 0.9rem;
       color: #777;
       margin-bottom: 25px;
     }
-    .security-page p.subtitle {
-      text-align: center;
-      margin-bottom: 40px;
-      color: #555;
+
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
     }
-    .sec-block {
-      margin-bottom: 40px;
+
+    .plan-card {
+      border: 1px solid #e3e6ea;
+      border-radius: 10px;
+      padding: 18px 18px 20px;
+      background: #fff;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
     }
-    .sec-block h3 {
-      font-size: 1.3rem;
-      color: #0088cc;
+
+    .plan-card:hover {
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+      transform: translateY(-2px);
+      border-color: #d4dde6;
+    }
+
+    .plan-card.popular {
+      border-color: #0088cc;
+    }
+
+    .plan-card.elite {
+      border-color: #e0a400;
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 0.8rem;
+      padding: 4px 9px;
+      border-radius: 20px;
+      background: #0088cc;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .plan-badge.elite {
+      background: #e0a400;
+      color: #222;
+    }
+
+    .plan-name {
+      font-size: 1.1rem;
+      margin: 0 0 4px;
+      color: #111;
+    }
+
+    .plan-tagline {
+      font-size: 0.9rem;
+      color: #777;
       margin-bottom: 10px;
-      border-left: 4px solid #0088cc;
-      padding-left: 10px;
     }
-    .sec-block ul {
+
+    .plan-price {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #0088cc;
+      margin-bottom: 4px;
+    }
+
+    .plan-price span {
+      font-size: 0.9rem;
+      color: #555;
+      font-weight: 400;
+      margin-left: 2px;
+    }
+
+    .plan-label {
+      font-size: 0.8rem;
+      color: #999;
+      margin-bottom: 12px;
+    }
+
+    .feature-list {
       list-style: none;
       padding-left: 0;
+      margin: 0 0 15px;
+      flex: 1;
     }
-    .sec-block ul li {
-      margin-bottom: 8px;
+
+    .feature-list li {
+      margin-bottom: 7px;
       color: #444;
       padding-left: 20px;
       position: relative;
       line-height: 1.5;
+      font-size: 0.9rem;
     }
-    .sec-block ul li:before {
+
+    .feature-list li:before {
       content: '';
       position: absolute;
       left: 0;
@@ -65,6 +146,54 @@
       height: 6px;
       background: #0088cc;
       border-radius: 50%;
+    }
+
+    .plan-cta {
+      display: inline-block;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid #0088cc;
+      color: #0088cc;
+      text-decoration: none;
+      transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+      margin-top: 5px;
+    }
+
+    .plan-cta.primary,
+    .plan-card.popular .plan-cta {
+      background: #0088cc;
+      color: #fff;
+    }
+
+    .plan-cta:hover {
+      background: #0077b3;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(0, 136, 204, 0.25);
+    }
+
+    .plan-cta.outline {
+      background: #fff;
+      color: #0088cc;
+    }
+
+    .plan-cta.outline:hover {
+      background: #f2f8fc;
+    }
+
+    .footnote {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      section.pricing-page {
+        padding-top: 90px;
+      }
     }
   </style>
 </head>
@@ -80,74 +209,123 @@
 
     <nav class="nav-links">
       <a href="/" class="nav-link">Home</a>
+      <a href="/security" class="nav-link">Security</a>
     </nav>
   </div>
 </header>
 
-<section class="security-page">
-  <h1>Security at TeleBot Host</h1>
-  <p class="last-updated">Last Updated: December 8, 2025</p>
-  <p class="subtitle">We take the security of your bots, data, and access seriously. This page explains the core measures we use to help keep your projects safe.</p>
+<section class="pricing-page">
+  <h1>TBL Pricing Plans</h1>
+  <p class="subtitle">
+    Simple, transparent plans for every Telegram bot — from experiments to high-traffic projects.
+  </p>
+  <p class="billing-note">
+    All prices are monthly, per account. You can upgrade anytime.
+  </p>
 
-  <div class="sec-block">
-    <h3>Infrastructure Security</h3>
-    <ul>
-      <li>Encrypted data transmission (HTTPS/TLS) across our dashboard and APIs wherever applicable.</li>
-      <li>DDoS mitigation and rate limiting to reduce the impact of abusive or automated traffic.</li>
-      <li>Resilient cloud hosting with redundancy and regular monitoring of system health.</li>
-      <li>Ongoing security updates, patching, and server hardening practices.</li>
-    </ul>
+  <div class="plan-grid">
+
+    <!-- Free -->
+    <div class="plan-card">
+      <h2 class="plan-name">Free</h2>
+      <p class="plan-tagline">Perfect for small hobby bots.</p>
+      <p class="plan-price">$0<span>/month</span></p>
+      <p class="plan-label">Everything you need to get started.</p>
+
+      <ul class="feature-list">
+        <li>Unlimited Bots : Yes</li>
+        <li>Execution timeout: 15s</li>
+        <li>Output buffer: 512 KB</li>
+        <li>Parallel processes: 10</li>
+        <li>File system: Disabled</li>
+        <li>Storage: 20 MB</li>
+        <li>Ads: Enabled</li>
+        <li>Support contact available</li>
+      </ul>
+
+      <a class="plan-cta outline" href="//telebothost.com" target="_blank">
+        Start Free
+      </a>
+    </div>
+
+    <!-- Freemium -->
+    <div class="plan-card">
+      <h2 class="plan-name">Freemium</h2>
+      <p class="plan-tagline">Remove ads, keep the same limits.</p>
+      <p class="plan-price">$1<span>/month</span></p>
+      <p class="plan-label">Best for small bots without ads.</p>
+
+      <ul class="feature-list">
+       <li>Unlimited Bots : Yes</li>
+        <li>Execution timeout: 15s</li>
+        <li>Output buffer: 512 KB</li>
+        <li>Parallel processes: 10</li>
+        <li>File system: Disabled</li>
+        <li>Storage: 20 MB</li>
+        <li>No Ads</li>
+      </ul>
+
+      <a class="plan-cta outline" href="https://t.me/onDNDbro" target="_blank">
+        Upgrade for $1
+      </a>
+    </div>
+
+    <!-- Premium -->
+    <div class="plan-card popular">
+      <span class="plan-badge">Popular</span>
+      <h2 class="plan-name">Premium</h2>
+      <p class="plan-tagline">More power and resources for serious bots.</p>
+      <p class="plan-price">$3<span>/month</span></p>
+      <p class="plan-label">Recommended for production workloads.</p>
+
+      <ul class="feature-list">
+        <li>Unlimited Bots : Yes</li>
+        <li>Execution timeout: 30s</li>
+        <li>Output buffer: 5 MB</li>
+        <li>Parallel processes: 20</li>
+        <li>File system: Enabled</li>
+        <li>Storage: 50 MB</li>
+        <li>Priority support</li>
+        <li>Premium bots on community bot store</li>
+        <li>Ads: Disabled</li>
+      </ul>
+
+      <a class="plan-cta primary" href="https://t.me/onDNDbro" target="_blank">
+        Go Premium
+      </a>
+    </div>
+
+    <!-- Elite -->
+    <div class="plan-card elite">
+      <span class="plan-badge elite">Elite</span>
+      <h2 class="plan-name">Elite</h2>
+      <p class="plan-tagline">For high-traffic and demanding bots.</p>
+      <p class="plan-price">$5<span>/month</span></p>
+      <p class="plan-label">Maximum limits and priority handling.</p>
+
+      <ul class="feature-list">
+          <li>Unlimited Bots : Yes</li>
+        <li>Execution timeout: 60s</li>
+        <li>Output buffer: 10 MB</li>
+        <li>Parallel processes: 40</li>
+        <li>File system: Enabled</li>
+        <li>Storage: 100 MB</li>
+        <li>Premium+ support</li>
+        <li>Premium bots on community bot store</li>
+        <li>Ads: Disabled</li>
+      </ul>
+
+      <a class="plan-cta primary" href="https://t.me/onDNDbro" target="_blank">
+        Unlock Elite
+      </a>
+    </div>
+
   </div>
 
-  <div class="sec-block">
-    <h3>Bot & API Protection</h3>
-    <ul>
-      <li>Per-bot token isolation to limit the impact of compromised credentials.</li>
-      <li>Built-in API flood control designed to reduce Telegram flood risk and abuse.</li>
-      <li>Automatic update delay mechanisms (such as small delays between updates) to help prevent spam-like behavior.</li>
-      <li>Sandboxed execution environment for TBL code to separate bot logic from core platform systems.</li>
-    </ul>
-  </div>
-
-  <div class="sec-block">
-    <h3>User Data Safety</h3>
-    <ul>
-      <li>We do not store full bot conversations for analytics or marketing purposes.</li>
-      <li>Authentication sessions are handled with secure, hashed tokens.</li>
-      <li>Bot tokens are stored using industry-standard encryption and access controls.</li>
-      <li>We do not sell your personal data; limited sharing only occurs as described in our Privacy Policy.</li>
-    </ul>
-  </div>
-
-  <div class="sec-block">
-    <h3>Internal Safety Controls</h3>
-    <ul>
-      <li>Automated detection of suspicious patterns, potential abuse, or high-risk behavior.</li>
-      <li>Real-time monitoring of platform performance and critical security events.</li>
-      <li>Abuse and spam protection aligned with our Acceptable Use Policy.</li>
-      <li>Strict access control and least-privilege principles for internal tools and sensitive operations.</li>
-    </ul>
-  </div>
-
-  <div class="sec-block">
-    <h3>Your Responsibility</h3>
-    <ul>
-      <li>Keep your bot tokens, API keys, and account credentials secret and never share them publicly.</li>
-      <li>Revoke and rotate tokens immediately if you suspect a leak or compromise.</li>
-      <li>Follow our <a href="/aup">Acceptable Use Policy</a> to avoid abuse and security risks.</li>
-      <li>Regularly review your bot’s behavior, logs, and permissions.</li>
-    </ul>
-  </div>
-
-  <div class="sec-block">
-    <h3>Report a Security Issue</h3>
-    <ul>
-      <li>If you believe you’ve found a security vulnerability, misconfiguration, or abuse on TeleBot Host, please contact us.</li>
-      <li>Email (Security / Abuse): <a href="mailto:abuse@telebothost.com">abuse@telebothost.com</a></li>
-      <li>Email (Support): <a href="mailto:support@telebothost.com">support@telebothost.com</a></li>
-      <li>Telegram Support: <a href="https://t.me/update_chat" target="_blank">@update_chat</a></li>
-    </ul>
-  </div>
+  <p class="footnote">
+    * File system is OK for development and will be available soon where noted.  
+    For custom or larger deployments, please contact support.
+  </p>
 </section>
 
 <footer class="footer">
