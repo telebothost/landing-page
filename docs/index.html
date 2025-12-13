@@ -464,7 +464,7 @@ Bot.sendMessage("New channel post received!")</code></pre>
   "blocked": false,
   "block_reason": null,
   "blocked_at": null,
-  "just_created": false //can be true if just started the bot for first time
+  "just_created": false //can be true if just started the bot for first time ,
 }
 </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -483,7 +483,8 @@ Bot.sendMessage("New channel post received!")</code></pre>
   "chatId": 5723455420,
   "blocked": false,
   "block_reason": null,
-  "blocked_at": null
+  "blocked_at": null,
+  "just_created": true
 }
 </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1056,6 +1057,58 @@ Bot.getPropNames()
 </code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
+<h3 id="bot-getusers">6. Get Users</h3>
+<p>
+  The <code>Bot.getUsers()</code> method returns an array of user IDs who have interacted with your bot.
+  This method <b>must be awaited</b> as it returns a Promise.
+</p>
+<div class="code-container">
+  <pre><code class="language-javascript">// Get all users
+let data = await Bot.getUsers()
+
+// Returns type is Array<Ids>
+// Must needs to be awaited
+
+/*
+Filter available
+
+getUsers({ chatType: "group/private/channel" , premiumOnly: true })
+
+Filters are totally optional, by default we return all chats exclude channel ids
+
+*/
+
+Api.sendMessage({text: data})
+
+// To get your bot user's, say goodbye to manually store in props
+// We have this new feature in TBL
+</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<div class="code-container">
+  <pre><code class="language-javascript">
+//This feature is not 100% stable now
+// Examples with filters
+
+// Get only group chats
+let groupUsers = await Bot.getUsers({ chatType: "group" })
+
+// Get only private chats
+let privateUsers = await Bot.getUsers({ chatType: "private" })
+
+// Get only premium users
+let premiumUsers = await Bot.getUsers({ premiumOnly: true }) //these are private chats 
+
+// Send the results
+Bot.sendMessage("Group users: " + groupUsers.length)
+Bot.sendMessage("Premium users: " + premiumUsers.length)
+</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<p>
+  <b>Note:</b> By default, channel IDs are excluded from the results. 
+  Use <code>chatType: "channel"</code> to specifically get channel IDs if needed.
+</p>
 <h3 id="api-vs-bot">Api vs Bot — What’s the Difference?</h3>
 <p>
   Both <code>Api</code> and <code>Bot</code> can send messages, but they serve different purposes.
