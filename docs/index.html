@@ -191,9 +191,9 @@ Bot.runCommand("/start")</code></pre>
 
 <h3> 5. Dynamic Command Handlers</h3>
 <p>TBL now supports <b><a href="#cmd-dynamic">Dynamic Commands</a></b> — allowing any <code>update type</code> to have its own handler in the form <code>/handle_{type}</code>.  
-For example, when a user joins a group, TBL automatically runs <code>/handle_new_chat_member</code> if it exists.</p>
+For example, when a user joins a group, TBL automatically runs <code>/handle_chat_member</code> if it exists.</p>
 <div class="code-container">
-  <pre><code class="language-javascript">/*Command: /handle_new_chat_member*/
+  <pre><code class="language-javascript">/*Command: /handle_chat_member*/
 Bot.sendMessage("👋 Welcome " + user.first_name + "!")</code></pre>
   <button class="copy-btn" onclick="copyCode(this)">Copy</button>
 </div>
