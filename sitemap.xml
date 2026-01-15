@@ -1,106 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+  http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-<!-- Homepage -->
-<url>
-  <loc>https://telebothost.com/</loc>
-  <lastmod>2025-10-02T11:38:48+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
+  <!-- Homepage -->
+  <url>
+    <loc>https://telebothost.com/</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
 
-<!-- Dashboard -->
-<url>
-  <loc>https://console.telebothost.com/</loc>
-  <lastmod>2025-10-02T11:38:48+00:00</lastmod>
-  <priority>0.90</priority>
-</url>
+  <!-- Core Pages -->
+  <url>
+    <loc>https://telebothost.com/about/</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
-<!-- Login Page -->
-<url>
-  <loc>https://console.telebothost.com/login</loc>
-  <lastmod>2025-10-02T11:38:48+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
+  <url>
+    <loc>https://telebothost.com/pricing/</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
-<!-- Registration Page -->
-<url>
-  <loc>https://console.telebothost.com/register</loc>
-  <lastmod>2025-10-02T11:38:48+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
+  <url>
+    <loc>https://telebothost.com/contact/</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
-<!-- Documentation -->
-<url>
-  <loc>https://telebothost.com/docs/</loc>
-  <lastmod>2025-10-02T11:38:48+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
+  <url>
+    <loc>https://telebothost.com/aup/</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
 
-<!-- Privacy Policy -->
-<url>
-  <loc>https://telebothost.com/privacy/</loc>
-  <lastmod>2025-10-02T11:38:48+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
+  <!-- Legal -->
+  <url>
+    <loc>https://telebothost.com/privacy/</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
 
-<!-- Terms of Service -->
-<url>
-  <loc>https://telebothost.com/terms/</loc>
-  <lastmod>2025-10-02T11:38:48+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
+  <url>
+    <loc>https://telebothost.com/terms/</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
 
-<!-- Cookie Policy -->
-<url>
-  <loc>https://telebothost.com/cookies/</loc>
-  <lastmod>2025-10-02T11:38:48+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
+  <url>
+    <loc>https://telebothost.com/cookies/</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
 
-<!-- Resources -->
-<url>
-  <loc>https://telebothost.com/resources/</loc>
-  <lastmod>2025-10-02T11:38:48+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
+  <!-- Documentation -->
+  <url>
+    <loc>https://docs.telebothost.com/</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
-<!-- Changelog -->
-<url>
-  <loc>https://telebothost.com/changelog/</loc>
-  <lastmod>2025-10-02T11:38:48+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
+  <!-- Resources -->
+  <url>
+    <loc>https://telebothost.com/resources/</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
 
-<!-- Bug Reports -->
-<url>
-  <loc>https://telebothost.com/bugs/</loc>
-  <lastmod>2025-10-02T11:38:48+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
+  <url>
+    <loc>https://telebothost.com/changelog/</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
 
-<!-- Tutorials Overview -->
-<url>
-  <loc>https://telebothost.com/tutorials/</loc>
-  <lastmod>2025-10-02T11:38:48+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
+  <!-- Tutorials -->
+  <url>
+    <loc>https://telebothost.com/tutorials/</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
 
-<!-- Adding First Bot Tutorial -->
-<url>
-  <loc>https://telebothost.com/tutorials/adding-first-bot</loc>
-  <lastmod>2025-10-02T11:38:48+00:00</lastmod>
-  <priority>0.51</priority>
-</url>
+  <url>
+    <loc>https://telebothost.com/tutorials/adding-first-bot/</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
 
-<!-- Setup Bot Code Tutorial -->
-<url>
-  <loc>https://telebothost.com/tutorials/setup-bot-code</loc>
-  <lastmod>2025-10-02T11:38:48+00:00</lastmod>
-  <priority>0.51</priority>
-</url>
+  <url>
+    <loc>https://telebothost.com/tutorials/setup-bot-code/</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
 
 </urlset>
