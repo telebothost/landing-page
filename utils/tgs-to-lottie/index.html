@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TGS to Lottie JSON</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+body { background: #f5f5f5; padding: 20px; color: #222; line-height: 1.6; }
+.container { max-width: 900px; margin: 0 auto; }
+header { text-align: center; padding: 40px 0 30px; }
+h1 { font-size: 32px; font-weight: 600; margin-bottom: 8px; color: #111; }
+.subtitle { color: #666; font-size: 15px; max-width: 500px; margin: 0 auto; line-height: 1.5; }
+.content { margin: 40px 0; }
+.main { display: flex; gap: 30px; flex-wrap: wrap; margin-top: 20px; }
+.left, .right { flex: 1; min-width: 300px; }
+.file-area { margin-bottom: 20px; }
+.file-box { 
+    border: 2px dashed #bbb;
+    background: #fff;
+    border-radius: 10px;
+    padding: 40px 20px;
+    text-align: center;
+    position: relative;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.file-box:hover { 
+    border-color: #0066cc;
+    background: #f8fbff;
+}
+.file-box.active { 
+    border-color: #0066cc;
+    background: #e8f4ff;
+}
+.file-input { 
+    width: 100%; 
+    height: 100%; 
+    opacity: 0; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    cursor: pointer; 
+}
+.file-label { font-size: 16px; color: #444; }
+.file-label .icon { 
+    display: block;
+    font-size: 50px;
+    margin-bottom: 5px;
+    color: #0066cc;
+}
+.file-label strong { 
+    color: #0066cc;
+    font-weight: 600;
+}
+.file-info { 
+    background: #e8f4ff;
+    padding: 14px 16px;
+    border-radius: 8px;
+    margin-top: 15px;
+    display: none;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+}
+.file-info.show { display: flex; }
+.file-icon { 
+    font-size: 20px;
+    color: #0066cc;
+}
+.file-name { 
+    flex: 1;
+    color: #0066cc;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.file-size { 
+    color: #666;
+    font-size: 13px;
+}
+.buttons { display: flex; gap: 12px; margin-top: 25px; }
+.btn { 
+    flex: 1; 
+    padding: 15px; 
+    border: none; 
+    background: #0066cc; 
+    color: white; 
+    font-size: 15px; 
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer; 
+    transition: background 0.2s;
+}
+.btn:hover { background: #0052a3; }
+.btn:disabled { 
+    background: #ccc; 
+    cursor: not-allowed; 
+    opacity: 0.7;
+}
+.btn.secondary { 
+    background: #f0f0f0; 
+    color: #333;
+    border: 1px solid #ddd;
+}
+.btn.secondary:hover { background: #e5e5e5; }
+.preview { 
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 10px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.preview-text { 
+    color: #888; 
+    font-size: 15px; 
+    text-align: center;
+    padding: 20px;
+}
+lottie-player { 
+    width: 100%; 
+    height: 100%; 
+    display: none;
+}
+.blog { 
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+}
+.blog h2 { 
+    font-size: 24px; 
+    margin-bottom: 20px; 
+    color: #111;
+}
+.blog h3 { 
+    font-size: 20px; 
+    margin: 25px 0 15px; 
+    color: #222;
+}
+.blog p { 
+    margin-bottom: 15px; 
+    color: #444;
+}
+.blog ul { 
+    margin-left: 20px; 
+    margin-bottom: 15px;
+}
+.blog li { 
+    margin-bottom: 8px; 
+    color: #444;
+}
+footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid #e6e6e6;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+footer span {
+    display: inline-block;
+    margin: 0 6px;
+}
+
+footer strong {
+    color: #0066cc;
+    font-weight: 600;
+}
+@media (max-width: 768px) { 
+    .main { flex-direction: column; } 
+    h1 { font-size: 28px; }
+    .file-box { padding: 30px 20px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>TGS to Lottie JSON Converter</h1>
+<p class="subtitle">Convert Telegram animated stickers to Lottie JSON format with live preview</p>
+</header>
+
+<div class="main">
+<div class="left">
+    <div class="file-area">
+        <div class="file-box" id="fileBox">
+            <input type="file" id="fileInput" class="file-input" accept=".tgs,.tgsdata">
+            <div class="file-label">
+        <div class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-folder2-open" viewBox="0 0 16 16">
+  <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v.64c.57.265.94.876.856 1.546l-.64 5.124A2.5 2.5 0 0 1 12.733 15H3.266a2.5 2.5 0 0 1-2.481-2.19l-.64-5.124A1.5 1.5 0 0 1 1 6.14zM2 6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5a.5.5 0 0 0-.5.5zm-.367 1a.5.5 0 0 0-.496.562l.64 5.124A1.5 1.5 0 0 0 3.266 14h9.468a1.5 1.5 0 0 0 1.489-1.314l.64-5.124A.5.5 0 0 0 14.367 7z"/>
+</svg>
+        </div>
+                <strong>Click to upload</strong><br>
+                <span style="font-size:14px; color:#777;">or drag and drop</span><br>
+                <span style="font-size:13px; color:#999; margin-top:5px; display:block;">Supports .tgs and .tgsdata files</span>
+            </div>
+        </div>
+        
+        <div class="file-info" id="fileInfo">
+            <div class="file-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
+  <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2zm3.564 1.426L5.596 5 8 5.961 14.154 3.5zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464z"/>
+</svg></div>
+            <div class="file-name" id="fileName"></div>
+            <div class="file-size" id="fileSize"></div>
+        </div>
+    </div>
+    
+    <div class="buttons">
+        <button id="convertBtn" class="btn" disabled>Convert to JSON</button>
+        <button id="downloadBtn" class="btn secondary" disabled>Download JSON</button>
+    </div>
+</div>
+
+<div class="right">
+    <div class="preview">
+        <span class="preview-text" id="previewText">Preview will appear here after conversion</span>
+        <lottie-player id="player" autoplay loop></lottie-player>
+    </div>
+</div>
+</div>
+
+<div class="blog">
+    <h2>About TGS to Lottie Conversion</h2>
+    
+    <p>This tool converts Telegram's TGS sticker format to standard Lottie JSON format. TGS (Telegram Animated Sticker) files are compressed Lottie animations used in Telegram messaging app.</p>
+    
+    <h3>What is TGS Format?</h3>
+    <p>TGS files are essentially gzip-compressed Lottie JSON files. Telegram uses this format to optimize sticker file sizes for faster loading and reduced bandwidth usage.</p>
+    
+    <h3>What is Lottie?</h3>
+    <p>Lottie is an open-source animation file format created by Airbnb. It's based on JSON and allows for high-quality, scalable animations that work across multiple platforms including web, iOS, and Android.</p>
+    
+    <h3>Common Use Cases</h3>
+    <ul>
+        <li>Convert Telegram stickers for use in web projects</li>
+        <li>Extract animations for mobile app development</li>
+        <li>Edit animations in Lottie-compatible tools</li>
+        <li>Use Telegram animations in presentations or videos</li>
+    </ul>
+    
+    <h3>How It Works</h3>
+    <p>The converter decompresses the TGS file using pako.js (a zlib port), extracts the JSON animation data, and provides it in standard Lottie format. The preview uses Lottie player to display the animation directly in your browser.</p>
+    
+    <h3>Features</h3>
+    <ul>
+        <li>Drag and drop file upload</li>
+        <li>Live animation preview</li>
+        <li>No file size limits</li>
+        <li>Client-side processing (your files never leave your computer)</li>
+        <li>Free and open to use</li>
+    </ul>
+    
+    <p>This tool is particularly useful for developers and designers who want to use Telegram's vast library of animated stickers in their own projects or customize existing animations.</p>
+</div>
+
+<footer>
+  <span>Free developer tool.</span><br />
+  <span>Built by <strong>TeleBotHost</strong>.</span>
+</footer>
+</div>
+
+<script>
+let jsonData = null;
+const fileInput = document.getElementById('fileInput');
+const convertBtn = document.getElementById('convertBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const player = document.getElementById('player');
+const previewText = document.getElementById('previewText');
+const fileBox = document.getElementById('fileBox');
+const fileInfo = document.getElementById('fileInfo');
+const fileName = document.getElementById('fileName');
+const fileSize = document.getElementById('fileSize');
+
+function formatSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+fileInput.onchange = function() {
+    if (this.files[0]) {
+        const file = this.files[0];
+        fileName.textContent = file.name;
+        fileSize.textContent = formatSize(file.size);
+        fileInfo.classList.add('show');
+        fileBox.classList.add('active');
+        convertBtn.disabled = false;
+    }
+};
+
+fileBox.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    fileBox.style.borderColor = '#0066cc';
+    fileBox.style.background = '#e8f4ff';
+});
+
+fileBox.addEventListener('dragleave', () => {
+    fileBox.style.borderColor = fileInput.files[0] ? '#0066cc' : '#bbb';
+    fileBox.style.background = fileInput.files[0] ? '#e8f4ff' : '#fff';
+});
+
+fileBox.addEventListener('drop', (e) => {
+    e.preventDefault();
+    if (e.dataTransfer.files[0]) {
+        fileInput.files = e.dataTransfer.files;
+        const file = e.dataTransfer.files[0];
+        fileName.textContent = file.name;
+        fileSize.textContent = formatSize(file.size);
+        fileInfo.classList.add('show');
+        fileBox.classList.add('active');
+        convertBtn.disabled = false;
+    }
+});
+
+convertBtn.onclick = function() {
+    if (!fileInput.files[0]) return;
+    
+    previewText.textContent = 'Converting...';
+    player.style.display = 'none';
+    convertBtn.disabled = true;
+    convertBtn.textContent = 'Converting...';
+    downloadBtn.disabled = true;
+
+    const reader = new FileReader();
+    reader.onload = function() {
+        try {
+            const compressed = new Uint8Array(reader.result);
+            const text = pako.inflate(compressed, { to: 'string' });
+            jsonData = JSON.parse(text);
+            
+            const blob = new Blob([JSON.stringify(jsonData)], { type: 'application/json' });
+            player.load(URL.createObjectURL(blob));
+            player.style.display = 'block';
+            previewText.textContent = '';
+            
+            convertBtn.textContent = 'Converted ✓';
+            setTimeout(() => {
+                convertBtn.textContent = 'Convert to JSON';
+                convertBtn.disabled = false;
+            }, 1500);
+            
+            downloadBtn.disabled = false;
+        } catch {
+            previewText.textContent = 'Invalid file';
+            alert('Failed to convert. Make sure it\'s a valid TGS file.');
+            convertBtn.textContent = 'Convert to JSON';
+            convertBtn.disabled = false;
+        }
+    };
+    reader.readAsArrayBuffer(fileInput.files[0]);
+};
+
+downloadBtn.onclick = function() {
+    if (!jsonData) return;
+    
+    const blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = fileInput.files[0].name.replace(/\.[^/.]+$/, "") + '.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+};
+</script>
+</body>
+</html>
