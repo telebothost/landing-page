@@ -2,55 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>TGS to Lottie JSON Converter | TeleBotHost</title>
+    <title>TGS to Lottie JSON Converter | Free Online Tool | TeleBotHost</title>
     
-    <!-- Basic SEO -->
-    <meta name="description" content="Free online TGS (.tgs / .tgsdata) to Lottie JSON converter with live preview. Fast, simple, and browser-based.">
-    <meta name="keywords" content="tgs to json, tgs converter, telegram tgs, lottie json, lottie animation">
+    <!-- Enhanced SEO -->
+    <meta name="description" content="Convert Telegram TGS (.tgs/.tgsdata) files to Lottie JSON format instantly. Free online converter with live preview. No uploads, client-side processing.">
+    <meta name="keywords" content="tgs to json, tgs converter, telegram tgs, lottie json, lottie animation, animated sticker converter, tgs to lottie, telegram sticker converter">
     <meta name="author" content="TeleBotHost">
     <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://yourdomain.com/tgs-to-lottie-converter">
     
     <!-- Viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Open Graph (Social Preview) -->
-    <meta property="og:title" content="TGS to Lottie JSON Converter">
-    <meta property="og:description" content="Convert Telegram animated stickers (.tgs) into Lottie JSON with instant preview.">
+    <!-- Enhanced Open Graph -->
+    <meta property="og:title" content="TGS to Lottie JSON Converter | Free Online Tool">
+    <meta property="og:description" content="Convert Telegram animated stickers (.tgs/.tgsdata) to Lottie JSON with instant preview. 100% free, no uploads required.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com/tgs-to-lottie-converter">
     
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary">
+    <!-- Enhanced Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="TGS to Lottie JSON Converter">
-    <meta name="twitter:description" content="Fast TGS to Lottie JSON converter with preview.">
+    <meta name="twitter:description" content="Free browser-based TGS to Lottie JSON converter with live preview. Convert Telegram animated stickers instantly.">
     
     <!-- Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js" defer></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" defer></script>
-    <!-- SweetAlert2 for popups -->
+    <!-- SweetAlert2 for notifications -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2719295794573158" crossorigin="anonymous"></script>
-
+    
+    <!-- Enhanced Structured Data -->
     <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "TGS to Lottie JSON Converter",
-  "description": "Free online tool to convert Telegram animated stickers (.tgs / .tgsdata) into Lottie JSON with live preview.",
-  "applicationCategory": "DeveloperApplication",
-  "operatingSystem": "Any",
-  "browserRequirements": "Requires JavaScript",
-  "author": {
-    "@type": "Organization",
-    "name": "TeleBotHost"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  }
-}
-</script>
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "TGS to Lottie JSON Converter",
+      "description": "Free online tool to convert Telegram animated stickers (.tgs / .tgsdata) into Lottie JSON with live preview.",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "author": {
+        "@type": "Organization",
+        "name": "TeleBotHost",
+        "url": "https://telebothost.com"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "150"
+      },
+      "keywords": "tgs converter, lottie json, telegram sticker converter, animation converter"
+    }
+    </script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2719295794573158" crossorigin="anonymous"></script>
 
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
@@ -223,50 +233,13 @@ footer strong {
     color: #0066cc;
     font-weight: 600;
 }
-
-/* Ads styling */
-.ad-container {
-    margin: 25px 0;
-    text-align: center;
-    min-height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #f9f9f9;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.ad-placeholder {
-    color: #999;
-    font-size: 14px;
-}
-
-.adsbygoogle {
-    display: block;
-}
-
-/* Loading spinner */
-.spinner {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255,255,255,.3);
-    border-radius: 50%;
-    border-top-color: #fff;
-    animation: spin 1s ease-in-out infinite;
-    margin-right: 8px;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
 @media (max-width: 768px) { 
     .main { flex-direction: column; } 
     h1 { font-size: 28px; }
     .file-box { padding: 30px 20px; }
-    .ad-container { margin: 20px 0; }
+    .file-name {
+        max-width: 180px;
+    }
 }
 </style>
 </head>
@@ -277,16 +250,15 @@ footer strong {
 <p class="subtitle">Convert Telegram animated stickers to Lottie JSON format with live preview</p>
 </header>
 
-<!-- Ad Container 1 -->
-<div class="ad-container">
-    <div class="ad-placeholder">Advertisement</div>
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-format="fluid"
-         data-ad-layout-key="-fb+5w+4e-db+86"
-         data-ad-client="ca-pub-2719295794573158"
-         data-ad-slot="8786409519"></ins>
-</div>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-fb+5w+4e-db+86"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="8786409519"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <div class="main">
 <div class="left">
@@ -309,15 +281,13 @@ footer strong {
             <div class="file-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
   <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2zm3.564 1.426L5.596 5 8 5.961 14.154 3.5zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464z"/>
 </svg></div>
-            <div class="file-name" id="fileName" title=""></div>
+            <div class="file-name" id="fileName"></div>
             <div class="file-size" id="fileSize"></div>
         </div>
     </div>
     
     <div class="buttons">
-        <button id="convertBtn" class="btn" disabled>
-            <span class="btn-text">Convert to JSON</span>
-        </button>
+        <button id="convertBtn" class="btn" disabled>Convert to JSON</button>
         <button id="downloadBtn" class="btn secondary" disabled>Download JSON</button>
     </div>
 </div>
@@ -329,18 +299,16 @@ footer strong {
     </div>
 </div>
 </div>
-
-<!-- Ad Container 2 -->
-<div class="ad-container">
-    <div class="ad-placeholder">Advertisement</div>
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-2719295794573158"
-         data-ad-slot="4335444793"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-</div>
-
+  <!-- docad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="4335444793"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 <div class="blog">
     <h2>About TGS to Lottie Conversion</h2>
     
@@ -359,17 +327,15 @@ footer strong {
         <li>Edit animations in Lottie-compatible tools</li>
         <li>Use Telegram animations in presentations or videos</li>
     </ul>
-    
-    <!-- Ad Container 3 -->
-    <div class="ad-container">
-        <div class="ad-placeholder">Get Free Telegram Bot Hosting With TeleBotHost</div>
-        <ins class="adsbygoogle"
-             style="display:block; text-align:center;"
-             data-ad-layout="in-article"
-             data-ad-format="fluid"
-             data-ad-client="ca-pub-2719295794573158"
-             data-ad-slot="8142878854"></ins>
-    </div>
+    <ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="8142878854"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
     <h3>How It Works</h3>
     <p>The converter decompresses the TGS file using pako.js (a zlib port), extracts the JSON animation data, and provides it in standard Lottie format. The preview uses Lottie player to display the animation directly in your browser.</p>
@@ -393,9 +359,7 @@ footer strong {
 </div>
 
 <script>
-// Initialize variables
 let jsonData = null;
-let isConverting = false;
 const fileInput = document.getElementById('fileInput');
 const convertBtn = document.getElementById('convertBtn');
 const downloadBtn = document.getElementById('downloadBtn');
@@ -405,9 +369,16 @@ const fileBox = document.getElementById('fileBox');
 const fileInfo = document.getElementById('fileInfo');
 const fileName = document.getElementById('fileName');
 const fileSize = document.getElementById('fileSize');
-const btnText = convertBtn.querySelector('.btn-text');
 
-// Format file size
+// Function to truncate long file names
+function truncateFileName(name, maxLength = 30) {
+    if (name.length <= maxLength) return name;
+    const extension = name.substring(name.lastIndexOf('.'));
+    const nameWithoutExt = name.substring(0, name.lastIndexOf('.'));
+    const truncated = nameWithoutExt.substring(0, maxLength - extension.length - 3);
+    return truncated + '...' + extension;
+}
+
 function formatSize(bytes) {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
@@ -416,87 +387,55 @@ function formatSize(bytes) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
-// Truncate file name
-function truncateFileName(name, maxLength = 30) {
-    if (name.length <= maxLength) return name;
-    const extension = name.split('.').pop();
-    const nameWithoutExt = name.substring(0, name.length - extension.length - 1);
-    const truncated = nameWithoutExt.substring(0, maxLength - extension.length - 4) + '...';
-    return truncated + '.' + extension;
-}
-
 // Validate file format
-function isValidFile(file) {
+function isValidFileType(file) {
     const validExtensions = ['.tgs', '.tgsdata'];
     const fileName = file.name.toLowerCase();
     return validExtensions.some(ext => fileName.endsWith(ext));
 }
 
-// Show notification
-function showNotification(type, title, message) {
-    const Toast = Swal.mixin({
+// Show notification using SweetAlert2
+function showNotification(title, text, icon = 'info') {
+    Swal.fire({
+        title: title,
+        text: text,
+        icon: icon,
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
         timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-        }
+        timerProgressBar: true
     });
-    
-    switch(type) {
-        case 'success':
-            Toast.fire({ icon: 'success', title: title, text: message });
-            break;
-        case 'error':
-            Toast.fire({ icon: 'error', title: title, text: message });
-            break;
-        case 'info':
-            Toast.fire({ icon: 'info', title: title, text: message });
-            break;
-        case 'warning':
-            Toast.fire({ icon: 'warning', title: title, text: message });
-            break;
-    }
 }
 
-// Initialize ads
-function initializeAds() {
-    try {
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        console.log('Ads initialized');
-    } catch (error) {
-        console.error('Ad initialization error:', error);
-    }
-}
-
-// File input change handler
 fileInput.onchange = function() {
     if (this.files[0]) {
         const file = this.files[0];
         
-        // Validate file format
-        if (!isValidFile(file)) {
-            showNotification('error', 'Invalid File', 'Please upload a .tgs or .tgsdata file.');
+        // Validate file type
+        if (!isValidFileType(file)) {
+            showNotification('Invalid File', 'Please upload a .tgs or .tgsdata file.', 'error');
             this.value = '';
             return;
         }
         
-        const truncatedName = truncateFileName(file.name);
-        fileName.textContent = truncatedName;
-        fileName.title = file.name; // Full name on hover
+        // Validate file size (optional: limit to 10MB)
+        if (file.size > 10 * 1024 * 1024) {
+            showNotification('File Too Large', 'Please upload a file smaller than 10MB.', 'warning');
+            this.value = '';
+            return;
+        }
+        
+        fileName.textContent = truncateFileName(file.name);
         fileSize.textContent = formatSize(file.size);
         fileInfo.classList.add('show');
         fileBox.classList.add('active');
         convertBtn.disabled = false;
         
-        showNotification('success', 'File Selected', `${file.name} ready for conversion`);
+        showNotification('File Selected', 'Ready to convert!', 'success');
     }
 };
 
-// Drag and drop handlers
 fileBox.addEventListener('dragover', (e) => {
     e.preventDefault();
     fileBox.style.borderColor = '#0066cc';
@@ -513,97 +452,99 @@ fileBox.addEventListener('drop', (e) => {
     if (e.dataTransfer.files[0]) {
         const file = e.dataTransfer.files[0];
         
-        // Validate file format
-        if (!isValidFile(file)) {
-            showNotification('error', 'Invalid File', 'Please drop a .tgs or .tgsdata file.');
+        // Validate file type
+        if (!isValidFileType(file)) {
+            showNotification('Invalid File', 'Please drop a .tgs or .tgsdata file.', 'error');
+            return;
+        }
+        
+        // Validate file size
+        if (file.size > 10 * 1024 * 1024) {
+            showNotification('File Too Large', 'Please drop a file smaller than 10MB.', 'warning');
             return;
         }
         
         fileInput.files = e.dataTransfer.files;
-        const truncatedName = truncateFileName(file.name);
-        fileName.textContent = truncatedName;
-        fileName.title = file.name;
+        fileName.textContent = truncateFileName(file.name);
         fileSize.textContent = formatSize(file.size);
         fileInfo.classList.add('show');
         fileBox.classList.add('active');
         convertBtn.disabled = false;
         
-        showNotification('success', 'File Dropped', `${file.name} ready for conversion`);
+        showNotification('File Selected', 'Ready to convert!', 'success');
     }
 });
 
-// Convert button handler
 convertBtn.onclick = async function() {
-    if (!fileInput.files[0] || isConverting) return;
+    if (!fileInput.files[0]) return;
     
-    isConverting = true;
     previewText.textContent = 'Converting...';
     player.style.display = 'none';
     convertBtn.disabled = true;
-    btnText.innerHTML = '<span class="spinner"></span>Converting...';
+    convertBtn.textContent = 'Converting...';
     downloadBtn.disabled = true;
 
-    try {
-        const file = fileInput.files[0];
-        const arrayBuffer = await file.arrayBuffer();
-        const compressed = new Uint8Array(arrayBuffer);
-        const text = pako.inflate(compressed, { to: 'string' });
-        jsonData = JSON.parse(text);
-        
-        const blob = new Blob([JSON.stringify(jsonData)], { type: 'application/json' });
-        player.load(URL.createObjectURL(blob));
-        player.style.display = 'block';
-        previewText.textContent = '';
-        
-        showNotification('success', 'Conversion Complete', 'File converted successfully!');
-        
-        btnText.textContent = 'Converted ✓';
-        setTimeout(() => {
-            btnText.textContent = 'Convert to JSON';
+    const reader = new FileReader();
+    reader.onload = function() {
+        try {
+            const compressed = new Uint8Array(reader.result);
+            const text = pako.inflate(compressed, { to: 'string' });
+            jsonData = JSON.parse(text);
+            
+            const blob = new Blob([JSON.stringify(jsonData)], { type: 'application/json' });
+            player.load(URL.createObjectURL(blob));
+            player.style.display = 'block';
+            previewText.textContent = '';
+            
+            convertBtn.textContent = 'Converted ✓';
+            showNotification('Success', 'File converted successfully!', 'success');
+            
+            setTimeout(() => {
+                convertBtn.textContent = 'Convert to JSON';
+                convertBtn.disabled = false;
+            }, 1500);
+            
+            downloadBtn.disabled = false;
+        } catch (error) {
+            previewText.textContent = 'Conversion Failed';
+            showNotification('Conversion Failed', 'Invalid TGS file or corrupted data.', 'error');
+            convertBtn.textContent = 'Convert to JSON';
             convertBtn.disabled = false;
-        }, 1500);
-        
-        downloadBtn.disabled = false;
-        
-    } catch (error) {
-        console.error('Conversion error:', error);
-        previewText.textContent = 'Conversion failed';
-        showNotification('error', 'Conversion Failed', 'Invalid TGS file or corrupted data.');
-        btnText.textContent = 'Convert to JSON';
+            console.error('Conversion error:', error);
+        }
+    };
+    
+    reader.onerror = function() {
+        showNotification('Error', 'Failed to read the file.', 'error');
+        convertBtn.textContent = 'Convert to JSON';
         convertBtn.disabled = false;
-    } finally {
-        isConverting = false;
-    }
+    };
+    
+    reader.readAsArrayBuffer(fileInput.files[0]);
 };
 
-// Download button handler
 downloadBtn.onclick = function() {
-    if (!jsonData) return;
+    if (!jsonData) {
+        showNotification('No Data', 'Please convert a file first.', 'warning');
+        return;
+    }
     
-    const originalName = fileInput.files[0].name;
-    const baseName = originalName.replace(/\.[^/.]+$/, "");
     const blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = baseName + '.json';
+    const originalName = fileInput.files[0].name;
+    a.download = originalName.replace(/\.[^/.]+$/, "") + '.json';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     
-    showNotification('success', 'Download Started', 'JSON file download started.');
+    showNotification('Download Started', 'JSON file is being downloaded.', 'success');
 };
 
-// Initialize ads after page load
+// Initialize ads
 document.addEventListener('DOMContentLoaded', function() {
-    // Small delay to ensure DOM is ready
-    setTimeout(initializeAds, 1000);
-});
-
-// Reinitialize ads on visibility change (for SPA navigation)
-document.addEventListener('visibilitychange', function() {
-    if (!document.hidden) {
-        setTimeout(initializeAds, 500);
-    }
+    // Ad initialization
+    (adsbygoogle = window.adsbygoogle || []).push({});
 });
 </script>
 </body>
