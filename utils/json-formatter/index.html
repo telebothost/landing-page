@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON Formatter & Validator | Free Online Tool | TeleBotHost</title>
+    
+    <meta name="description" content="Free online JSON formatter, validator, and syntax highlighter. Beautify, minify, and fix JSON syntax instantly. Client-side processing.">
+    <meta name="keywords" content="json formatter, json validator, json beautifier, json minify, json syntax highlighter, json parser, online json tool">
+    <meta name="author" content="TeleBotHost">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://telebothost.com/utils/json-formatter">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta property="og:title" content="JSON Formatter & Validator | Free Online Tool">
+    <meta property="og:description" content="Beautify, validate, and highlight JSON syntax. Convert JavaScript objects to JSON format instantly.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://telebothost.com/utils/json-formatter">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "JSON Formatter & Validator",
+      "description": "Free online tool to format, validate, and beautify JSON data with syntax highlighting.",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "author": {
+        "@type": "Organization",
+        "name": "TeleBotHost",
+        "url": "https://telebothost.com"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "keywords": "json formatter, json validator, json beautifier, json minify"
+    }
+    </script>
+    
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2719295794573158" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="../assets/styles.css?1">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+body { background: #f5f5f5; color: #222; line-height: 1.6; }
+.container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+.sub-header { text-align: center; padding: 60px 0 30px; }
+h1 { font-size: 32px; font-weight: 600; margin-bottom: 8px; color: #111; }
+.subtitle { color: #666; font-size: 15px; max-width: 500px; margin: 0 auto; line-height: 1.5; }
+.content { margin: 40px 0; }
+
+.editor-container { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 30px; 
+    margin-bottom: 30px;
+}
+@media (max-width: 768px) {
+    .editor-container { grid-template-columns: 1fr; }
+}
+.editor-box { 
+    background: white; 
+    border-radius: 10px; 
+    border: 1px solid #ddd;
+    overflow: hidden;
+}
+.editor-header { 
+    background: #f8f9fa; 
+    padding: 15px 20px; 
+    border-bottom: 1px solid #ddd;
+}
+.editor-title { 
+    font-weight: 600; 
+    color: #333; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px;
+}
+.editor-icon { 
+    color: #0066cc; 
+    font-size: 18px;
+}
+.editor-body { 
+    height: 300px; 
+    position: relative;
+}
+textarea { 
+    width: 100%; 
+    height: 100%; 
+    padding: 20px; 
+    border: none; 
+    resize: none; 
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; 
+    font-size: 14px; 
+    line-height: 1.5;
+    outline: none;
+}
+.json-output { 
+    width: 100%;
+    height: 100%;
+    padding: 20px; 
+    overflow: auto;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; 
+    font-size: 14px; 
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+.error-message { 
+    background: #fee; 
+    color: #c33; 
+    padding: 12px 20px; 
+    border-radius: 6px; 
+    margin-top: 15px; 
+    font-size: 14px;
+    display: none;
+}
+.error-message.show { display: block; }
+
+.controls { 
+    display: flex; 
+    gap: 12px; 
+    margin-top: 25px; 
+    flex-wrap: wrap;
+}
+.btn { 
+    padding: 14px 24px; 
+    border: none; 
+    border-radius: 8px; 
+    font-size: 15px; 
+    font-weight: 500;
+    cursor: pointer; 
+    transition: background 0.2s;
+    display: flex; 
+    align-items: center; 
+    gap: 8px;
+}
+.btn-primary { 
+    background: #0066cc; 
+    color: white; 
+}
+.btn-primary:hover { background: #0052a3; }
+.btn-secondary { 
+    background: #f0f0f0; 
+    color: #333; 
+    border: 1px solid #ddd;
+}
+.btn-secondary:hover { background: #e5e5e5; }
+.btn:disabled { 
+    background: #ccc; 
+    cursor: not-allowed; 
+    opacity: 0.7;
+}
+
+.examples { 
+    margin-top: 40px; 
+    padding-top: 30px; 
+    border-top: 1px solid #eee;
+}
+.examples h3 { 
+    font-size: 20px; 
+    margin-bottom: 20px; 
+    color: #111;
+}
+.example-buttons { 
+    display: flex; 
+    gap: 10px; 
+    flex-wrap: wrap;
+}
+.example-btn { 
+    padding: 10px 16px; 
+    background: #e8f4ff; 
+    border: 1px solid #c2e0ff; 
+    border-radius: 6px; 
+    color: #0066cc; 
+    cursor: pointer; 
+    font-size: 14px;
+}
+.example-btn:hover { 
+    background: #d1e9ff; 
+}
+
+.blog { 
+    margin-top: 50px; 
+    padding-top: 30px; 
+    border-top: 1px solid #eee;
+}
+.blog h2 { 
+    font-size: 24px; 
+    margin-bottom: 20px; 
+    color: #111;
+}
+.blog h3 { 
+    font-size: 20px; 
+    margin: 25px 0 15px; 
+    color: #222;
+}
+.blog p { 
+    margin-bottom: 15px; 
+    color: #444;
+}
+.blog ul { 
+    margin-left: 20px; 
+    margin-bottom: 15px;
+}
+.blog li { 
+    margin-bottom: 8px; 
+    color: #444;
+}
+
+.json-key { color: #881391; }
+.json-string { color: #c41a16; }
+.json-number { color: #1c00cf; }
+.json-boolean { color: #0d22aa; }
+.json-null { color: #666; }
+
+@media (max-width: 768px) { 
+    .sub-header { padding: 40px 0 20px; }
+    h1 { font-size: 28px; }
+    .editor-body { height: 250px; }
+    .btn { padding: 12px 18px; }
+}
+</style>
+</head>
+<body>
+    
+<header id="header">
+      <div class="container nav-container">
+          <a href="/" class="logo">
+              <img src="/assets/img/logo.png" alt="TeleBotHost Logo">
+              TeleBotHost
+          </a>
+          <nav class="nav-links">
+              <a href="/" class="nav-link">Home</a>
+          </nav>
+      </div>
+  </header>
+
+<div class="container">
+<div class="sub-header">
+<h1>JSON Formatter & Validator</h1>
+<p class="subtitle">Beautify, validate, and highlight JSON syntax. Convert JavaScript objects to JSON format.</p>
+</div>
+
+<ins class="adsbygoogle"
+     style="display:inline-block;width:100%;height:50px;"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="4335444793"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<div class="content">
+    <div class="editor-container">
+        <div class="editor-box">
+            <div class="editor-header">
+                <div class="editor-title">
+                    <i class="fas fa-code editor-icon"></i>
+                    Input JSON / JavaScript Object
+                </div>
+            </div>
+            <div class="editor-body">
+                <textarea id="jsonInput" placeholder='Paste your JSON or JavaScript object here...
+Example: {"name": "John", "age": 30, "active": true}'></textarea>
+            </div>
+        </div>
+        
+        <div class="editor-box">
+            <div class="editor-header">
+                <div class="editor-title">
+                    <i class="fas fa-check-circle editor-icon"></i>
+                    Formatted JSON Output
+                </div>
+            </div>
+            <div class="editor-body">
+                <div class="json-output" id="jsonOutput">Formatted JSON will appear here...</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="error-message" id="errorMessage"></div>
+    
+    <div class="controls">
+        <button id="formatBtn" class="btn btn-primary">
+            <i class="fas fa-magic"></i>
+            Format & Validate
+        </button>
+        <button id="minifyBtn" class="btn btn-secondary">
+            <i class="fas fa-compress-alt"></i>
+            Minify JSON
+        </button>
+        <button id="clearBtn" class="btn btn-secondary">
+            <i class="fas fa-trash-alt"></i>
+            Clear All
+        </button>
+        <button id="copyBtn" class="btn btn-secondary" disabled>
+            <i class="fas fa-copy"></i>
+            Copy Output
+        </button>
+        <button id="downloadBtn" class="btn btn-secondary" disabled>
+            <i class="fas fa-download"></i>
+            Download JSON
+        </button>
+    </div>
+    
+    <div class="examples">
+        <h3>Try Examples:</h3>
+        <div class="example-buttons">
+            <button class="example-btn" data-example="simple">Simple JSON</button>
+            <button class="example-btn" data-example="nested">Nested Object</button>
+            <button class="example-btn" data-example="array">Array Example</button>
+            <button class="example-btn" data-example="complex">Complex Data</button>
+            <button class="example-btn" data-example="js">JavaScript Object</button>
+        </div>
+    </div>
+</div>
+
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-fb+5w+4e-db+86"
+     data-ad-client="ca-pub-2719295794573158"
+     data-ad-slot="8786409519"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<div class="blog">
+    <h2>About JSON Formatter</h2>
+    
+    <p>This tool helps you format, validate, and beautify JSON data. It can also convert JavaScript objects to properly formatted JSON.</p>
+    
+    <h3>What is JSON?</h3>
+    <p>JSON (JavaScript Object Notation) is a lightweight data-interchange format that is easy for humans to read and write and easy for machines to parse and generate.</p>
+    
+    <h3>Features</h3>
+    <ul>
+        <li><strong>JSON Validation:</strong> Detects and highlights syntax errors</li>
+        <li><strong>Beautify:</strong> Formats JSON with proper indentation and line breaks</li>
+        <li><strong>Minify:</strong> Compresses JSON by removing whitespace</li>
+        <li><strong>Syntax Highlighting:</strong> Colors keys, strings, numbers, and booleans</li>
+        <li><strong>JavaScript to JSON:</strong> Converts JS objects (without quotes) to valid JSON</li>
+        <li><strong>Error Detection:</strong> Shows line numbers and error messages</li>
+    </ul>
+    
+    <h3>Common Use Cases</h3>
+    <ul>
+        <li>Debugging JSON APIs and responses</li>
+        <li>Preparing JSON for configuration files</li>
+        <li>Validating JSON before using in applications</li>
+        <li>Converting JavaScript objects to JSON strings</li>
+        <li>Making JSON readable for documentation</li>
+    </ul>
+    
+    <h3>How It Works</h3>
+    <p>The formatter uses JavaScript's JSON parser to validate input, then reformats it with proper indentation. The syntax highlighter identifies different JSON elements and applies color coding for better readability.</p>
+</div>
+
+</div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>TeleBotHost Tools</h3>
+                    <p>Free online tools for developers and designers. All tools are 100% free, client-side processed, and require no registration.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Tools</h3>
+                    <ul>
+                        <li><a href="/utils/tgs-to-lottie">TGS to Lottie</a></li>
+                        <li><a href="/utils/json-formatter">JSON Formatter</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+const jsonInput = document.getElementById('jsonInput');
+const jsonOutput = document.getElementById('jsonOutput');
+const formatBtn = document.getElementById('formatBtn');
+const minifyBtn = document.getElementById('minifyBtn');
+const clearBtn = document.getElementById('clearBtn');
+const copyBtn = document.getElementById('copyBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const errorMessage = document.getElementById('errorMessage');
+const exampleButtons = document.querySelectorAll('.example-btn');
+
+function syntaxHighlight(json) {
+    if (typeof json != 'string') {
+        json = JSON.stringify(json, null, 2);
+    }
+    
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    
+    json = json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?)/g, function(match) {
+        let cls = 'json-key';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'json-key';
+            } else {
+                cls = 'json-string';
+            }
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    }).replace(/\b(true|false|null)\b/g, function(match) {
+        return '<span class="json-boolean">' + match + '</span>';
+    }).replace(/\b-?\d+(\.\d+)?([eE][+-]?\d+)?\b/g, function(match) {
+        return '<span class="json-number">' + match + '</span>';
+    });
+    
+    return json;
+}
+
+function showNotification(title, text, icon = 'info') {
+    Swal.fire({
+        title: title,
+        text: text,
+        icon: icon,
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true
+    });
+}
+
+function showError(message) {
+    errorMessage.textContent = message;
+    errorMessage.classList.add('show');
+    jsonOutput.innerHTML = '<span style="color: #c33">' + message + '</span>';
+    copyBtn.disabled = true;
+    downloadBtn.disabled = true;
+}
+
+function clearError() {
+    errorMessage.classList.remove('show');
+    errorMessage.textContent = '';
+}
+
+function formatJSON() {
+    clearError();
+    const input = jsonInput.value.trim();
+    
+    if (!input) {
+        showError('Please enter some JSON or JavaScript object');
+        return;
+    }
+    
+    try {
+        let parsed;
+        try {
+            parsed = JSON.parse(input);
+        } catch (e) {
+            let cleaned = input
+                .replace(/'/g, '"')
+                .replace(/,\s*([\]}])/g, '$1')
+                .replace(/([{,]\s*)(\w+)(\s*:)/g, '$1"$2"$3');
+            
+            try {
+                parsed = new Function('return ' + cleaned)();
+            } catch (evalError) {
+                throw new Error('Invalid JSON or JavaScript object: ' + e.message);
+            }
+        }
+        
+        const formatted = JSON.stringify(parsed, null, 2);
+        jsonOutput.innerHTML = syntaxHighlight(formatted);
+        
+        copyBtn.disabled = false;
+        downloadBtn.disabled = false;
+        
+        showNotification('Success', 'JSON formatted successfully!', 'success');
+        
+    } catch (error) {
+        showError('Error: ' + error.message);
+        showNotification('Error', error.message, 'error');
+    }
+}
+
+function minifyJSON() {
+    clearError();
+    const input = jsonInput.value.trim();
+    
+    if (!input) {
+        showError('Please enter some JSON first');
+        return;
+    }
+    
+    try {
+        let parsed;
+        try {
+            parsed = JSON.parse(input);
+        } catch (e) {
+            let cleaned = input
+                .replace(/'/g, '"')
+                .replace(/,\s*([\]}])/g, '$1')
+                .replace(/([{,]\s*)(\w+)(\s*:)/g, '$1"$2"$3');
+            
+            try {
+                parsed = new Function('return ' + cleaned)();
+            } catch (evalError) {
+                throw new Error('Invalid JSON or JavaScript object: ' + e.message);
+            }
+        }
+        
+        const minified = JSON.stringify(parsed);
+        jsonOutput.innerHTML = syntaxHighlight(minified);
+        
+        copyBtn.disabled = false;
+        downloadBtn.disabled = false;
+        
+        showNotification('Success', 'JSON minified successfully!', 'success');
+        
+    } catch (error) {
+        showError('Error: ' + error.message);
+        showNotification('Error', error.message, 'error');
+    }
+}
+
+function clearAll() {
+    jsonInput.value = '';
+    jsonOutput.innerHTML = 'Formatted JSON will appear here...';
+    clearError();
+    copyBtn.disabled = true;
+    downloadBtn.disabled = true;
+    showNotification('Cleared', 'Input and output cleared', 'info');
+}
+
+function copyToClipboard() {
+    const text = jsonOutput.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        showNotification('Copied!', 'JSON copied to clipboard', 'success');
+    }).catch(err => {
+        showNotification('Error', 'Failed to copy to clipboard', 'error');
+    });
+}
+
+function downloadJSON() {
+    const text = jsonOutput.innerText;
+    const blob = new Blob([text], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'formatted.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showNotification('Download Started', 'JSON file is being downloaded', 'success');
+}
+
+const examples = {
+    simple: `{"name": "John Doe", "age": 30, "city": "New York"}`,
+    nested: `{"user": {"name": "Alice", "preferences": {"theme": "dark", "notifications": true}}, "status": "active"}`,
+    array: `{"products": [{"id": 1, "name": "Laptop", "price": 999.99}, {"id": 2, "name": "Mouse", "price": 25.50}]}`,
+    complex: `{
+  "company": "TechCorp",
+  "employees": [
+    {
+      "id": 101,
+      "name": "John Smith",
+      "department": "Engineering",
+      "skills": ["JavaScript", "Python", "React"],
+      "active": true
+    },
+    {
+      "id": 102,
+      "name": "Jane Doe",
+      "department": "Design",
+      "skills": ["Figma", "UI/UX", "Photoshop"],
+      "active": true
+    }
+  ],
+  "location": {
+    "address": "123 Tech Street",
+    "city": "San Francisco",
+    "country": "USA"
+  }
+}`,
+    js: `{
+  name: 'John',
+  age: 30,
+  hobbies: ['reading', 'gaming', 'coding'],
+  address: {
+    street: '123 Main St',
+    city: 'Boston'
+  },
+  active: true,
+  score: null
+}`
+};
+
+formatBtn.addEventListener('click', formatJSON);
+minifyBtn.addEventListener('click', minifyJSON);
+clearBtn.addEventListener('click', clearAll);
+copyBtn.addEventListener('click', copyToClipboard);
+downloadBtn.addEventListener('click', downloadJSON);
+
+exampleButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+        const exampleKey = this.getAttribute('data-example');
+        jsonInput.value = examples[exampleKey];
+        clearError();
+        showNotification('Example Loaded', 'Example JSON loaded. Click "Format & Validate" to see it formatted.', 'info');
+    });
+});
+
+jsonInput.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.key === 'Enter') {
+        formatJSON();
+    }
+});
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</body>
+</html>

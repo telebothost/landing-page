@@ -1,0 +1,80 @@
+:root {
+            --primary-color: #0066cc;
+            --secondary-color: #f8f9fa;
+            --text-color: #333;
+            --light-text: #666;
+            --border-color: #e0e0e0;
+        }
+        /* Tools Section */
+        .tools-section {
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--text-color);
+            text-align: center;
+        }
+        
+        .tools-list {
+            margin-bottom: 50px;
+        }
+        
+        .tool-item {
+            background: white;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .tool-link {
+            display: flex;
+            align-items: center;
+            padding: 18px 20px;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+        
+        .tool-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 102, 204, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .tool-icon i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        
+        .tool-info {
+            flex: 1;
+        }
+        
+        .tool-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .tool-description {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .tool-arrow {
+            color: var(--light-text);
+            margin-left: 15px;
+        }
+        
