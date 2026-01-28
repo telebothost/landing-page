@@ -1,11 +1,4 @@
-$(document).ready(function() {
-    const $window = $(window);
-    const $header = $('#header');
-    
-    $window.on('scroll', function() {
-        $header.toggleClass('scrolled', $window.scrollTop() > 80);
-    });
-});
+
     // More reliable - watches for DOM changes
 const observeAds = () => {
     const ads = document.querySelectorAll('.adsbygoogle');

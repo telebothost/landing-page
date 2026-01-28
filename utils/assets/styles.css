@@ -12,16 +12,11 @@ header {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background-color: transparent;
-    backdrop-filter: blur(15px);
+    background-color: white;
     transition: var(--transition);
-}
-
-header.scrolled {
-    background-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(15px);
     box-shadow: var(--shadow);
 }
+
 
 .nav-container {
     display: flex;
