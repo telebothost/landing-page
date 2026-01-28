@@ -245,16 +245,13 @@ textarea {
 <p class="subtitle">Beautify, validate, and highlight JSON syntax. Convert JavaScript objects to JSON format.</p>
 </div>
 
-<div style="max-width:300px;margin:auto;">
   <ins class="adsbygoogle"
        style="display:block"
        data-ad-client="ca-pub-2719295794573158"
        data-ad-slot="4335444793"
        data-ad-format="auto"
        data-full-width-responsive="true"></ins>
-</div>
-
-<script>
+       <script>
   (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
@@ -384,7 +381,7 @@ Example: {"name": "John", "age": 30, "active": true}'></textarea>
             </div>
         </div>
     </footer>
-
+<script src="assets/min.js" type="text/javascript" charset="utf-8"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 const jsonInput = document.getElementById('jsonInput');
@@ -431,8 +428,11 @@ function showNotification(title, text, icon = 'info') {
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true
+        timer: 2000,
+        timerProgressBar: true,
+        customClass: {
+            popup: 'small-toast'
+        }
     });
 }
 

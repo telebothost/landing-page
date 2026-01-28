@@ -153,3 +153,70 @@ header.scrolled {
                 padding: 20px 15px;
             }
         }
+        
+        /* Small SweetAlert2 Toast */
+.small-toast {
+  padding: 0.4rem 0.6rem !important;
+  min-height: auto !important;
+}
+
+.small-toast .swal2-title {
+  font-size: 0.85rem !important;
+  margin: 0 0 2px 0 !important;
+}
+
+.small-toast .swal2-html-container {
+  font-size: 0.75rem !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+}
+
+.small-toast .swal2-icon {
+  margin: 0 6px 0 0 !important;
+}
+
+.small-toast .swal2-timer-progress-bar {
+  height: 2px !important;
+}
+
+.adsbygoogle {
+    max-height: 250px;
+    overflow: hidden;
+    display: block;
+    margin: 20px auto;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .adsbygoogle {
+        max-height: 200px;
+    }
+}
+
+/* Tablet */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .adsbygoogle {
+        max-height: 250px;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1025px) {
+    .adsbygoogle {
+        max-height: 300px;
+    }
+}
+.ad-container {
+    max-height: 250px;
+    overflow: hidden;
+    display: none; /* Hidden by default */
+    margin: 20px 0;
+}
+
+.ad-container.loaded {
+    display: block; /* Show when loaded */
+}
+
+.adsbygoogle {
+    display: block;
+}
