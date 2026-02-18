@@ -3,195 +3,296 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TeleBotHost</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>TeleBotHost Disclosure - {{BOT_ID}}</title>
+
 <style>
-*{box-sizing:border-box}
-body{
-margin:0;
-font-family:Inter,system-ui,-apple-system,sans-serif;
-background:linear-gradient(180deg,#0f172a,#020617);
-color:#e5e7eb
+
+*{ box-sizing:border-box; }
+
+html, body{
+    height:100%;
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f1f3f6;
+    color:#222;
 }
-a{color:#38bdf8;text-decoration:none}
-.container{
-max-width:1000px;
-margin:auto;
-padding:48px 24px
+
+.page{
+    min-height:100%;
+    display:flex;
+    flex-direction:column;
 }
-.hero{
-display:grid;
-gap:24px;
-margin-bottom:64px
+
+.content{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
 }
-.badge{
-display:inline-block;
-border:1px solid #334155;
-padding:6px 12px;
-border-radius:999px;
-font-size:12px;
-color:#94a3b8;
-width:max-content
-}
-h1{
-font-size:42px;
-line-height:1.1;
-margin:0
-}
-.subtitle{
-max-width:600px;
-font-size:16px;
-color:#94a3b8
-}
-.actions{
-display:flex;
-gap:16px;
-flex-wrap:wrap
-}
-.btn{
-padding:12px 18px;
-border-radius:10px;
-font-size:14px;
-font-weight:600;
-border:1px solid #334155;
-background:#020617;
-color:#e5e7eb
-}
-.btn.primary{
-background:#38bdf8;
-border-color:#38bdf8;
-color:#020617
-}
-.section{
-margin-bottom:64px
-}
-.section h2{
-font-size:26px;
-margin-bottom:16px
-}
-.section p{
-max-width:720px;
-color:#9ca3af;
-line-height:1.8
-}
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:20px;
-margin-top:24px
-}
+
 .card{
-background:rgba(15,23,42,.7);
-border:1px solid #1e293b;
-border-radius:16px;
-padding:20px;
-backdrop-filter:blur(6px)
+    width:100%;
+    max-width:480px;
+    background:#fff;
+    border:1px solid #dadce0;
+    border-radius:3px;
+    box-shadow:
+        0 1px 2px rgba(0,0,0,0.08),
+        0 4px 12px rgba(0,0,0,0.06);
 }
-.card h3{
-margin:0 0 8px;
-font-size:16px
+
+.section{
+    padding:18px;
 }
-.card p{
-font-size:14px;
-color:#9ca3af;
-line-height:1.6
+
+.title{
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:12px;
 }
-.steps{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:20px;
-margin-top:24px
+
+.domain{
+    font-size:16px;
+    background:#f8f9fa;
+    border:1px solid #e0e0e0;
+    padding:10px;
+    border-radius:6px;
+    margin-bottom:14px;
+    word-break:break-all;
 }
-.step{
-border-left:3px solid #38bdf8;
-padding-left:16px
+
+.divider{
+    height:1px;
+    background:#e0e0e0;
 }
+
+ul{
+    margin:0;
+    padding-left:18px;
+}
+
+li{
+    margin-bottom:10px;
+    font-size:14px;
+}
+
+.button{
+    margin-top:15px;
+    background: transparent;
+    border: 1px solid #1a73e8;
+    color:#1a73e8;
+    padding:10px 16px;
+    font-size:14px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.button:hover{
+    background:#1669c1;
+    color: white;
+}
+
+/* developer/report section */
+
+.dev-section{
+    width:100%;
+    max-width:480px;
+    margin-top:25px;
+    font-size:16px;
+}
+
+.dev-title{
+    font-weight:bold;
+    margin-bottom:10px;
+}
+.dev-info{
+  color:#555;
+    line-height:1.5;
+}
+
+.report-box{
+    color: black;
+    line-height:1.5;
+}
+
+.report-box a{
+    color:#1a73e8;
+    text-decoration:none;
+}
+
+.report-box a:hover{
+    text-decoration:underline;
+}
+
 .footer{
-border-top:1px solid #1e293b;
-padding-top:24px;
-color:#64748b;
-font-size:14px
+    text-align:center;
+    font-size:16px;
+    padding: 20px 12px;
 }
+
+.footer a {
+  text-decoration: none;
+  
+}
+
 </style>
+<script>
+async function proceed(){
+
+    const botId = "{{BOT_ID}}";
+
+    // minimal payload
+    const payload = {
+        b: botId,
+        t: Date.now()
+    };
+
+    const payloadStr = JSON.stringify(payload);
+
+    const payloadB64 = btoa(payloadStr);
+
+    // signature using botId as key
+    const signature = await sha256(botId + "." + payloadB64);
+
+    const token = payloadB64 + "." + signature;
+
+    // 48 hours expiry
+    document.cookie =
+        "tbh_verified=" + token +
+        "; path=/; max-age=" + (48 * 60 * 60) +
+        "; SameSite=Lax";
+
+    window.location.reload();
+}
+
+
+async function sha256(text){
+
+    const buffer =
+        await crypto.subtle.digest(
+            "SHA-256",
+            new TextEncoder().encode(text)
+        );
+
+    return Array
+        .from(new Uint8Array(buffer))
+        .map(b => b.toString(16).padStart(2, "0"))
+        .join("");
+}
+</script>
+<script>
+// dynamic report link
+window.addEventListener("DOMContentLoaded", () => {
+
+    const reportLink = document.getElementById("reportLink");
+    const dmLink = document.getElementById("domain");
+
+    const url = encodeURIComponent(window.location.href);
+    
+    const botId = encodeURIComponent("{{BOT_ID}}");
+dmLink.textContent = window.location.href
+    reportLink.href =
+        "https://telebothost.com/report?" +
+        "bot_id=" + botId +
+        "&url=" + url;
+});
+
+</script>
+
 </head>
 <body>
 
-<div class="container">
+<div class="page">
 
-<section class="hero">
-<span class="badge">Telegram Bot Hosting</span>
-<h1>TeleBotHost</h1>
-<p class="subtitle">
-Deploy, manage, and run Telegram bots with zero friction.
-Built for developers who want speed, control, and reliability.
+<div class="content">
+
+<!-- Main Card -->
+
+<div class="card">
+
+<div class="section">
+
+<div class="title">
+You are about to visit:
+</div>
+
+<div id="domain" class="domain">
+{{HOSTNAME}}
+</div>
+
+<ul>
+<li>This page is served securely via TeleBotHost.</li>
+<li>Only continue if you trust whoever shared this link.</li>
+<li>Avoid entering sensitive information unless trusted.</li>
+</ul>
+
+<button class="button" onclick="proceed()">
+Continue to Site
+</button>
+
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+This warning is shown once to protect visitors from abuse.
+</div>
+
+</div>
+
+<!-- Developer / Abuse Report -->
+
+<div class="dev-section">
+
+<div class="dev-title">
+Are you the developer?
+</div>
+<p class="dev-info">We display this page to prevent abuse. Visitors will only see this page once every 48 hours.
 </p>
-<div class="actions">
-<a class="btn primary" href="#">Get Started</a>
-<a class="btn" href="#">View Docs</a>
 </div>
-</section>
 
-<section class="section">
-<h2>What is TeleBotHost?</h2>
-<p>
-TeleBotHost is a lightweight platform designed to host Telegram bots without unnecessary complexity.
-Upload your code, configure environment variables, and let the platform handle uptime and restarts.
-</p>
-</section>
+<div class="report-box">
+  
+<p style="font-weight:bold;">If you think this website is being misused, please report it using one of the following methods:</p>
 
-<section class="section">
-<h2>Why TeleBotHost</h2>
-<div class="grid">
-<div class="card">
-<h3>Fast Deployment</h3>
-<p>Launch bots in seconds with a clean and simple workflow.</p>
-</div>
-<div class="card">
-<h3>Always Online</h3>
-<p>Automatic restarts ensure your bots stay up without manual intervention.</p>
-</div>
-<div class="card">
-<h3>Developer Friendly</h3>
-<p>No lock-in, no magic layers. Your code runs as you expect.</p>
-</div>
-<div class="card">
-<h3>Scalable</h3>
-<p>Built to handle growth from small bots to large workloads.</p>
-</div>
-</div>
-</section>
+<b>Email:</b><br>
+<a href="mailto:abuse@telebothost.com">
+abuse@telebothost.com
+</a><i>(Don't forget to attach this web url on message)</i>
 
-<section class="section">
-<h2>How it works</h2>
-<div class="steps">
-<div class="step">
-<h3>1. Upload</h3>
-<p>Push your bot code or connect your repository.</p>
-</div>
-<div class="step">
-<h3>2. Configure</h3>
-<p>Add environment variables and select runtime options.</p>
-</div>
-<div class="step">
-<h3>3. Run</h3>
-<p>Start the service and monitor uptime in real time.</p>
-</div>
-</div>
-</section>
+<br><br>
 
-<section class="section">
-<h2>Supported</h2>
-<div class="grid">
-<div class="card"><h3>Node.js</h3></div>
-<div class="card"><h3>Webhook & Polling</h3></div>
-<div class="card"><h3>REST APIs</h3></div>
-<div class="card"><h3>Background Workers</h3></div>
-</div>
-</section>
+<b>Report Form:</b><br>
+<a id="reportLink" href="#">
+telebothost.com/report
+</a>
 
-<footer class="footer">
-© 2026 TeleBotHost. Built for developers.
-</footer>
+<br><br>
+
+<b>Telegram Group:</b><br>
+<a href="https://t.me/update_chat" target="_blank">
+https://t.me/update_chat
+</a>
+
+<br>
+Send a message including:<br>
+
+• BOT ID: {{BOT_ID}}<br>
+• Full URL of the page<br>
+• Description of the abuse
+
+</div>
+
+</div>
+
+
+<div class="divider"></div>
+
+<div class="footer">
+ Powered by <a href="//telebothost.com">TeleBotHost</a>
+</div>
 
 </div>
 
