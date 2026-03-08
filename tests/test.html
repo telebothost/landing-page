@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: system-ui, sans-serif;
+}
+
+body{
+  background:#f2f2f2;
+  min-height:100vh;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+}
+
+.profile-header{
+  width:100%;
+  max-width:420px;
+  height:300px;
+  background: radial-gradient(
+      circle at center,
+      #63c2a6 0%,
+      #57b6b3 35%,
+      #4fa3b1 65%,
+      #468ea6 100%
+  );
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding-top:40px;
+  color:white;
+  border-radius:0 0 32px 32px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+
+.dp{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  border:none;
+  object-fit:cover;
+  box-shadow:0 6px 15px rgba(0,30,20,0.3);
+}
+
+.name-row{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-top:12px;
+}
+
+.name{
+  font-size:22px;
+  font-weight:600;
+}
+
+.badge{
+  width:20px;
+  height:20px;
+  display:inline-block;
+}
+
+.badge svg{
+  width:100%;
+  height:100%;
+}
+
+.status{
+  margin-top:6px;
+  font-size:13px;
+  opacity:0.9;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(3px);
+  padding:2px 16px;
+  border-radius:30px;
+}
+</style>
+</head>
+<body>
+
+<div class="profile-header">
+  <img src="https://i.pravatar.cc/300" class="dp">
+
+  <div class="name-row">
+    <div class="name">Soumyadeep</div>
+    <div class="badge" id="verifiedBadge"></div>
+  </div>
+
+  <div class="status">last seen at 12:19 PM</div>
+</div>
+
+<script>
+lottie.loadAnimation({
+  container: document.getElementById("verifiedBadge"),
+  renderer: "svg",
+  loop: true,
+  autoplay: true,
+  path: "tbh.json"
+});
+</script>
+
+</body>
+</html>

@@ -3,298 +3,588 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TeleBotHost Disclosure - {{BOT_ID}}</title>
-
+<title>Raaga — Music Player</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-*{ box-sizing:border-box; }
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --surface2: #1c1c27;
+    --accent: #ff6b35;
+    --accent2: #ff9a5c;
+    --text: #f0ede8;
+    --muted: #6b6880;
+    --border: #2a2a38;
+  }
 
-html, body{
-    height:100%;
-    margin:0;
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f1f3f6;
-    color:#222;
-}
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-.page{
-    min-height:100%;
-    display:flex;
-    flex-direction:column;
-}
+  /* Background grain */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
 
-.content{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    padding:15px;
-}
+  .glow-orb {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,107,53,0.08) 0%, transparent 70%);
+    top: -200px;
+    right: -200px;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-.card{
-    width:100%;
-    max-width:480px;
-    background:#fff;
-    border:1px solid #dadce0;
-    border-radius:3px;
-    box-shadow:
-        0 1px 2px rgba(0,0,0,0.08),
-        0 4px 12px rgba(0,0,0,0.06);
-}
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 48px 24px 120px;
+    position: relative;
+    z-index: 1;
+  }
 
-.section{
-    padding:18px;
-}
+  /* Header */
+  header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 48px;
+  }
 
-.title{
-    font-size:18px;
-    font-weight:bold;
-    margin-bottom:12px;
-}
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -1px;
+  }
 
-.domain{
-    font-size:16px;
-    background:#f8f9fa;
-    border:1px solid #e0e0e0;
-    padding:10px;
-    border-radius:6px;
-    margin-bottom:14px;
-    word-break:break-all;
-}
+  .logo span {
+    color: var(--accent);
+  }
 
-.divider{
-    height:1px;
-    background:#e0e0e0;
-}
+  .logo-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
 
-ul{
-    margin:0;
-    padding-left:18px;
-}
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
 
-li{
-    margin-bottom:10px;
-    font-size:14px;
-}
+  /* Search */
+  .search-wrap {
+    position: relative;
+    margin-bottom: 40px;
+  }
 
-.button{
-    margin-top:15px;
-    background: transparent;
-    border: 1px solid #1a73e8;
-    color:#1a73e8;
-    padding:10px 16px;
-    font-size:14px;
-    border-radius:6px;
-    cursor:pointer;
-}
+  .search-wrap input {
+    width: 100%;
+    padding: 18px 56px 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
 
-.button:hover{
-    background:#1669c1;
-    color: white;
-}
+  .search-wrap input::placeholder { color: var(--muted); }
 
-/* developer/report section */
+  .search-wrap input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(255,107,53,0.1);
+  }
 
-.dev-section{
-    width:100%;
-    max-width:480px;
-    margin-top:25px;
-    font-size:16px;
-}
+  .search-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: var(--accent);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.1s;
+  }
 
-.dev-title{
-    font-weight:bold;
-    margin-bottom:10px;
-}
-.dev-info{
-  color:#555;
-    line-height:1.5;
-}
+  .search-btn:hover { background: var(--accent2); }
+  .search-btn:active { transform: translateY(-50%) scale(0.95); }
 
-.report-box{
-    color: black;
-    line-height:1.5;
-}
+  .search-btn svg { width: 18px; height: 18px; stroke: white; fill: none; }
 
-.report-box a{
-    color:#1a73e8;
-    text-decoration:none;
-}
+  /* Results */
+  .section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
 
-.report-box a:hover{
-    text-decoration:underline;
-}
+  .results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
 
-.footer{
-    text-align:center;
-    font-size:16px;
-    padding: 20px 12px;
-}
+  .song-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    animation: fadeUp 0.3s ease both;
+  }
 
-.footer a {
-  text-decoration: none;
-  
-}
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
+  .song-card:hover {
+    background: var(--surface2);
+    border-color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  .song-card.active {
+    border-color: var(--accent);
+    background: var(--surface2);
+  }
+
+  .song-thumb {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: var(--surface2);
+  }
+
+  .song-info { flex: 1; min-width: 0; }
+
+  .song-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 2px;
+  }
+
+  .song-artist {
+    font-size: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .song-duration {
+    font-size: 12px;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+
+  .play-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .song-card:hover .play-icon,
+  .song-card.active .play-icon { opacity: 1; }
+
+  .play-icon svg { width: 14px; height: 14px; fill: white; }
+
+  /* State messages */
+  .state-msg {
+    text-align: center;
+    padding: 48px 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .state-msg .big { font-size: 40px; margin-bottom: 12px; }
+
+  /* Now Playing Bar */
+  .now-playing {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(24px);
+    border-top: 1px solid var(--border);
+    padding: 16px 24px;
+    z-index: 100;
+    display: none;
+    animation: slideUp 0.3s ease;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  .now-playing.visible { display: block; }
+
+  .np-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .np-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .np-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: var(--surface2);
+    flex-shrink: 0;
+  }
+
+  .np-info { flex: 1; min-width: 0; }
+
+  .np-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .np-artist { font-size: 12px; color: var(--muted); }
+
+  .np-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ctrl-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: var(--surface2);
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, transform 0.1s;
+    flex-shrink: 0;
+  }
+
+  .ctrl-btn:hover { background: var(--border); }
+  .ctrl-btn:active { transform: scale(0.93); }
+
+  .ctrl-btn.primary {
+    width: 44px;
+    height: 44px;
+    background: var(--accent);
+  }
+
+  .ctrl-btn.primary:hover { background: var(--accent2); }
+  .ctrl-btn svg { width: 16px; height: 16px; fill: currentColor; }
+  .ctrl-btn.icon-only svg { fill: none; stroke: currentColor; }
+
+  .dl-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .dl-btn:hover { background: var(--border); border-color: var(--accent); }
+  .dl-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; }
+
+  /* Progress */
+  .np-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .time { font-size: 11px; color: var(--muted); min-width: 32px; }
+  .time.right { text-align: right; }
+
+  .progress-track {
+    flex: 1;
+    height: 4px;
+    background: var(--surface2);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.1s linear;
+    pointer-events: none;
+  }
+
+  /* Loading spinner */
+  .spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin: 0 auto;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    padding: 32px 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
 </style>
-<script>
-async function proceed(){
-
-    const botId = "{{BOT_ID}}";
-
-    // minimal payload
-    const payload = {
-        b: botId,
-        t: Date.now()
-    };
-
-    const payloadStr = JSON.stringify(payload);
-
-    const payloadB64 = btoa(payloadStr);
-
-    // signature using botId as key
-    const signature = await sha256(botId + "." + payloadB64);
-
-    const token = payloadB64 + "." + signature;
-
-    // 48 hours expiry
-    document.cookie =
-        "tbh_verified=" + token +
-        "; path=/; max-age=" + (48 * 60 * 60) +
-        "; SameSite=Lax";
-
-    window.location.reload();
-}
-
-
-async function sha256(text){
-
-    const buffer =
-        await crypto.subtle.digest(
-            "SHA-256",
-            new TextEncoder().encode(text)
-        );
-
-    return Array
-        .from(new Uint8Array(buffer))
-        .map(b => b.toString(16).padStart(2, "0"))
-        .join("");
-}
-</script>
-<script>
-// dynamic report link
-window.addEventListener("DOMContentLoaded", () => {
-
-    const reportLink = document.getElementById("reportLink");
-    const dmLink = document.getElementById("domain");
-
-    const url = encodeURIComponent(window.location.href);
-    
-    const botId = encodeURIComponent("{{BOT_ID}}");
-dmLink.textContent = window.location.href
-    reportLink.href =
-        "https://telebothost.com/report?" +
-        "bot_id=" + botId +
-        "&url=" + url;
-});
-
-</script>
-
 </head>
 <body>
 
-<div class="page">
+<div class="glow-orb"></div>
 
-<div class="content">
+<div class="container">
+  <header>
+    <div class="logo">Raa<span>ga</span></div>
+    <div class="logo-dot"></div>
+  </header>
 
-<!-- Main Card -->
+  <div class="search-wrap">
+    <input type="text" id="searchInput" placeholder="Search any song, artist, album..." autocomplete="off" />
+    <button class="search-btn" onclick="search()">
+      <svg viewBox="0 0 24 24" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </button>
+  </div>
 
-<div class="card">
-
-<div class="section">
-
-<div class="title">
-You are about to visit:
+  <div id="sectionLabel" class="section-label" style="display:none">Results</div>
+  <div id="results"></div>
 </div>
 
-<div id="domain" class="domain">
-{{HOSTNAME}}
+<!-- Now Playing -->
+<div class="now-playing" id="nowPlaying">
+  <div class="np-inner">
+    <div class="np-top">
+      <img class="np-thumb" id="npThumb" src="" alt="">
+      <div class="np-info">
+        <div class="np-title" id="npTitle">—</div>
+        <div class="np-artist" id="npArtist">—</div>
+      </div>
+      <div class="np-controls">
+        <button class="ctrl-btn primary" id="playPauseBtn" onclick="togglePlay()">
+          <svg id="playIcon" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+        </button>
+        <a class="dl-btn" id="dlBtn" href="#" download>
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+      </div>
+    </div>
+    <div class="np-progress">
+      <span class="time" id="currentTime">0:00</span>
+      <div class="progress-track" id="progressTrack" onclick="seek(event)">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <span class="time right" id="totalTime">0:00</span>
+    </div>
+  </div>
 </div>
 
-<ul>
-<li>This page is served securely via TeleBotHost.</li>
-<li>Only continue if you trust whoever shared this link.</li>
-<li>Avoid entering sensitive information unless trusted.</li>
-</ul>
+<audio id="audioEl"></audio>
 
-<button class="button" onclick="proceed()">
-Continue to Site
-</button>
+<script>
+const API = 'https://jiosaavn-api.soumya765.workers.dev';
+const audio = document.getElementById('audioEl');
+let currentSong = null;
+let songs = [];
 
-</div>
+document.getElementById('searchInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') search();
+});
 
-<div class="divider"></div>
+async function search() {
+  const q = document.getElementById('searchInput').value.trim();
+  if (!q) return;
 
-<div class="section">
-This warning is shown once to protect visitors from abuse.
-</div>
+  const res = document.getElementById('results');
+  const label = document.getElementById('sectionLabel');
+  res.innerHTML = `<div class="loading-wrap"><div class="spinner"></div> Searching...</div>`;
+  label.style.display = 'none';
 
-</div>
+  try {
+    const data = await fetch(`${API}/api/search?query=${encodeURIComponent(q)}&limit=100`).then(r => r.json());
+    songs = data?.data?.results || [];
 
-<!-- Developer / Abuse Report -->
+    label.style.display = songs.length ? 'block' : 'none';
+    label.textContent = `${songs.length} Results for "${q}"`;
 
-<div class="dev-section">
+    if (!songs.length) {
+      res.innerHTML = `<div class="state-msg"><div class="big">🎵</div>No songs found</div>`;
+      return;
+    }
 
-<div class="dev-title">
-Are you the developer?
-</div>
-<p class="dev-info">We display this page to prevent abuse. Visitors will only see this page once every 48 hours.
-</p>
-</div>
+    res.innerHTML = songs.map((s, i) => `
+      <div class="song-card" id="card-${i}" onclick="playSong(${i})" style="animation-delay:${i * 0.04}s">
+        <img class="song-thumb" src="${s.image?.[1]?.url || ''}" onerror="this.style.opacity=0">
+        <div class="song-info">
+          <div class="song-title">${s.name}</div>
+          <div class="song-artist">${s.artists?.primary?.map(a => a.name).join(', ') || '—'}</div>
+        </div>
+        <div class="song-duration">${formatDur(s.duration)}</div>
+        <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+    `).join('');
 
-<div class="report-box">
-  
-<p style="font-weight:bold;">If you think this website is being misused, please report it using one of the following methods:</p>
+  } catch(e) {
+    res.innerHTML = `<div class="state-msg"><div class="big">⚠️</div>API error. Try again.</div>`;
+  }
+}
 
-<b>Email:</b><br>
-<a href="mailto:abuse@telebothost.com">
-abuse@telebothost.com
-</a><i>(Don't forget to attach this web url on message)</i>
+async function playSong(i) {
+  const song = songs[i];
 
-<br><br>
+  // Update active card
+  document.querySelectorAll('.song-card').forEach(c => c.classList.remove('active'));
+  document.getElementById(`card-${i}`)?.classList.add('active');
 
-<b>Report Form:</b><br>
-<a id="reportLink" href="#">
-telebothost.com/report
-</a>
+  // Get highest quality URL
+  const url = song.downloadUrl?.[song.downloadUrl.length - 1]?.url;
+  if (!url) return alert('No audio URL found');
 
-<br><br>
+  currentSong = song;
 
-<b>Telegram Group:</b><br>
-<a href="https://t.me/update_chat" target="_blank">
-https://t.me/update_chat
-</a>
+  // Update player UI
+  document.getElementById('npThumb').src = song.image?.[2]?.url || song.image?.[1]?.url || '';
+  document.getElementById('npTitle').textContent = song.name;
+  document.getElementById('npArtist').textContent = song.artists?.primary?.map(a => a.name).join(', ') || '—';
+  document.getElementById('dlBtn').href = url;
+  document.getElementById('dlBtn').setAttribute('download', song.name + '.mp4');
 
-<br>
-Send a message including:<br>
+  document.getElementById('nowPlaying').classList.add('visible');
 
-• BOT ID: {{BOT_ID}}<br>
-• Full URL of the page<br>
-• Description of the abuse
+  // Play
+  audio.src = url;
+  audio.play();
+  updatePlayIcon(true);
+}
 
-</div>
+function togglePlay() {
+  if (audio.paused) {
+    audio.play();
+    updatePlayIcon(true);
+  } else {
+    audio.pause();
+    updatePlayIcon(false);
+  }
+}
 
-</div>
+function updatePlayIcon(playing) {
+  document.getElementById('playIcon').innerHTML = playing
+    ? '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>'
+    : '<polygon points="5,3 19,12 5,21"/>';
+}
 
+audio.addEventListener('timeupdate', () => {
+  if (!audio.duration) return;
+  const pct = (audio.currentTime / audio.duration) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('currentTime').textContent = formatTime(audio.currentTime);
+  document.getElementById('totalTime').textContent = formatTime(audio.duration);
+});
 
-<div class="divider"></div>
+audio.addEventListener('ended', () => updatePlayIcon(false));
+audio.addEventListener('pause', () => updatePlayIcon(false));
+audio.addEventListener('play', () => updatePlayIcon(true));
 
-<div class="footer">
- Powered by <a href="//telebothost.com">TeleBotHost</a>
-</div>
+function seek(e) {
+  const track = document.getElementById('progressTrack');
+  const pct = e.offsetX / track.clientWidth;
+  audio.currentTime = pct * audio.duration;
+}
 
-</div>
+function formatTime(s) {
+  if (!s || isNaN(s)) return '0:00';
+  const m = Math.floor(s / 60);
+  return `${m}:${String(Math.floor(s % 60)).padStart(2,'0')}`;
+}
 
+function formatDur(s) {
+  if (!s) return '';
+  return formatTime(parseInt(s));
+}
+</script>
 </body>
 </html>
