@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Hosting Websites Properly | TeleBotHost</title>
+
+<meta name="title" content="Hosting Websites Properly | TeleBotHost">
+<meta name="description" content="Learn why TeleBotHost is not ideal for hosting full websites and how to properly host your website using Cloudflare Pages and GitHub Pages.">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css" />
+
+<style>
+section { padding:80px 20px; max-width:950px; margin:auto; line-height:1.7; }
+h2 { font-size:2rem; color:#0088cc; text-align:center; margin-bottom:10px; }
+p.subtitle { text-align:center; margin-bottom:40px; color:#666; }
+
+h3 { font-size:1.4rem; color:#0088cc; margin-top:40px; margin-bottom:15px; }
+p { margin-bottom:15px; color:#333; }
+ul { margin:15px 0 20px 20px; }
+li { margin-bottom:15px; }
+
+pre {
+  background:#f9f9f9;
+  padding:15px;
+  border-radius:10px;
+  overflow-x:auto;
+  border:1px solid #eee;
+}
+
+.warning {
+  background:#ffeaea;
+  border:1px solid #ffb3b3;
+  padding:15px;
+  border-radius:10px;
+  margin:20px 0;
+}
+
+.success {
+  background:#e6ffed;
+  border:1px solid #b7ebc6;
+  padding:15px;
+  border-radius:10px;
+  margin:20px 0;
+}
+
+.tip {
+  background:#e3f2fd;
+  border:1px solid #90caf9;
+  padding:15px;
+  border-radius:10px;
+  margin:20px 0;
+}
+
+a { color:#0088cc; text-decoration:none; font-weight:bold; }
+
+</style>
+</head>
+
+<body>
+
+<header id="header">
+  <div class="container nav-container">
+    <a href="/" class="logo">
+      <img src="/assets/img/logo.png" alt="TeleBotHost Logo">
+      TeleBotHost
+    </a>
+    <nav class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+    </nav>
+  </div>
+</header>
+
+<section>
+
+<h2>Hosting Websites (Important Guide)</h2>
+<p class="subtitle">Use the right platform for best performance and scalability 🚀</p>
+
+<div class="warning">
+⚠️ <b>Important:</b> TeleBotHost is built for Telegram bots, not full website hosting.
+</div>
+
+<h3>Why TeleBotHost is Not Ideal for Websites</h3>
+
+<ul>
+  <li>❌ No global CDN (slower loading worldwide)</li>
+  <li>❌ Not optimized for heavy traffic</li>
+  <li>❌ Static assets (CSS/JS/images) load slower</li>
+  <li>❌ Not suitable for SEO & production websites</li>
+</ul>
+
+<p>
+👉 You can still use it for <b>testing, small pages, or bot panels</b>, but not for full websites.
+</p>
+
+<div class="success">
+✅ Best practice: Use TeleBotHost only for bot backend and logic.
+</div>
+
+<h3>Best Way to Host Your Website</h3>
+
+<p>Use dedicated platforms designed for static hosting:</p>
+
+<ul>
+  <li><b>Cloudflare Pages</b> → Best performance & scalability</li>
+  <li><b>GitHub Pages</b> → Simple & beginner friendly</li>
+</ul>
+
+<h3>🚀 Method 1: Cloudflare Pages</h3>
+
+<p>
+Cloudflare provides global CDN and ultra-fast performance.
+</p>
+
+<ul>
+  <li>Create account at https://dash.cloudflare.com</li>
+  <li>Go to <b>Workers & Pages</b></li>
+  <li>Create new project</li>
+  <li>Upload your HTML files or connect GitHub</li>
+  <li>Deploy instantly</li>
+</ul>
+
+<pre>https://your-site.pages.dev</pre>
+
+<div class="success">
+✔ Unlimited bandwidth (practically)<br>
+✔ Global CDN<br>
+✔ Best for production
+</div>
+
+<h3>📦 Method 2: GitHub Pages</h3>
+
+<ul>
+  <li>Create repository on GitHub</li>
+  <li>Upload your website files</li>
+  <li>Go to <b>Settings → Pages</b></li>
+  <li>Enable deployment</li>
+</ul>
+
+<pre>https://username.github.io</pre>
+
+<div class="tip">
+💡 Best for beginners and small projects
+</div>
+
+<h3>Recommended Setup</h3>
+
+<ul>
+  <li><b>TeleBotHost</b> → Bot logic & backend</li>
+  <li><b>Cloudflare Pages</b> → Website hosting</li>
+</ul>
+
+<p>
+This setup ensures:
+</p>
+
+<ul>
+  <li>⚡ Faster loading</li>
+  <li>🚀 Better scalability</li>
+  <li>🔒 More reliability</li>
+</ul>
+
+<p class="subtitle">
+<i class="fas fa-lightbulb"></i> Build smart: use the right tool for the right job.
+</p>
+
+<div style="display:flex; justify-content:center; margin:50px auto; max-width:900px;">
+    <a href="/tutorials/setup-bot-code" 
+     style="padding:10px 22px; border:2px dotted #888; border-radius:8px; background:transparent; color:#0088cc; text-decoration:none; text-align:center; transition:all 0.2s; line-height:1.2;">
+     
+     <div style="font-size:16px; font-weight:bold;">Previous </div>
+     <div style="font-size:12px; color:#666;">Managing your bot with Codes</div>
+  </a>
+
+</div>
+
+</section>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="/cookies">Cookies</a>
+    <a href="/resources">Resources</a>
+  </div>
+</footer>
+
+</body>
+</html>
