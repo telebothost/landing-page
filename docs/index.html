@@ -2696,7 +2696,7 @@ Telegram-specific helpers for mentions, chat links, message links, and safe text
 </p>
 <div class="code-container">
 <pre><code class="language-js">
-const res = TBL.clone({
+const res = await TBL.clone({
   bot_id: bot.id,          // Required: ID of the bot to clone
   start_now: true,         // Optional: start cloned bot immediately
   bot_token: '12345:abc',  // Required if start_now=true
@@ -2727,7 +2727,7 @@ Bot.inspect(res);
 
 <div class="code-container">
 <pre><code class="language-js">
-const result = TBL.transfer({
+const result = await TBL.transfer({
   bot_id: bot.id,                 // Bot ID to transfer
   to_mail: 'newuser@telebothost.com' // Target owner's email
 });
@@ -2738,13 +2738,11 @@ const result = TBL.transfer({
   <i class="fas fa-info-circle"></i>
   <div>
     <strong>Important:</strong> Transferring a bot may take 4–5 seconds. 
-    The method is synchronous and blocks execution while the server completes the transfer.
   </div>
 </div>
 
 <h4 id="class-tbl-notes">Notes & Best Practices</h4>
 <ul>
-  <li>Both <code>TBL.clone</code> and <code>TBL.transfer</code> are synchronous and return immediately after the operation finishes.</li>
   <li>Use <code>Bot.inspect(res)</code> to verify bot details after cloning or transferring.</li>
   <li>When cloning with <code>start_now: true</code>, ensure a valid <code>bot_token</code> is provided.</li>
   <li>Custom properties in <code>bot_props</code> are automatically type-detected (string, number, boolean, etc.).</li>
